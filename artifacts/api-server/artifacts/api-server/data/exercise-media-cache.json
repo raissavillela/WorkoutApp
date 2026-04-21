@@ -1,0 +1,1840 @@
+{
+  "abdominal supra estendido": {
+    "query": "Abdominal supra estendido",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806195177,
+    "source": "miss"
+  },
+  "burpee": {
+    "query": "Burpee",
+    "exerciseId": "1160",
+    "name": "Burpee",
+    "gifUrl": "https://api.workoutxapp.com/v1/gifs/1160.gif",
+    "bodyPart": "Cardio",
+    "target": "Cardiovascular System",
+    "candidates": [
+      {
+        "id": "1160",
+        "name": "Burpee",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/1160.gif",
+        "bodyPart": "Cardio",
+        "target": "Cardiovascular System"
+      },
+      {
+        "id": "0501",
+        "name": "Jack Burpee",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0501.gif",
+        "bodyPart": "Cardio",
+        "target": "Cardiovascular System"
+      },
+      {
+        "id": "1201",
+        "name": "Dumbbell Burpee",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/1201.gif",
+        "bodyPart": "Cardio",
+        "target": "Cardiovascular System"
+      }
+    ],
+    "ts": 1776806199937,
+    "source": "auto"
+  },
+  "superman alternar bracos": {
+    "query": "Superman alternar bracos",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806201986,
+    "source": "miss"
+  },
+  "abdominal twist": {
+    "query": "Abdominal twist",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806204263,
+    "source": "miss"
+  },
+  "superman tronco e pernas": {
+    "query": "Superman tronco e pernas",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806206189,
+    "source": "miss"
+  },
+  "abdominal bicicleta": {
+    "query": "Abdominal bicicleta",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806210383,
+    "source": "miss"
+  },
+  "abdominal bike": {
+    "query": "Abdominal bike",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806210851,
+    "source": "miss"
+  },
+  "abdominal canivete": {
+    "query": "Abdominal canivete",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806211314,
+    "source": "miss"
+  },
+  "abdominal em pe no cross": {
+    "query": "Abdominal em pé no cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806211782,
+    "source": "miss"
+  },
+  "abdominal infra estendido": {
+    "query": "Abdominal infra estendido",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806212241,
+    "source": "miss"
+  },
+  "abdominal obliquo": {
+    "query": "Abdominal obliquo",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806212641,
+    "source": "miss"
+  },
+  "abdominal obliquo em pe cross": {
+    "query": "Abdominal obliquo em pé cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806213025,
+    "source": "miss"
+  },
+  "abdominal obliquo lateral": {
+    "query": "Abdominal obliquo lateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806213492,
+    "source": "miss"
+  },
+  "abdominal rotacao cross baixo cima": {
+    "query": "Abdominal rotacao cross (baixo-cima)",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806213870,
+    "source": "miss"
+  },
+  "abdominal sit up": {
+    "query": "Abdominal sit up",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806214256,
+    "source": "miss"
+  },
+  "abdominal sit up anilha": {
+    "query": "Abdominal sit up anilha",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806214645,
+    "source": "miss"
+  },
+  "abdominal supra infra unilateral db": {
+    "query": "Abdominal supra + infra unilateral DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806215027,
+    "source": "miss"
+  },
+  "abdominal supra 90": {
+    "query": "Abdominal supra 90",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806215406,
+    "source": "miss"
+  },
+  "abdominal twist anilha": {
+    "query": "Abdominal twist anilha",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806216381,
+    "source": "miss"
+  },
+  "abdominal twist com anilha": {
+    "query": "Abdominal twist com anilha",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806216771,
+    "source": "miss"
+  },
+  "abducao de quadril cross tras": {
+    "query": "Abdução de quadril cross tras",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806217177,
+    "source": "miss"
+  },
+  "abducao de quadril em pe cross": {
+    "query": "Abdução de quadril em pé cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806217631,
+    "source": "miss"
+  },
+  "abducao horizontal de ombros db": {
+    "query": "Abdução horizontal de ombros DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806218075,
+    "source": "miss"
+  },
+  "afundo db": {
+    "query": "Afundo DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806218546,
+    "source": "miss"
+  },
+  "afundo guiado": {
+    "query": "Afundo guiado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806218936,
+    "source": "miss"
+  },
+  "afundo isometrico c puxada neutra cross": {
+    "query": "Afundo isométrico c/ Puxada neutra cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806219403,
+    "source": "miss"
+  },
+  "afundo isometrico c desenvolvimento unilateral db": {
+    "query": "Afundo isométrico c/ desenvolvimento unilateral DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806219780,
+    "source": "miss"
+  },
+  "afundo isometrico c remada unilateral cross": {
+    "query": "Afundo isométrico c/ remada unilateral cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806220162,
+    "source": "miss"
+  },
+  "afundo posterior c elevacao frontal db": {
+    "query": "Afundo posterior c/ elevacao frontal DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806220566,
+    "source": "miss"
+  },
+  "afundo posterior c flexao de quadril": {
+    "query": "Afundo posterior c/ flexao de quadril",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806221021,
+    "source": "miss"
+  },
+  "agachamento aberto cross c remada v": {
+    "query": "Agachamento aberto cross c/ remada V",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806221414,
+    "source": "miss"
+  },
+  "agachamento aberto guiado": {
+    "query": "Agachamento aberto guiado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806221797,
+    "source": "miss"
+  },
+  "agachamento c remada alta cross": {
+    "query": "Agachamento c/ remada alta cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806222185,
+    "source": "miss"
+  },
+  "agachamento c remada cross": {
+    "query": "Agachamento c/ remada cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806222641,
+    "source": "miss"
+  },
+  "agachamento c remada cross barra reta": {
+    "query": "Agachamento c/ remada cross barra reta",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806223027,
+    "source": "miss"
+  },
+  "agachamento c remada cross barra reta pronado": {
+    "query": "Agachamento c/ remada cross barra reta pronado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806223406,
+    "source": "miss"
+  },
+  "agachamento c remada em pe cross over": {
+    "query": "Agachamento c/ remada em pé cross over",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806223783,
+    "source": "miss"
+  },
+  "agachamento com repique baixo": {
+    "query": "Agachamento com repique baixo",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806224174,
+    "source": "miss"
+  },
+  "agachamento cross c rotacao tronco corda": {
+    "query": "Agachamento cross c/ rotacao tronco corda",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806224559,
+    "source": "miss"
+  },
+  "agachamento cross over": {
+    "query": "Agachamento cross over",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806224947,
+    "source": "miss"
+  },
+  "agachamento fechado guiado": {
+    "query": "Agachamento fechado guiado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806225404,
+    "source": "miss"
+  },
+  "agachamento goblet db": {
+    "query": "Agachamento goblet DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806225865,
+    "source": "miss"
+  },
+  "agachamento guiado": {
+    "query": "Agachamento guiado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806226240,
+    "source": "miss"
+  },
+  "agachamento guiado fechado": {
+    "query": "Agachamento guiado fechado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806226714,
+    "source": "miss"
+  },
+  "agachamento lateral db": {
+    "query": "Agachamento lateral DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806227190,
+    "source": "miss"
+  },
+  "agachamento sumo db": {
+    "query": "Agachamento sumo DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806227572,
+    "source": "miss"
+  },
+  "anilha swing": {
+    "query": "Anilha swing",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806227951,
+    "source": "miss"
+  },
+  "avanco alternado anterior c elevacao frontal db": {
+    "query": "Avanço alternado anterior c/ elevacao frontal DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806228434,
+    "source": "miss"
+  },
+  "avanco alternado c isometria elevacao frontal": {
+    "query": "Avanço alternado c/ isometria elevacao frontal",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806228836,
+    "source": "miss"
+  },
+  "avanco alternado posterior c isometria elevacao frontal": {
+    "query": "Avanço alternado posterior c/ isometria elevacao frontal",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806229221,
+    "source": "miss"
+  },
+  "avanco anterior e posterior db": {
+    "query": "Avanço anterior e posterior DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806229684,
+    "source": "miss"
+  },
+  "avanco posterior alternado": {
+    "query": "Avanço posterior alternado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806230157,
+    "source": "miss"
+  },
+  "avanco posterior alternado db": {
+    "query": "Avanço posterior alternado DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806230636,
+    "source": "miss"
+  },
+  "avanco posterior alternado c elevacao lateral db": {
+    "query": "Avanço posterior alternado c/ elevacao lateral DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806231097,
+    "source": "miss"
+  },
+  "avanco posterior alternado cross": {
+    "query": "Avanço posterior alternado cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806231480,
+    "source": "miss"
+  },
+  "bike": {
+    "query": "Bike",
+    "exerciseId": "0003",
+    "name": "Air Bike",
+    "gifUrl": "https://api.workoutxapp.com/v1/gifs/0003.gif",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "candidates": [
+      {
+        "id": "0003",
+        "name": "Air Bike",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0003.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      },
+      {
+        "id": "2139",
+        "name": "Hands Bike",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/2139.gif",
+        "bodyPart": "Chest",
+        "target": "Pectorals"
+      },
+      {
+        "id": "0798",
+        "name": "Stationary Bike Walk",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0798.gif",
+        "bodyPart": "Cardio",
+        "target": "Cardiovascular System"
+      },
+      {
+        "id": "2138",
+        "name": "Stationary Bike Run V. 3",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/2138.gif",
+        "bodyPart": "Cardio",
+        "target": "Cardiovascular System"
+      }
+    ],
+    "ts": 1776806231863,
+    "source": "auto"
+  },
+  "box jump": {
+    "query": "Box jump",
+    "exerciseId": "1374",
+    "name": "Box Jump Down With One Leg Stabilization",
+    "gifUrl": "https://api.workoutxapp.com/v1/gifs/1374.gif",
+    "bodyPart": "Lower Legs",
+    "target": "Calves",
+    "candidates": [
+      {
+        "id": "1374",
+        "name": "Box Jump Down With One Leg Stabilization",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/1374.gif",
+        "bodyPart": "Lower Legs",
+        "target": "Calves"
+      }
+    ],
+    "ts": 1776806232331,
+    "source": "auto"
+  },
+  "box jump over": {
+    "query": "Box jump over",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806233083,
+    "source": "miss"
+  },
+  "burpee com salto frontal": {
+    "query": "Burpee com salto frontal",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806234046,
+    "source": "miss"
+  },
+  "burpee completo": {
+    "query": "Burpee completo",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806234832,
+    "source": "miss"
+  },
+  "burpee over the bar": {
+    "query": "Burpee over the bar",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806235563,
+    "source": "miss"
+  },
+  "clean db": {
+    "query": "Clean DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806236179,
+    "source": "miss"
+  },
+  "clean db bilateral": {
+    "query": "Clean DB bilateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806236878,
+    "source": "miss"
+  },
+  "crucifixo cross": {
+    "query": "Crucifixo cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806237664,
+    "source": "miss"
+  },
+  "crucifixo cross linha dos ombros": {
+    "query": "Crucifixo cross linha dos ombros",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806238295,
+    "source": "miss"
+  },
+  "crucifixo em pe cross": {
+    "query": "Crucifixo em pé cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806238918,
+    "source": "miss"
+  },
+  "db snatch": {
+    "query": "DB Snatch",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806239620,
+    "source": "miss"
+  },
+  "db swing": {
+    "query": "DB Swing",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806240267,
+    "source": "miss"
+  },
+  "dead bug alternado": {
+    "query": "Dead bug alternado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806241063,
+    "source": "miss"
+  },
+  "desenvolvimento db": {
+    "query": "Desenvolvimento DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806241764,
+    "source": "miss"
+  },
+  "deslocamento c half burpee": {
+    "query": "Deslocamento c/ half burpee",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806242382,
+    "source": "miss"
+  },
+  "deslocamento com half burpee": {
+    "query": "Deslocamento com half burpee",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806243091,
+    "source": "miss"
+  },
+  "deslocamento lateral": {
+    "query": "Deslocamento lateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806243720,
+    "source": "miss"
+  },
+  "elevacao de quadril banco": {
+    "query": "Elevação de quadril banco",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806244352,
+    "source": "miss"
+  },
+  "elevacao de quadril banco db": {
+    "query": "Elevação de quadril banco DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806245133,
+    "source": "miss"
+  },
+  "elevacao frontal db": {
+    "query": "Elevação frontal DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806245859,
+    "source": "miss"
+  },
+  "elevacao frontal db neutro": {
+    "query": "Elevação frontal DB neutro",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806246555,
+    "source": "miss"
+  },
+  "elevacao lateral db": {
+    "query": "Elevação lateral DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806247267,
+    "source": "miss"
+  },
+  "eliptico": {
+    "query": "Eliptico",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806248068,
+    "source": "miss"
+  },
+  "encolhimento ombros cross": {
+    "query": "Encolhimento ombros cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806248782,
+    "source": "miss"
+  },
+  "equilibrio cross corda unilateral lateral": {
+    "query": "Equilibrio cross corda unilateral lateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806249444,
+    "source": "miss"
+  },
+  "escada": {
+    "query": "Escada",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806250163,
+    "source": "miss"
+  },
+  "extensao tronco solo": {
+    "query": "Extensão tronco solo",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806250786,
+    "source": "miss"
+  },
+  "extensao tronco solo bracos para baixo": {
+    "query": "Extensão tronco solo bracos para baixo",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806251646,
+    "source": "miss"
+  },
+  "extensao tronco solo mao na cabeca": {
+    "query": "Extensão tronco solo mao na cabeca",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806252282,
+    "source": "miss"
+  },
+  "flexao de quadril em pe cross": {
+    "query": "Flexão de quadril em pé cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806252977,
+    "source": "miss"
+  },
+  "front squat barra": {
+    "query": "Front squat barra",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806253606,
+    "source": "miss"
+  },
+  "g2oh anilha": {
+    "query": "G2OH anilha",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806254383,
+    "source": "miss"
+  },
+  "gluteo coice cross": {
+    "query": "Gluteo coice cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806255010,
+    "source": "miss"
+  },
+  "gluteo cross joelho estendido": {
+    "query": "Gluteo cross joelho estendido",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806255738,
+    "source": "miss"
+  },
+  "half burpee": {
+    "query": "Half burpee",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806256555,
+    "source": "miss"
+  },
+  "hang clean db": {
+    "query": "Hang Clean DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806257277,
+    "source": "miss"
+  },
+  "hang clean jerk": {
+    "query": "Hang Clean Jerk",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806257973,
+    "source": "miss"
+  },
+  "hang snatch db": {
+    "query": "Hang Snatch DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806258623,
+    "source": "miss"
+  },
+  "hollow rocks": {
+    "query": "Hollow rocks",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806259370,
+    "source": "miss"
+  },
+  "levantamento terra barra": {
+    "query": "Levantamento terra barra",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806260081,
+    "source": "miss"
+  },
+  "mountain climber": {
+    "query": "Mountain climber",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806260821,
+    "source": "miss"
+  },
+  "panturrilha em pe cross": {
+    "query": "Panturrilha em pé cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806261609,
+    "source": "miss"
+  },
+  "passada db": {
+    "query": "Passada DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806262306,
+    "source": "miss"
+  },
+  "passada anilha": {
+    "query": "Passada anilha",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806262936,
+    "source": "miss"
+  },
+  "polichinelo frontal": {
+    "query": "Polichinelo frontal",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806263569,
+    "source": "miss"
+  },
+  "polichinelo lateral": {
+    "query": "Polichinelo lateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806264273,
+    "source": "miss"
+  },
+  "prancha frontal": {
+    "query": "Prancha frontal",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806264976,
+    "source": "miss"
+  },
+  "prancha frontal alternando mao na coxa": {
+    "query": "Prancha frontal alternando mao na coxa",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806265595,
+    "source": "miss"
+  },
+  "prancha frontal movimento pernas lateral": {
+    "query": "Prancha frontal movimento pernas lateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806266228,
+    "source": "miss"
+  },
+  "prancha inversa": {
+    "query": "Prancha inversa",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806266925,
+    "source": "miss"
+  },
+  "prancha inversa movimento pernas alternado": {
+    "query": "Prancha inversa movimento pernas alternado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806267705,
+    "source": "miss"
+  },
+  "prancha joelho alternado": {
+    "query": "Prancha joelho alternado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806268315,
+    "source": "miss"
+  },
+  "prancha lateral": {
+    "query": "Prancha lateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806268936,
+    "source": "miss"
+  },
+  "prancha maos ombros alternado": {
+    "query": "Prancha maos ombros alternado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806269720,
+    "source": "miss"
+  },
+  "pulldown cross": {
+    "query": "Pulldown cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806270345,
+    "source": "miss"
+  },
+  "pulldown cross c flexao tronco": {
+    "query": "Pulldown cross c/ flexao tronco",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806270972,
+    "source": "miss"
+  },
+  "pulldown cross corda": {
+    "query": "Pulldown cross corda",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806271585,
+    "source": "miss"
+  },
+  "pullover db": {
+    "query": "Pullover DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806272202,
+    "source": "miss"
+  },
+  "puxada v cross": {
+    "query": "Puxada V cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806272891,
+    "source": "miss"
+  },
+  "puxada supinada cross": {
+    "query": "Puxada supinada cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806273533,
+    "source": "miss"
+  },
+  "run": {
+    "query": "RUN",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806274160,
+    "source": "miss"
+  },
+  "run hiit": {
+    "query": "RUN HIIT",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806274863,
+    "source": "miss"
+  },
+  "remada alta db": {
+    "query": "Remada alta DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806275539,
+    "source": "miss"
+  },
+  "remada alta db alternado": {
+    "query": "Remada alta DB alternado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806276244,
+    "source": "miss"
+  },
+  "remada alta cross": {
+    "query": "Remada alta cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806276857,
+    "source": "miss"
+  },
+  "remada alta cross barra reta": {
+    "query": "Remada alta cross barra reta",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806277577,
+    "source": "miss"
+  },
+  "remada baixa cross barra reta": {
+    "query": "Remada baixa cross barra reta",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806278193,
+    "source": "miss"
+  },
+  "remada baixa cross corda": {
+    "query": "Remada baixa cross corda",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806278830,
+    "source": "miss"
+  },
+  "remada baixa cross over supinado": {
+    "query": "Remada baixa cross over supinado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806279458,
+    "source": "miss"
+  },
+  "remada baixa pronada fechada cross": {
+    "query": "Remada baixa pronada fechada cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806280179,
+    "source": "miss"
+  },
+  "remada curvada db": {
+    "query": "Remada curvada DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806280558,
+    "source": "miss"
+  },
+  "remada curvada cross": {
+    "query": "Remada curvada cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806280939,
+    "source": "miss"
+  },
+  "remada curvada cross neutro": {
+    "query": "Remada curvada cross neutro",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806281319,
+    "source": "miss"
+  },
+  "remada curvada unilateral cross": {
+    "query": "Remada curvada unilateral cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806281783,
+    "source": "miss"
+  },
+  "remada em pe cross": {
+    "query": "Remada em pé cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806282175,
+    "source": "miss"
+  },
+  "remada unilateral isometria afundo cross": {
+    "query": "Remada unilateral isometria afundo cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806282562,
+    "source": "miss"
+  },
+  "remo row": {
+    "query": "Remo (ROW)",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806283021,
+    "source": "miss"
+  },
+  "rosca concentrada db": {
+    "query": "Rosca concentrada DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806283406,
+    "source": "miss"
+  },
+  "rosca direta db neutro": {
+    "query": "Rosca direta DB neutro",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806283784,
+    "source": "miss"
+  },
+  "rosca direta cross barra": {
+    "query": "Rosca direta cross barra",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806284243,
+    "source": "miss"
+  },
+  "rosca direta cross barra reta": {
+    "query": "Rosca direta cross barra reta",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806284706,
+    "source": "miss"
+  },
+  "rotacao tronco cross baixo cima": {
+    "query": "Rotação tronco cross (baixo-cima)",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806285099,
+    "source": "miss"
+  },
+  "rotacao tronco cross cima baixo": {
+    "query": "Rotação tronco cross (cima-baixo)",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806285559,
+    "source": "miss"
+  },
+  "rotacao tronco cross c uma perna": {
+    "query": "Rotação tronco cross c/ uma perna",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806285936,
+    "source": "miss"
+  },
+  "rotacao tronco cross de baixo para cima": {
+    "query": "Rotação tronco cross de baixo para cima",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806286316,
+    "source": "miss"
+  },
+  "rotacao tronco em pe cross": {
+    "query": "Rotação tronco em pé cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806286773,
+    "source": "miss"
+  },
+  "sdlhp": {
+    "query": "SDLHP",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806287148,
+    "source": "miss"
+  },
+  "sdlhp db unilateral": {
+    "query": "SDLHP DB unilateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806287610,
+    "source": "miss"
+  },
+  "sdlhp anilha": {
+    "query": "SDLHP anilha",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806287991,
+    "source": "miss"
+  },
+  "saltito lateral": {
+    "query": "Saltito lateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806288462,
+    "source": "miss"
+  },
+  "salto frontal": {
+    "query": "Salto frontal",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806288849,
+    "source": "miss"
+  },
+  "sit up": {
+    "query": "Sit up",
+    "exerciseId": "0456",
+    "name": "Flexion Leg Sit Up (bent Knee)",
+    "gifUrl": "https://api.workoutxapp.com/v1/gifs/0456.gif",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "candidates": [
+      {
+        "id": "0456",
+        "name": "Flexion Leg Sit Up (bent Knee)",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0456.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      },
+      {
+        "id": "0457",
+        "name": "Flexion Leg Sit Up (straight Arm)",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0457.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      }
+    ],
+    "ts": 1776806289243,
+    "source": "auto"
+  },
+  "skip frente": {
+    "query": "Skip frente",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806289629,
+    "source": "miss"
+  },
+  "skip tras": {
+    "query": "Skip tras",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806290086,
+    "source": "miss"
+  },
+  "snatch db": {
+    "query": "Snatch DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806290469,
+    "source": "miss"
+  },
+  "snatch db bilateral": {
+    "query": "Snatch DB bilateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806290925,
+    "source": "miss"
+  },
+  "snatch db unilateral": {
+    "query": "Snatch DB unilateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806291305,
+    "source": "miss"
+  },
+  "step frontal alternado": {
+    "query": "Step frontal alternado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806291694,
+    "source": "miss"
+  },
+  "step lateral": {
+    "query": "Step lateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806292081,
+    "source": "miss"
+  },
+  "step up alternado db": {
+    "query": "Step up alternado DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806292903,
+    "source": "miss"
+  },
+  "step up frontal alternando pernas": {
+    "query": "Step up frontal alternando pernas",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806293609,
+    "source": "miss"
+  },
+  "step up lateral db": {
+    "query": "Step up lateral DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806294319,
+    "source": "miss"
+  },
+  "step up lateral db c elevacao frontal": {
+    "query": "Step up lateral DB c/ elevacao frontal",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806295018,
+    "source": "miss"
+  },
+  "step up lateral db c isometria elevacao frontal": {
+    "query": "Step up lateral DB c/ isometria elevacao frontal",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806295635,
+    "source": "miss"
+  },
+  "step up lateral c elevacao frontal db": {
+    "query": "Step up lateral c/ elevacao frontal DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806296430,
+    "source": "miss"
+  },
+  "stiff c remada cross": {
+    "query": "Stiff c/ remada cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806297136,
+    "source": "miss"
+  },
+  "stiff cross": {
+    "query": "Stiff cross",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806297844,
+    "source": "miss"
+  },
+  "stiff cross corda unilateral": {
+    "query": "Stiff cross corda unilateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806298455,
+    "source": "miss"
+  },
+  "stiff guiado": {
+    "query": "Stiff guiado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806299229,
+    "source": "miss"
+  },
+  "stiff unilateral": {
+    "query": "Stiff unilateral",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806299848,
+    "source": "miss"
+  },
+  "stiff unilateral db": {
+    "query": "Stiff unilateral DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806300460,
+    "source": "miss"
+  },
+  "superman alternando bracos e pernas": {
+    "query": "Superman alternando bracos e pernas",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806301267,
+    "source": "miss"
+  },
+  "superman estendido alternado": {
+    "query": "Superman estendido alternado",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806302214,
+    "source": "miss"
+  },
+  "superman isometrico": {
+    "query": "Superman isométrico",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806302925,
+    "source": "miss"
+  },
+  "superman tronco e pernas braco baixo": {
+    "query": "Superman tronco e pernas braco baixo",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806303831,
+    "source": "miss"
+  },
+  "superman tronco solo": {
+    "query": "Superman tronco solo",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806304448,
+    "source": "miss"
+  },
+  "supino 45 db": {
+    "query": "Supino 45 DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806305062,
+    "source": "miss"
+  },
+  "supino reto db": {
+    "query": "Supino reto DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806305682,
+    "source": "miss"
+  },
+  "t2b": {
+    "query": "T2B",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806306306,
+    "source": "miss"
+  },
+  "thruster db": {
+    "query": "Thruster DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806306937,
+    "source": "miss"
+  },
+  "thruster barra": {
+    "query": "Thruster barra",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806307721,
+    "source": "miss"
+  },
+  "triceps cross corda": {
+    "query": "Tríceps cross corda",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806308348,
+    "source": "miss"
+  },
+  "triceps frances unilateral db": {
+    "query": "Tríceps frances unilateral DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806308972,
+    "source": "miss"
+  },
+  "triceps testa db": {
+    "query": "Tríceps testa DB",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1776806309599,
+    "source": "miss"
+  },
+  "goblet squat": {
+    "query": "Goblet squat",
+    "exerciseId": "0534",
+    "name": "Kettlebell Goblet Squat",
+    "gifUrl": "https://api.workoutxapp.com/v1/gifs/0534.gif",
+    "bodyPart": "Upper Legs",
+    "target": "Glutes",
+    "candidates": [
+      {
+        "id": "0534",
+        "name": "Kettlebell Goblet Squat",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0534.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Glutes"
+      },
+      {
+        "id": "1760",
+        "name": "Dumbbell Goblet Squat",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/1760.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Quads"
+      },
+      {
+        "id": "0026",
+        "name": "Barbell Bench Squat",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0026.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Quads"
+      },
+      {
+        "id": "0042",
+        "name": "Barbell Front Squat",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0042.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Glutes"
+      },
+      {
+        "id": "0043",
+        "name": "Barbell Full Squat",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0043.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Glutes"
+      },
+      {
+        "id": "0046",
+        "name": "Barbell Hack Squat",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0046.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Glutes"
+      },
+      {
+        "id": "0051",
+        "name": "Barbell Jefferson Squat",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0051.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Glutes"
+      },
+      {
+        "id": "0053",
+        "name": "Barbell Jump Squat",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0053.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Glutes"
+      }
+    ],
+    "ts": 1776806490589,
+    "source": "auto"
+  },
+  "plank": {
+    "query": "Plank",
+    "exerciseId": "2135",
+    "name": "Weighted Front Plank",
+    "gifUrl": "https://api.workoutxapp.com/v1/gifs/2135.gif",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "candidates": [
+      {
+        "id": "2135",
+        "name": "Weighted Front Plank",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/2135.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      },
+      {
+        "id": "3665",
+        "name": "Power Point Plank",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/3665.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      },
+      {
+        "id": "0464",
+        "name": "Front Plank With Twist",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0464.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      },
+      {
+        "id": "1775",
+        "name": "Side Plank Hip Adduction",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/1775.gif",
+        "bodyPart": "Upper Legs",
+        "target": "Adductors"
+      },
+      {
+        "id": "3544",
+        "name": "Bodyweight Incline Side Plank",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/3544.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      },
+      {
+        "id": "0664",
+        "name": "Push-up To Side Plank",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/0664.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      },
+      {
+        "id": "3239",
+        "name": "Kneeling Plank Tap Shoulder (male)",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/3239.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      },
+      {
+        "id": "3663",
+        "name": "Reverse Plank With Leg Lift",
+        "gifUrl": "https://api.workoutxapp.com/v1/gifs/3663.gif",
+        "bodyPart": "Waist",
+        "target": "Abs"
+      }
+    ],
+    "ts": 1776806490855,
+    "source": "auto"
+  }
+}

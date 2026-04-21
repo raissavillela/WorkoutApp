@@ -8,7 +8,20 @@ const router: IRouter = Router();
 const WX_BASE = "https://api.workoutxapp.com/v1";
 const KEY = process.env.WORKOUTX_API_KEY || "";
 
-const DATA_DIR = path.resolve(process.cwd(), "artifacts/api-server/data");
+function resolveDataDir(): string {
+  const candidates = [
+    path.resolve(process.cwd(), "data"),
+    path.resolve(process.cwd(), "artifacts/api-server/data"),
+    path.resolve(process.cwd(), "../api-server/data"),
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
+  }
+  const fallback = path.resolve(process.cwd(), "data");
+  fs.mkdirSync(fallback, { recursive: true });
+  return fallback;
+}
+const DATA_DIR = resolveDataDir();
 const CACHE_FILE = path.join(DATA_DIR, "exercise-media-cache.json");
 const OVERRIDES_FILE = path.join(DATA_DIR, "exercise-media-overrides.json");
 const TRANSLATIONS_FILE = path.join(DATA_DIR, "exercise-translations.json");
@@ -99,37 +112,107 @@ function scoreMatch(query: string, candidate: string): number {
   return overlap * 2 - Math.abs(c.length - q.length) * 0.3;
 }
 
+const STOP = new Set([
+  "the","a","an","of","with","and","on","in","to","for","at","or","by","from",
+  "left","right","both","each","alternating","alternate","alternated",
+  "single","double","unilateral","bilateral","one","two","arm","arms","leg","legs",
+  "low","high","up","down","front","back","side","lateral","frontal","posterior","anterior",
+  "isometric","standing","seated","lying","extended","closed","open",
+  "weight","weighted","plate","disc",
+]);
+const COMMON_KEYWORDS = new Set([
+  "squat","press","row","curl","raise","lunge","crunch","plank","jump",
+  "step","push","pull","kick","hold","walk","lift",
+]);
+const KEYWORD_BOOST = new Set([
+  "burpee","deadlift","thruster","snatch","clean","jerk","swing","superman",
+  "kickback","skullcrusher","goblet","kettlebell","barbell","dumbbell","cable",
+  "pulldown","pullover","shrug","mountain","climber","bicycle","jackknife",
+  "rdl","sdlhp","glute","hamstring","calf","oblique","windmill","russian",
+  "thrust","sumo","romanian","bulgarian","split","hollow","dragon","pistol",
+  "elliptical","treadmill","skip","polichinelo","jumping",
+]);
+
+function pickKeywords(en: string): string[] {
+  const toks = en
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[()\\/]/g, " ")
+    .replace(/[^a-z0-9 ]/g, " ")
+    .split(/\s+/)
+    .filter((t) => t && t.length >= 3 && !STOP.has(t));
+  const uniq = Array.from(new Set(toks));
+  return uniq.sort((a, b) => {
+    const ba = KEYWORD_BOOST.has(a) ? 0 : COMMON_KEYWORDS.has(a) ? 2 : 1;
+    const bb = KEYWORD_BOOST.has(b) ? 0 : COMMON_KEYWORDS.has(b) ? 2 : 1;
+    if (ba !== bb) return ba - bb;
+    return b.length - a.length;
+  });
+}
+
+const KEYWORD_CACHE_FILE = path.join(DATA_DIR, "keyword-cache.json");
+const keywordCache: Record<string, WxExercise[]> = readJson(KEYWORD_CACHE_FILE, {});
+let _kwSaveTimer: NodeJS.Timeout | null = null;
+function saveKeywordCache() {
+  if (_kwSaveTimer) return;
+  _kwSaveTimer = setTimeout(() => {
+    _kwSaveTimer = null;
+    writeJson(KEYWORD_CACHE_FILE, keywordCache);
+  }, 500);
+}
+let _lastApiCall = 0;
+const MIN_API_INTERVAL = 2100;
+async function throttledApiCall<T>(fn: () => Promise<T>): Promise<T> {
+  const now = Date.now();
+  const wait = Math.max(0, _lastApiCall + MIN_API_INTERVAL - now);
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  _lastApiCall = Date.now();
+  return fn();
+}
+
+async function fetchByKeyword(keyword: string): Promise<WxExercise[]> {
+  if (keywordCache[keyword]) return keywordCache[keyword];
+  try {
+    const raw = (await throttledApiCall(() =>
+      wxFetch(`/exercises/name/${encodeURIComponent(keyword)}`),
+    )) as { data?: WxExercise[] };
+    const arr = Array.isArray(raw?.data) ? raw.data : [];
+    keywordCache[keyword] = arr;
+    saveKeywordCache();
+    return arr;
+  } catch (e) {
+    const msg = String(e);
+    logger.warn({ err: msg, keyword }, "wx keyword fetch failed");
+    if (msg.includes("429") || msg.includes("rate")) {
+      await new Promise((r) => setTimeout(r, 5000));
+    }
+    return [];
+  }
+}
+
 async function searchExercise(query: string): Promise<{
   best: ReturnType<typeof pickFields> | null;
   candidates: Array<ReturnType<typeof pickFields>>;
 }> {
-  const tries = [
-    `/exercises/name/${encodeURIComponent(query)}`,
-    `/exercises/search?name=${encodeURIComponent(query)}`,
-    `/exercises/search?q=${encodeURIComponent(query)}`,
-  ];
-  let raw: unknown = null;
-  for (const t of tries) {
-    try {
-      raw = await wxFetch(t);
-      break;
-    } catch (e) {
-      logger.warn({ err: String(e), endpoint: t }, "wx endpoint failed, trying next");
+  const keywords = pickKeywords(query);
+  if (!keywords.length) return { best: null, candidates: [] };
+  const seen = new Map<string, WxExercise>();
+  for (const kw of keywords.slice(0, 3)) {
+    const arr = await fetchByKeyword(kw);
+    for (const e of arr) {
+      const id = e.id || e.exerciseId;
+      if (id && !seen.has(id)) seen.set(id, e);
     }
+    if (seen.size >= 60) break;
   }
-  if (!raw) return { best: null, candidates: [] };
-  const arr = Array.isArray(raw)
-    ? (raw as WxExercise[])
-    : Array.isArray((raw as { data?: WxExercise[] }).data)
-      ? ((raw as { data: WxExercise[] }).data)
-      : Array.isArray((raw as { results?: WxExercise[] }).results)
-        ? ((raw as { results: WxExercise[] }).results)
-        : [];
-  const picked = arr.map(pickFields).filter((x) => x.id);
-  if (!picked.length) return { best: null, candidates: [] };
-  const ranked = picked
+  const all = Array.from(seen.values()).map(pickFields).filter((x) => x.id);
+  if (!all.length) return { best: null, candidates: [] };
+  const ranked = all
     .map((p) => ({ p, s: scoreMatch(query, p.name) }))
+    .filter((r) => r.s > 0)
     .sort((a, b) => b.s - a.s);
+  if (!ranked.length) return { best: null, candidates: all.slice(0, 8) };
   return {
     best: ranked[0].p,
     candidates: ranked.slice(0, 8).map((r) => r.p),
