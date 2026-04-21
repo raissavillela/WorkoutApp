@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Workout App</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080808;color:#fff;font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+#root{max-width:480px;margin:0 auto;min-height:100vh}
+.sticky{position:sticky;top:0;background:rgba(8,8,8,.95);z-index:10}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+let LANG=localStorage.getItem('wk_lang')||'pt';
+function toggleLang(){LANG=LANG==='pt'?'en':'pt';localStorage.setItem('wk_lang',LANG);render();}
+
+const T={
+  pt:{
+    tagline:'Treine com o que funciona pra você',
+    readyWorkout:'Treino Pronto',
+    readyDesc:'Do seu histórico real',
+    buildWorkout:'Montar Treino',
+    buildDesc:'Escolha modalidades e duração',
+    calendar:'Calendário',
+    workoutsThisMonth:'treino este mês',
+    workoutsThisMonthPlural:'treinos este mês',
+    readyWorkouts:'TREINOS PRONTOS',
+    workoutsCount:'treinos',
+    noWorkouts:'Nenhum treino com essas modalidades',
+    blocks:'blocos',
+    exercises:'exercícios',
+    buildTitle:'MONTAR TREINO',
+    modalities:'Modalidades',
+    duration:'Duração',
+    block4:'4 blocos - 3 séries',
+    block5:'5 blocos - 3 séries',
+    generate:'GERAR TREINO →',
+    selectPrompt:'Selecione modalidade e duração',
+    calHeader:'CALENDÁRIO',
+    workoutsLabel:'treinos',
+    kcalLabel:'kcal no mês',
+    tapDay:'Toque num dia para registar o treino',
+    checkin:'CHECK-IN',
+    deleteBtn:'🗑 Apagar',
+    titleLabel:'TÍTULO',
+    titlePlaceholder:'Ex: Treino A — Musculação',
+    calsLabel:'CALORIAS (kcal)',
+    calsPlaceholder:'Ex: 350',
+    saveBtn:'SALVAR ✓',
+    sets:'SER.',
+    showExec:'▼ Ver execução',
+    hideExec:'▲ Esconder',
+    loadingMedia:'Carregando demonstração…',
+    noMedia:'Sem demonstração para este exercício.',
+    searchYt:'Buscar vídeo no YouTube',
+    workoutDone:'TREINO CONCLUÍDO!',
+    workoutDoneMsg:'Incrível! Você mandou bem hoje!',
+    newWorkout:'NOVO TREINO',
+    weightPrompt:'Peso:',
+    wTitleReady:'TREINO PRONTO',
+    wTitleBuild:'TREINO',
+    wSubBuild:'min / blocos / 3 séries',
+    months:['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+    wdays:['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+    dateOf:'de',
+  },
+  en:{
+    tagline:'Train with what works for you',
+    readyWorkout:'Ready Workout',
+    readyDesc:'From your real history',
+    buildWorkout:'Build Workout',
+    buildDesc:'Choose modalities and duration',
+    calendar:'Calendar',
+    workoutsThisMonth:'workout this month',
+    workoutsThisMonthPlural:'workouts this month',
+    readyWorkouts:'READY WORKOUTS',
+    workoutsCount:'workouts',
+    noWorkouts:'No workouts with these modalities',
+    blocks:'blocks',
+    exercises:'exercises',
+    buildTitle:'BUILD WORKOUT',
+    modalities:'Modalities',
+    duration:'Duration',
+    block4:'4 blocks - 3 sets',
+    block5:'5 blocks - 3 sets',
+    generate:'GENERATE WORKOUT →',
+    selectPrompt:'Select modality and duration',
+    calHeader:'CALENDAR',
+    workoutsLabel:'workouts',
+    kcalLabel:'kcal this month',
+    tapDay:'Tap a day to log your workout',
+    checkin:'CHECK-IN',
+    deleteBtn:'🗑 Delete',
+    titleLabel:'TITLE',
+    titlePlaceholder:'Ex: Workout A — Weight Training',
+    calsLabel:'CALORIES (kcal)',
+    calsPlaceholder:'Ex: 350',
+    saveBtn:'SAVE ✓',
+    sets:'SET',
+    showExec:'▼ Show execution',
+    hideExec:'▲ Hide',
+    loadingMedia:'Loading demonstration…',
+    noMedia:'No demonstration for this exercise.',
+    searchYt:'Search video on YouTube',
+    workoutDone:'WORKOUT COMPLETE!',
+    workoutDoneMsg:'Amazing! You crushed it today!',
+    newWorkout:'NEW WORKOUT',
+    weightPrompt:'Weight:',
+    wTitleReady:'READY WORKOUT',
+    wTitleBuild:'WORKOUT',
+    wSubBuild:'min / blocks / 3 sets',
+    months:['January','February','March','April','May','June','July','August','September','October','November','December'],
+    wdays:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+    dateOf:'',
+  },
+};
+function t(k){return T[LANG][k]||k;}
+
+const MC={
+  musculacao:{l:"Musculação",en:"Weight Training",e:"💪🏻",c:"#FF6B35",b:"#200D00"},
+  core:      {l:"Core",      en:"Core",           e:"🎯",  c:"#FF4757",b:"#200007"},
+  cardio:    {l:"Cardio",    en:"Cardio",          e:"🏃🏻",c:"#2ED573",b:"#00200B"},
+  metabolico:{l:"Metabólico",en:"Metabolic",       e:"🔥", c:"#FFA502",b:"#201300"},
+  funcional: {l:"Funcional", en:"Functional",      e:"⚡",  c:"#54A0FF",b:"#000E20"},
+  crossfit:  {l:"Crossfit",  en:"Crossfit",        e:"🏋🏻",c:"#A29BFE",b:"#0E0020"},
+};
+const ML=Object.entries(MC).map(([id,v])=>({id,...v}));
+function mLabel(m){return LANG==='en'?(m.en||m.l):m.l;}
+
+const TRANS_EX={
+  'Afundo guiado':'Guided Lunge',
+  'Agachamento com repique baixo':'Low Bounce Squat',
+  'Agachamento sumo DB':'Sumo Squat DB',
+  'Passada DB':'DB Walking Lunge',
+  'Afundo DB':'DB Lunge',
+  'Agachamento guiado':'Guided Squat',
+  'Avanço posterior alternado DB':'Alternating Reverse Lunge DB',
+  'Avanço anterior e posterior DB':'Forward and Reverse Lunge DB',
+  'Elevação de quadril banco DB':'Hip Thrust on Bench DB',
+  'Stiff guiado':'Guided Romanian Deadlift',
+  'Stiff unilateral DB':'Unilateral Romanian Deadlift DB',
+  'Stiff unilateral':'Unilateral Romanian Deadlift',
+  'Elevação de quadril banco':'Hip Thrust on Bench',
+  'Gluteo coice cross':'Cable Glute Kickback',
+  'Gluteo cross joelho estendido':'Cable Glute Kickback Extended Knee',
+  'Abdução de quadril em pé cross':'Standing Hip Abduction Cable',
+  'Flexão de quadril em pé cross':'Standing Hip Flexion Cable',
+  'Panturrilha em pé cross':'Standing Calf Raise Cable',
+  'Supino reto DB':'Flat DB Bench Press',
+  'Tríceps cross corda':'Cable Triceps Rope Pushdown',
+  'Supino 45 DB':'Incline DB Bench Press',
+  'Crucifixo cross linha dos ombros':'Cable Fly at Shoulder Height',
+  'Elevação lateral DB':'DB Lateral Raise',
+  'Desenvolvimento DB':'DB Shoulder Press',
+  'Elevação frontal DB':'DB Front Raise',
+  'Remada baixa cross corda':'Low Cable Row Rope',
+  'Rosca direta cross barra':'Cable Bicep Curl Bar',
+  'Remada curvada DB':'Bent-Over Row DB',
+  'Puxada supinada cross':'Supinated Cable Pulldown',
+  'Puxada V cross':'V-Bar Cable Pulldown',
+  'Remada alta cross barra reta':'Cable Upright Row Straight Bar',
+  'Pulldown cross corda':'Cable Pulldown Rope',
+  'Encolhimento ombros cross':'Cable Shoulder Shrug',
+  'Rotação tronco cross (baixo-cima)':'Cable Trunk Rotation (Low to High)',
+  'Rotação tronco cross de baixo para cima':'Cable Trunk Rotation (Low to High)',
+  'Abdominal rotacao cross (baixo-cima)':'Cable Trunk Rotation (Low to High)',
+  'Abdominal twist com anilha':'Weighted Trunk Twist',
+  'Abdominal twist anilha':'Weighted Trunk Twist',
+  'Abdominal twist':'Trunk Twist',
+  'Abdominal supra + infra unilateral DB':'Upper + Lower Crunch Unilateral DB',
+  'Abdominal bicicleta':'Bicycle Crunch',
+  'Abdominal bike':'Bicycle Crunch',
+  'Abdominal canivete':'Jackknife Crunch',
+  'Abdominal sit up':'Sit Up',
+  'Abdominal sit up anilha':'Weighted Sit Up',
+  'Sit up':'Sit Up',
+  'Abdominal supra 90':'90° Upper Crunch',
+  'Abdominal supra estendido':'Extended Upper Crunch',
+  'Abdominal infra estendido':'Extended Lower Crunch',
+  'Hollow rocks':'Hollow Rocks',
+  'Abdominal obliquo lateral':'Lateral Oblique Crunch',
+  'Abdominal obliquo em pé cross':'Standing Cable Oblique Crunch',
+  'Abdominal obliquo':'Oblique Crunch',
+  'Abdominal em pé no cross':'Standing Cable Crunch',
+  'Dead bug alternado':'Alternating Dead Bug',
+  'Superman tronco e pernas':'Superman (Trunk and Legs)',
+  'Superman tronco e pernas braco baixo':'Superman (Arms Down)',
+  'Superman alternando bracos e pernas':'Alternating Superman',
+  'Superman alternar bracos':'Superman (Alternating Arms)',
+  'Superman tronco solo':'Superman (Trunk Only)',
+  'Superman isométrico':'Isometric Superman',
+  'Superman estendido alternado':'Alternating Extended Superman',
+  'Extensão tronco solo':'Floor Back Extension',
+  'Extensão tronco solo mao na cabeca':'Floor Back Extension (Hands on Head)',
+  'Extensão tronco solo bracos para baixo':'Floor Back Extension (Arms Down)',
+  'Rotação tronco cross (cima-baixo)':'Cable Trunk Rotation (High to Low)',
+  'Prancha frontal alternando mao na coxa':'Front Plank Alt. Hand to Thigh',
+  'Prancha lateral':'Side Plank',
+  'Prancha inversa':'Reverse Plank',
+  'Prancha frontal':'Front Plank',
+  'Prancha inversa movimento pernas alternado':'Reverse Plank Alternating Leg',
+  'Prancha frontal movimento pernas lateral':'Front Plank Lateral Leg',
+  'Prancha joelho alternado':'Plank Alternating Knee Tap',
+  'Prancha maos ombros alternado':'Plank Alternating Shoulder Tap',
+  'RUN':'Run',
+  'Eliptico':'Elliptical',
+  'Bike':'Bike',
+  'Escada':'Stair Climber',
+  'Remo (ROW)':'Rowing (ROW)',
+  'RUN HIIT':'Run HIIT',
+  'Polichinelo frontal':'Jumping Jacks',
+  'Half burpee':'Half Burpee',
+  'Polichinelo lateral':'Lateral Jumping Jacks',
+  'Burpee completo':'Full Burpee',
+  'Burpee':'Burpee',
+  'Saltito lateral':'Lateral Hop',
+  'Salto frontal':'Forward Jump',
+  'Step up alternado DB':'Alternating Step Up DB',
+  'Step frontal alternado':'Alternating Forward Step',
+  'Step up frontal alternando pernas':'Alternating Forward Step Up',
+  'Step lateral':'Lateral Step',
+  'Mountain climber':'Mountain Climber',
+  'Deslocamento lateral':'Lateral Shuffle',
+  'Skip frente':'Forward Skip',
+  'Skip tras':'Backward Skip',
+  'Deslocamento com half burpee':'Shuffle with Half Burpee',
+  'Deslocamento c/ half burpee':'Shuffle with Half Burpee',
+  'Burpee com salto frontal':'Burpee with Forward Jump',
+  'Avanço alternado c/ isometria elevacao frontal':'Alt. Lunge with Front Raise Hold',
+  'Avanço alternado posterior c/ isometria elevacao frontal':'Alt. Reverse Lunge with Front Raise Hold',
+  'Avanço alternado anterior c/ elevacao frontal DB':'Alt. Forward Lunge with DB Front Raise',
+  'Agachamento goblet DB':'Goblet Squat DB',
+  'Step up lateral c/ elevacao frontal DB':'Lateral Step Up with DB Front Raise',
+  'Step up lateral DB c/ isometria elevacao frontal':'Lateral Step Up DB with Front Raise Hold',
+  'Step up lateral DB c/ elevacao frontal':'Lateral Step Up DB with Front Raise',
+  'Step up lateral DB':'Lateral Step Up DB',
+  'Afundo posterior c/ flexao de quadril':'Reverse Lunge with Hip Flexion',
+  'Afundo posterior c/ elevacao frontal DB':'Reverse Lunge with DB Front Raise',
+  'Agachamento lateral DB':'Lateral Squat DB',
+  'Levantamento terra barra':'Barbell Deadlift',
+  'Agachamento c/ remada cross barra reta':'Squat with Cable Row Straight Bar',
+  'Agachamento c/ remada cross barra reta pronado':'Squat with Cable Row Overhand',
+  'Agachamento cross c/ rotacao tronco corda':'Cable Squat with Trunk Rotation Rope',
+  'Remada unilateral isometria afundo cross':'Unilateral Cable Row in Lunge Hold',
+  'Agachamento c/ remada alta cross':'Squat with Cable Upright Row',
+  'Agachamento c/ remada cross':'Squat with Cable Row',
+  'Agachamento c/ remada em pé cross over':'Squat with Standing Cable Row',
+  'Agachamento aberto cross c/ remada V':'Wide Squat with V-Bar Cable Row',
+  'Rotação tronco em pé cross':'Standing Cable Trunk Rotation',
+  'Pulldown cross c/ flexao tronco':'Cable Pulldown with Trunk Flexion',
+  'Pulldown cross':'Cable Pulldown',
+  'Anilha swing':'Plate Swing',
+  'Thruster DB':'DB Thruster',
+  'Snatch DB bilateral':'Bilateral DB Snatch',
+  'Snatch DB unilateral':'Unilateral DB Snatch',
+  'Snatch DB':'DB Snatch',
+  'Clean DB':'DB Clean',
+  'Clean DB bilateral':'Bilateral DB Clean',
+  'Thruster barra':'Barbell Thruster',
+  'SDLHP DB unilateral':'Unilateral DB SDLHP',
+  'SDLHP anilha':'Plate SDLHP',
+  'SDLHP':'SDLHP',
+  'Box jump':'Box Jump',
+  'Box jump over':'Box Jump Over',
+  'T2B':'Toes to Bar (T2B)',
+  'G2OH anilha':'Ground to Overhead (Plate)',
+  'Front squat barra':'Barbell Front Squat',
+  'Hang Clean DB':'Hang Clean DB',
+  'Hang Snatch DB':'Hang Snatch DB',
+  'Hang Clean Jerk':'Hang Clean & Jerk',
+  'Burpee over the bar':'Burpee Over the Bar',
+  'DB Snatch':'DB Snatch',
+  'DB Swing':'DB Swing',
+  'Remada baixa cross barra reta':'Low Cable Row Straight Bar',
+  'Remada alta DB alternado':'Alternating DB Upright Row',
+  'Remada alta DB':'DB Upright Row',
+  'Remada alta cross':'Cable Upright Row',
+  'Remada curvada cross neutro':'Neutral-Grip Cable Bent-Over Row',
+  'Remada curvada cross':'Cable Bent-Over Row',
+  'Remada curvada unilateral cross':'Unilateral Cable Bent-Over Row',
+  'Remada em pé cross':'Standing Cable Row',
+  'Remada baixa cross barra reta pronado':'Low Cable Row Overhand Bar',
+  'Remada baixa pronada fechada cross':'Close-Grip Overhand Cable Row',
+  'Remada baixa cross over supinado':'Supinated Low Cable Row',
+  'Remada baixa cross':'Low Cable Row',
+  'Crucifixo cross':'Cable Fly',
+  'Crucifixo em pé cross':'Standing Cable Fly',
+  'Elevação frontal DB neutro':'Neutral-Grip DB Front Raise',
+  'Pullover DB':'DB Pullover',
+  'Rosca direta DB neutro':'Neutral-Grip DB Bicep Curl',
+  'Rosca direta cross barra reta':'Cable Bicep Curl Straight Bar',
+  'Rosca concentrada DB':'DB Concentration Curl',
+  'Tríceps testa DB':'DB Skull Crusher',
+  'Tríceps frances unilateral DB':'Unilateral DB French Press',
+  'Stiff cross':'Cable Romanian Deadlift',
+  'Stiff c/ remada cross':'Romanian Deadlift with Cable Row',
+  'Avanço posterior alternado c/ elevacao lateral DB':'Alt. Reverse Lunge with DB Lateral Raise',
+  'Avanço posterior alternado':'Alternating Reverse Lunge',
+  'Avanço posterior alternado cross':'Alternating Reverse Lunge Cable',
+  'Afundo isométrico c/ Puxada neutra cross':'Isometric Lunge with Neutral Cable Pulldown',
+  'Afundo isométrico c/ remada unilateral cross':'Isometric Lunge with Unilateral Cable Row',
+  'Agachamento guiado fechado':'Close-Stance Guided Squat',
+  'Agachamento fechado guiado':'Close-Stance Guided Squat',
+  'Agachamento aberto guiado':'Wide-Stance Guided Squat',
+  'Agachamento cross over':'Cable Squat',
+  'Agachamento c/ remada em p\u00e9 cross over':'Squat with Standing Cable Row',
+  'Abdução de quadril cross tras':'Rear Hip Abduction Cable',
+  'Abdução horizontal de ombros DB':'Horizontal DB Shoulder Abduction',
+  'Passada anilha':'Plate Walking Lunge',
+  'Encolhimento ombros cross':'Cable Shoulder Shrug',
+};
+function exName(n){return(LANG==='en'&&TRANS_EX[n])?TRANS_EX[n]:n;}
+
+const GEN={
+  musculacao:[
+    {id:"m1",g:"inf_ant",n:"Afundo guiado",r:"8|8 reps",w:"5 kg",note:"Unilateral"},
+    {id:"m2",g:"inf_ant",n:"Agachamento com repique baixo",r:"15 reps",w:"Corporal"},
+    {id:"m3",g:"inf_ant",n:"Agachamento sumo DB",r:"12 reps",w:"10 kg"},
+    {id:"m4",g:"inf_ant",n:"Passada DB",r:"12 reps",w:"7 kg"},
+    {id:"m5",g:"inf_ant",n:"Afundo DB",r:"10 reps",w:"8 kg"},
+    {id:"m6",g:"inf_ant",n:"Agachamento guiado",r:"12 reps",w:"8 kg"},
+    {id:"m7",g:"inf_ant",n:"Avanço posterior alternado DB",r:"12 reps",w:"6 kg"},
+    {id:"m8",g:"inf_ant",n:"Avanço anterior e posterior DB",r:"8-7-6 reps",w:"6|8|10 kg"},
+    {id:"m9",g:"inf_post",n:"Elevação de quadril banco DB",r:"15+10s reps",w:"15 kg"},
+    {id:"m10",g:"inf_post",n:"Stiff guiado",r:"13 reps",w:"10 kg"},
+    {id:"m11",g:"inf_post",n:"Stiff unilateral DB",r:"10|10 reps",w:"8 kg",note:"Unilateral"},
+    {id:"m12",g:"inf_post",n:"Elevação de quadril banco",r:"14 reps",w:"14 kg"},
+    {id:"m13",g:"inf_abd",n:"Gluteo coice cross",r:"13 reps",w:"15 kg"},
+    {id:"m14",g:"inf_abd",n:"Gluteo cross joelho estendido",r:"14 reps",w:"15 kg"},
+    {id:"m15",g:"inf_abd",n:"Abdução de quadril em pé cross",r:"12 reps",w:"10 kg"},
+    {id:"m16",g:"inf_abd",n:"Flexão de quadril em pé cross",r:"12 reps",w:"10 kg"},
+    {id:"m17",g:"inf_abd",n:"Panturrilha em pé cross",r:"20 reps",w:"30 kg"},
+    {id:"m18",g:"sup_push",n:"Supino reto DB",r:"14 reps",w:"6 kg"},
+    {id:"m19",g:"sup_push",n:"Tríceps cross corda",r:"15-13-11 reps",w:"20 kg"},
+    {id:"m20",g:"sup_push",n:"Supino 45 DB",r:"12 reps",w:"6 kg"},
+    {id:"m21",g:"sup_push",n:"Crucifixo cross linha dos ombros",r:"13 reps",w:"5 kg"},
+    {id:"m22",g:"sup_push",n:"Elevação lateral DB",r:"12 reps",w:"4 kg"},
+    {id:"m23",g:"sup_push",n:"Desenvolvimento DB",r:"12 reps",w:"6 kg"},
+    {id:"m24",g:"sup_push",n:"Elevação frontal DB",r:"12 reps",w:"4 kg"},
+    {id:"m25",g:"sup_pull",n:"Remada baixa cross corda",r:"15 reps",w:"25 kg"},
+    {id:"m26",g:"sup_pull",n:"Rosca direta cross barra",r:"10 reps",w:"10 kg"},
+    {id:"m27",g:"sup_pull",n:"Remada curvada DB",r:"12 reps",w:"7 kg"},
+    {id:"m28",g:"sup_pull",n:"Puxada supinada cross",r:"14 reps",w:"35 kg"},
+    {id:"m29",g:"sup_pull",n:"Puxada V cross",r:"13 reps",w:"25 kg"},
+    {id:"m30",g:"sup_pull",n:"Remada alta cross barra reta",r:"13 reps",w:"20 kg"},
+    {id:"m31",g:"sup_pull",n:"Pulldown cross corda",r:"14 reps",w:"20 kg"},
+    {id:"m32",g:"sup_pull",n:"Encolhimento ombros cross",r:"15 reps",w:"35 kg"},
+  ],
+  core:[
+    {id:"c1",g:"ant",n:"Rotação tronco cross (baixo-cima)",r:"10|10 reps",w:"10 kg",note:"Unilateral"},
+    {id:"c2",g:"ant",n:"Abdominal twist com anilha",r:"15 reps",w:"5 kg"},
+    {id:"c3",g:"ant",n:"Abdominal supra + infra unilateral DB",r:"10|10 reps",w:"3 kg",note:"Unilateral"},
+    {id:"c4",g:"ant",n:"Abdominal bicicleta",r:"20 reps"},
+    {id:"c5",g:"ant",n:"Abdominal canivete",r:"15 reps"},
+    {id:"c6",g:"ant",n:"Abdominal sit up",r:"15 reps"},
+    {id:"c7",g:"ant",n:"Abdominal supra 90",r:"15 reps",w:"5 kg"},
+    {id:"c8",g:"ant",n:"Abdominal infra estendido",r:"15 reps"},
+    {id:"c9",g:"ant",n:"Hollow rocks",r:"12 reps"},
+    {id:"c10",g:"ant",n:"Abdominal obliquo lateral",r:"15 reps"},
+    {id:"c11",g:"ant",n:"Dead bug alternado",r:"10|10 reps"},
+    {id:"c12",g:"post",n:"Superman tronco e pernas",r:"15 reps"},
+    {id:"c13",g:"post",n:"Superman alternando bracos e pernas",r:"14 reps"},
+    {id:"c14",g:"post",n:"Extensão tronco solo",r:"15 reps"},
+    {id:"c15",g:"post",n:"Rotação tronco cross (cima-baixo)",r:"12 reps",w:"10 kg"},
+    {id:"c16",g:"post",n:"Superman tronco solo",r:"14 reps"},
+    {id:"c17",g:"plank",n:"Prancha frontal alternando mao na coxa",r:"20 reps"},
+    {id:"c18",g:"plank",n:"Prancha lateral",r:"15s"},
+    {id:"c19",g:"plank",n:"Prancha inversa",r:"20s"},
+    {id:"c20",g:"plank",n:"Prancha frontal",r:"25s"},
+  ],
+  cardio:[
+    {id:"ca1",n:"RUN",r:"1min - 45s - 30s"},
+    {id:"ca2",n:"Eliptico",r:"1min - 45s - 30s"},
+    {id:"ca3",n:"Bike",r:"1min"},
+    {id:"ca4",n:"Escada",r:"1min"},
+    {id:"ca5",n:"Remo (ROW)",r:"1min"},
+    {id:"ca6",n:"RUN HIIT",r:"30s ON / 15s OFF"},
+  ],
+  metabolico:[
+    {id:"me1",g:"salto",n:"Polichinelo frontal",r:"20s - 25s - 30s"},
+    {id:"me2",g:"salto",n:"Half burpee",r:"20s - 25s - 30s"},
+    {id:"me3",g:"salto",n:"Polichinelo lateral",r:"20s - 25s - 30s"},
+    {id:"me4",g:"salto",n:"Burpee completo",r:"8 reps"},
+    {id:"me5",g:"salto",n:"Saltito lateral",r:"25s"},
+    {id:"me6",g:"salto",n:"Salto frontal",r:"12 reps"},
+    {id:"me7",g:"desl",n:"Step up alternado DB",r:"20s - 25s - 30s",w:"— kg"},
+    {id:"me8",g:"desl",n:"Mountain climber",r:"30s"},
+    {id:"me9",g:"desl",n:"Deslocamento lateral",r:"25s"},
+    {id:"me10",g:"desl",n:"Skip frente",r:"25s"},
+    {id:"me11",g:"desl",n:"Skip tras",r:"25s"},
+    {id:"me12",g:"desl",n:"Deslocamento com half burpee",r:"25s"},
+  ],
+  funcional:[
+    {id:"f1",g:"inf",n:"Avanço alternado c/ isometria elevacao frontal",r:"12 reps",w:"4 kg"},
+    {id:"f2",g:"inf",n:"Agachamento goblet DB",r:"15 reps",w:"10 kg"},
+    {id:"f3",g:"inf",n:"Step up lateral c/ elevacao frontal DB",r:"10|10 reps",w:"5 kg"},
+    {id:"f4",g:"inf",n:"Afundo posterior c/ flexao de quadril",r:"10 reps",w:"6 kg"},
+    {id:"f5",g:"inf",n:"Agachamento lateral DB",r:"10|10 reps",w:"8 kg"},
+    {id:"f6",g:"inf",n:"Levantamento terra barra",r:"10 reps",w:"10 kg"},
+    {id:"f7",g:"sup",n:"Agachamento c/ remada cross barra reta",r:"12 reps",w:"35 kg"},
+    {id:"f8",g:"sup",n:"Agachamento cross c/ rotacao tronco corda",r:"8|8 reps",w:"15 kg",note:"Unilateral"},
+    {id:"f9",g:"sup",n:"Remada unilateral isometria afundo cross",r:"8|8 reps",w:"10 kg"},
+    {id:"f10",g:"sup",n:"Agachamento c/ remada alta cross",r:"12 reps",w:"25 kg"},
+    {id:"f11",g:"sup",n:"Rotação tronco em pé cross",r:"12 reps",w:"15 kg"},
+    {id:"f12",g:"sup",n:"Pulldown cross c/ flexao tronco",r:"15 reps",w:"25 kg"},
+    {id:"f13",g:"total",n:"Anilha swing",r:"15 reps",w:"12 kg"},
+  ],
+  crossfit:[
+    {id:"cf1",n:"Thruster DB",r:"10 reps",w:"6 kg"},
+    {id:"cf2",n:"Anilha swing",r:"15 reps",w:"12 kg"},
+    {id:"cf3",n:"Snatch DB bilateral",r:"10 reps",w:"7 kg"},
+    {id:"cf4",n:"Snatch DB unilateral",r:"8|8 reps",w:"8 kg",note:"Unilateral"},
+    {id:"cf5",n:"Clean DB",r:"10 reps",w:"7 kg"},
+    {id:"cf6",n:"Thruster barra",r:"12 reps",w:"4 kg"},
+    {id:"cf7",n:"SDLHP DB unilateral",r:"8|8 reps",w:"8 kg",note:"Unilateral"},
+    {id:"cf8",n:"SDLHP anilha",r:"15 reps",w:"12 kg"},
+    {id:"cf9",n:"Box jump",r:"12 reps"},
+    {id:"cf10",n:"T2B",r:"10 reps"},
+    {id:"cf11",n:"G2OH anilha",r:"12 reps",w:"12 kg"},
+    {id:"cf12",n:"Front squat barra",r:"10 reps",w:"5 kg"},
+    {id:"cf13",n:"Hang Clean DB",r:"10 reps",w:"7 kg"},
+    {id:"cf14",n:"Hang Snatch DB",r:"8 reps",w:"7 kg"},
+    {id:"cf15",n:"Burpee over the bar",r:"8 reps"},
+    {id:"cf16",n:"Box jump over",r:"10 reps"},
+    {id:"cf17",n:"Hang Clean Jerk",r:"8 reps",w:"4 kg"},
+  ],
+  equilibrio:[
+    {id:"eq1",n:"Equilibrio cross corda unilateral lateral",r:"25s",w:"15 kg"},
+    {id:"eq2",n:"Afundo isométrico c/ remada unilateral cross",r:"10|10 reps",w:"15 kg"},
+    {id:"eq3",n:"Stiff cross corda unilateral",r:"10|10 reps",w:"10 kg"},
+    {id:"eq4",n:"Rotação tronco cross c/ uma perna",r:"10|10 reps",w:"15 kg"},
+    {id:"eq5",n:"Afundo isométrico c/ desenvolvimento unilateral DB",r:"8|8 reps",w:"4 kg"},
+  ],
+};
+
+const WDB=[
+  {id:1,mods:["musculacao","core","cardio"],s:[{n:3,e:[{m:"musculacao",n:"Afundo guiado",r:"8|8 reps",w:"5 kg"},{m:"musculacao",n:"Agachamento com repique baixo",r:"15 reps",w:"Corporal"}]},{n:3,e:[{m:"core",n:"Rotação tronco cross de baixo para cima",r:"10|10 reps",w:"10 kg"},{m:"core",n:"Abdominal twist anilha",r:"15 reps",w:"5 kg"}]},{n:3,e:[{m:"cardio",n:"RUN",r:"1min-45s-30s"},{m:"cardio",n:"Eliptico",r:"1min-45s-30s"}]},{n:3,e:[{m:"musculacao",n:"Elevação de quadril banco DB",r:"15+10s reps",w:"15 kg"},{m:"musculacao",n:"Stiff guiado",r:"13 reps",w:"10 kg"}]},{n:3,e:[{m:"core",n:"Abdominal supra + infra unilateral DB",r:"10|10 reps",w:"3 kg"},{m:"core",n:"Prancha frontal alternando mao na coxa",r:"20 reps"}]},{n:3,e:[{m:"musculacao",n:"Avanço anterior e posterior DB",r:"8-7-6 reps",w:"6|8|10 kg"}]}]},
+  {id:2,mods:["metabolico","funcional","musculacao","cardio"],s:[{n:3,e:[{m:"metabolico",n:"Polichinelo frontal",r:"20s-25s-30s"},{m:"funcional",n:"Avanço alternado posterior c/ isometria elevacao frontal",r:"12 reps",w:"4 kg"},{m:"musculacao",n:"Remada baixa cross corda",r:"15 reps",w:"25 kg"}]},{n:3,e:[{m:"metabolico",n:"Step up alternado DB",r:"20s-25s-30s"},{m:"funcional",n:"Agachamento c/ remada cross barra reta pronado",r:"12 reps",w:"35 kg"},{m:"musculacao",n:"Supino reto DB",r:"14 reps",w:"6 kg"}]},{n:3,e:[{m:"metabolico",n:"Half burpee",r:"20s-25s-30s"},{m:"funcional",n:"Agachamento cross c/ rotacao tronco corda",r:"8|8 reps",w:"15 kg"},{m:"musculacao",n:"Rosca direta cross barra",r:"10 reps",w:"10 kg"}]},{n:3,e:[{m:"cardio",n:"Bike",r:"1min"},{m:"metabolico",n:"Polichinelo lateral",r:"20s-25s-30s"},{m:"musculacao",n:"Stiff unilateral",r:"10|10 reps",w:"8 kg"}]},{n:3,e:[{m:"musculacao",n:"Tríceps cross corda",r:"15-13-11 reps",w:"20 kg"},{m:"musculacao",n:"Abdução horizontal de ombros DB",r:"15-13-11 reps",w:"2 kg"}]}]},
+  {id:3,mods:["crossfit","metabolico","funcional"],s:[{n:3,e:[{m:"crossfit",n:"Anilha swing",r:"15 reps",w:"12 kg"},{m:"metabolico",n:"Saltito lateral",r:"20s"},{m:"funcional",n:"Agachamento c/ remada cross",r:"13 reps",w:"25 kg"}]},{n:3,e:[{m:"crossfit",n:"Snatch DB bilateral",r:"10-12-14 reps",w:"6 kg"},{m:"crossfit",n:"Thruster DB",r:"10-12-14 reps",w:"6 kg"}]},{n:3,e:[{m:"metabolico",n:"Step frontal alternado",r:"20 reps"},{m:"crossfit",n:"Burpee over the bar",r:"5 reps"},{m:"metabolico",n:"Salto frontal",r:"10 reps"}]},{n:3,e:[{m:"funcional",n:"Step up lateral DB",r:"10|10 reps",w:"7 kg"},{m:"funcional",n:"Afundo posterior c/ elevacao frontal DB",r:"14 reps",w:"3 kg"}]},{n:3,e:[{m:"crossfit",n:"SDLHP anilha",r:"15 reps",w:"12 kg"},{m:"funcional",n:"Afundo isométrico c/ Puxada neutra cross",r:"13 reps",w:"15 kg"}]}]},
+  {id:4,mods:["cardio","core","musculacao"],s:[{n:3,e:[{m:"cardio",n:"RUN",r:"1min 30s"},{m:"core",n:"Abdominal supra estendido",r:"20 reps"},{m:"core",n:"Superman alternar bracos",r:"20 reps"}]},{n:3,e:[{m:"cardio",n:"Eliptico",r:"1min"},{m:"core",n:"Abdominal twist",r:"15 reps"},{m:"core",n:"Superman tronco e pernas",r:"15 reps"}]},{n:3,e:[{m:"musculacao",n:"Agachamento c/ remada em pé cross over",r:"14 reps",w:"35 kg"},{m:"musculacao",n:"Encolhimento ombros cross",r:"12 reps",w:"35 kg"}]},{n:3,e:[{m:"cardio",n:"Bike",r:"30s"},{m:"core",n:"Abdominal em pé no cross",r:"15 reps",w:"20 kg"}]},{n:3,e:[{m:"musculacao",n:"Remada baixa cross barra reta",r:"14 reps",w:"20 kg"},{m:"musculacao",n:"Remada alta DB alternado",r:"12 reps",w:"6 kg"}]}]},
+  {id:5,mods:["crossfit","metabolico","core","funcional"],s:[{n:3,e:[{m:"crossfit",n:"Snatch DB unilateral",r:"10 reps",w:"7 kg"},{m:"metabolico",n:"Skip frente",r:"20s"},{m:"core",n:"Abdominal canivete",r:"15 reps"},{m:"funcional",n:"Agachamento c/ remada cross",r:"13 reps",w:"25 kg"}]},{n:3,e:[{m:"crossfit",n:"SDLHP DB unilateral",r:"8|8 reps",w:"8 kg"},{m:"crossfit",n:"Clean DB bilateral",r:"12 reps",w:"6 kg"}]},{n:3,e:[{m:"metabolico",n:"Deslocamento c/ half burpee",r:"20s-25s-30s"},{m:"metabolico",n:"Burpee com salto frontal",r:"20s-25s-30s"}]},{n:3,e:[{m:"core",n:"Abdominal sit up anilha",r:"13-15-17 reps",w:"5 kg"},{m:"core",n:"Abdominal infra estendido",r:"13-15-17 reps"}]},{n:3,e:[{m:"funcional",n:"Avanço alternado anterior c/ elevacao frontal DB",r:"12 reps",w:"3 kg"},{m:"funcional",n:"Agachamento lateral DB",r:"10 reps",w:"6 kg"}]}]},
+  {id:6,mods:["funcional","musculacao","metabolico"],s:[{n:3,e:[{m:"funcional",n:"Step up lateral DB c/ isometria elevacao frontal",r:"10-12-14 reps",w:"5 kg"},{m:"musculacao",n:"Panturrilha em pé cross",r:"20 reps",w:"25 kg"}]},{n:3,e:[{m:"funcional",n:"Stiff c/ remada cross",r:"12-14-16 reps",w:"20 kg"},{m:"musculacao",n:"Supino reto DB",r:"10-11-12 reps",w:"6 kg"}]},{n:3,e:[{m:"metabolico",n:"Half burpee",r:"8 reps"},{m:"musculacao",n:"Remada baixa pronada fechada cross",r:"15+15s reps",w:"20 kg"}]},{n:3,e:[{m:"funcional",n:"Remada curvada unilateral cross",r:"12 reps",w:"10 kg"},{m:"metabolico",n:"Step up frontal alternando pernas",r:"20 reps"}]},{n:3,e:[{m:"musculacao",n:"Pullover DB",r:"15-13-11 reps",w:"5 kg"},{m:"musculacao",n:"Pulldown cross",r:"15-13-11 reps",w:"20 kg"}]}]},
+  {id:7,mods:["cardio","crossfit","core"],s:[{n:3,e:[{m:"cardio",n:"Eliptico",r:"1min"},{m:"crossfit",n:"Anilha swing",r:"15 reps",w:"12 kg"},{m:"core",n:"Sit up",r:"10 reps"}]},{n:3,e:[{m:"crossfit",n:"Snatch DB unilateral",r:"10 reps",w:"7 kg"},{m:"core",n:"Prancha lateral",r:"15s"}]},{n:3,e:[{m:"crossfit",n:"SDLHP",r:"14-16-18 reps",w:"6 kg"},{m:"cardio",n:"RUN",r:"1min"},{m:"core",n:"Abdominal infra estendido",r:"15 reps"}]},{n:3,e:[{m:"crossfit",n:"Thruster DB",r:"13 reps",w:"6 kg"},{m:"core",n:"Abdominal obliquo em pé cross",r:"15 reps",w:"15 kg"}]},{n:3,e:[{m:"cardio",n:"Bike",r:"1min"},{m:"crossfit",n:"Clean DB",r:"14 reps",w:"7 kg"},{m:"core",n:"Extensão tronco solo",r:"20 reps"}]}]},
+  {id:8,mods:["musculacao","metabolico"],s:[{n:3,e:[{m:"musculacao",n:"Abdução de quadril em pé cross",r:"12 reps",w:"10 kg"},{m:"musculacao",n:"Agachamento sumo DB",r:"14 reps",w:"20 kg"},{m:"musculacao",n:"Passada DB",r:"16 reps",w:"6 kg"}]},{n:3,e:[{m:"musculacao",n:"Stiff guiado",r:"12 reps",w:"10 kg"},{m:"musculacao",n:"Elevação de quadril banco",r:"14 reps",w:"14 kg"}]},{n:3,e:[{m:"musculacao",n:"Crucifixo cross linha dos ombros",r:"13 reps",w:"5 kg"},{m:"musculacao",n:"Elevação lateral DB",r:"11 reps",w:"3 kg"}]},{n:3,e:[{m:"musculacao",n:"Remada curvada cross neutro",r:"15 reps",w:"25 kg"},{m:"musculacao",n:"Remada alta DB",r:"13 reps",w:"5 kg"}]},{n:3,e:[{m:"musculacao",n:"Agachamento guiado fechado",r:"12 reps",w:"8 kg"},{m:"musculacao",n:"Afundo DB",r:"10 reps",w:"8 kg"}]}]},
+  {id:9,mods:["metabolico","cardio","crossfit","core"],s:[{n:3,e:[{m:"cardio",n:"Bike",r:"1min"},{m:"crossfit",n:"Clean DB",r:"14 reps",w:"7 kg"},{m:"core",n:"Extensão tronco solo",r:"20 reps"}]},{n:3,e:[{m:"cardio",n:"RUN",r:"1min"},{m:"crossfit",n:"SDLHP DB unilateral",r:"8|8 reps",w:"8 kg"},{m:"metabolico",n:"Half burpee",r:"7 reps"}]},{n:3,e:[{m:"cardio",n:"Eliptico",r:"1min"},{m:"crossfit",n:"Snatch DB",r:"10 reps",w:"7 kg"},{m:"core",n:"Abdominal obliquo",r:"12|12 reps"}]},{n:3,e:[{m:"metabolico",n:"Deslocamento lateral",r:"25s"},{m:"metabolico",n:"Salto frontal",r:"25s"},{m:"metabolico",n:"Skip tras",r:"25s"},{m:"metabolico",n:"Saltito lateral",r:"25s"}]}]},
+  {id:10,mods:["musculacao","funcional"],s:[{n:3,e:[{m:"funcional",n:"Step up lateral DB c/ elevacao frontal",r:"10-12-14 reps",w:"5 kg"},{m:"musculacao",n:"Panturrilha em pé cross",r:"20 reps",w:"25 kg"}]},{n:3,e:[{m:"musculacao",n:"Abdução de quadril em pé cross",r:"15 reps",w:"10 kg"},{m:"musculacao",n:"Remada alta cross",r:"13 reps",w:"15 kg"}]},{n:3,e:[{m:"funcional",n:"Agachamento aberto cross c/ remada V",r:"15 reps",w:"30 kg"},{m:"funcional",n:"Avanço posterior alternado c/ elevacao lateral DB",r:"14 reps",w:"4 kg"}]},{n:3,e:[{m:"musculacao",n:"Stiff cross",r:"14-12-10 reps",w:"25-30-35 kg"},{m:"musculacao",n:"Remada curvada cross",r:"14-12-10 reps",w:"20 kg"}]}]},
+  {id:11,mods:["musculacao"],s:[{n:3,e:[{m:"musculacao",n:"Crucifixo em pé cross",r:"12-14-16 reps",w:"7 kg"},{m:"musculacao",n:"Remada em pé cross",r:"12-14-16 reps",w:"11 kg"}]},{n:3,e:[{m:"musculacao",n:"Tríceps cross corda",r:"10-11-12 reps",w:"16 kg"},{m:"musculacao",n:"Rosca direta DB neutro",r:"10-11-12 reps",w:"5 kg"}]},{n:3,e:[{m:"musculacao",n:"Elevação lateral DB",r:"15 reps",w:"4 kg"},{m:"musculacao",n:"Encolhimento ombros cross",r:"20 reps",w:"35 kg"}]},{n:3,e:[{m:"musculacao",n:"Puxada V cross",r:"12-13-14 reps",w:"30 kg"},{m:"musculacao",n:"Supino reto DB",r:"12-13-14 reps",w:"6 kg"}]},{n:3,e:[{m:"musculacao",n:"Elevação frontal DB neutro",r:"13 reps",w:"4 kg"},{m:"musculacao",n:"Remada alta cross",r:"15 reps",w:"11 kg"}]}]},
+  {id:12,mods:["musculacao","core"],s:[{n:3,e:[{m:"core",n:"Extensão tronco solo mao na cabeca",r:"15 reps"},{m:"core",n:"Prancha inversa",r:"20s"},{m:"core",n:"Superman isométrico",r:"20s"}]},{n:3,e:[{m:"musculacao",n:"Supino 45 DB",r:"12 reps",w:"6 kg"},{m:"musculacao",n:"Tríceps testa DB",r:"14 reps",w:"5 kg"},{m:"musculacao",n:"Desenvolvimento DB",r:"12 reps",w:"6 kg"}]},{n:3,e:[{m:"musculacao",n:"Remada baixa cross barra reta",r:"15 reps",w:"30 kg"},{m:"musculacao",n:"Rosca direta cross barra reta",r:"11 reps",w:"20 kg"}]},{n:3,e:[{m:"core",n:"Rotação tronco cross (baixo-cima)",r:"15 reps",w:"10 kg"},{m:"core",n:"Abdominal obliquo lateral",r:"15 reps"}]},{n:3,e:[{m:"musculacao",n:"Crucifixo cross",r:"12 reps",w:"10 kg"},{m:"musculacao",n:"Remada em pé cross",r:"14 reps",w:"20 kg"}]},{n:3,e:[{m:"musculacao",n:"Rosca concentrada DB",r:"10 reps",w:"5 kg"},{m:"musculacao",n:"Tríceps frances unilateral DB",r:"10 reps",w:"5 kg"}]}]},
+  {id:13,mods:["metabolico","cardio","core"],s:[{n:3,e:[{m:"metabolico",n:"Saltito lateral",r:"20 reps"},{m:"core",n:"Abdominal infra estendido",r:"15 reps"},{m:"cardio",n:"RUN",r:"1min"}]},{n:3,e:[{m:"metabolico",n:"Half burpee",r:"6 reps"},{m:"core",n:"Superman estendido alternado",r:"20 reps"},{m:"cardio",n:"Bike",r:"1min"}]},{n:3,e:[{m:"metabolico",n:"Polichinelo lateral",r:"20 reps"},{m:"core",n:"Abdominal sit up",r:"15 reps"},{m:"cardio",n:"Eliptico",r:"1min"}]},{n:3,e:[{m:"metabolico",n:"Step lateral",r:"20 reps"},{m:"core",n:"Superman tronco e pernas braco baixo",r:"15 reps"},{m:"cardio",n:"Escada",r:"1min"}]}]},
+  {id:14,mods:["musculacao","crossfit"],s:[{n:3,e:[{m:"musculacao",n:"Afundo guiado",r:"10 reps",w:"8 kg"},{m:"crossfit",n:"Hang Snatch DB",r:"8|8 reps",w:"8 kg"}]},{n:3,e:[{m:"musculacao",n:"Agachamento cross over",r:"12 reps",w:"35 kg"},{m:"crossfit",n:"Thruster DB",r:"10 reps",w:"6 kg"}]},{n:3,e:[{m:"musculacao",n:"Remada baixa cross over supinado",r:"15 reps",w:"25 kg"},{m:"crossfit",n:"Front squat barra",r:"13 reps",w:"8 kg"}]},{n:3,e:[{m:"musculacao",n:"Remada curvada DB",r:"14 reps",w:"7 kg"},{m:"crossfit",n:"Anilha swing",r:"12 reps",w:"5 kg"}]}]},
+  {id:15,mods:["cardio","core","crossfit"],s:[{n:3,e:[{m:"cardio",n:"RUN",r:"1min 30s"},{m:"core",n:"Abdominal canivete",r:"20 reps"},{m:"crossfit",n:"DB Snatch",r:"14 reps",w:"7 kg"}]},{n:3,e:[{m:"cardio",n:"Bike",r:"1min 30s"},{m:"core",n:"Superman tronco e pernas",r:"20 reps"},{m:"crossfit",n:"DB Swing",r:"15 reps",w:"10 kg"}]},{n:3,e:[{m:"core",n:"Prancha inversa movimento pernas alternado",r:"20 reps"},{m:"core",n:"Prancha frontal movimento pernas lateral",r:"20 reps"}]},{n:3,e:[{m:"crossfit",n:"Salto frontal",r:"12 reps"},{m:"crossfit",n:"Burpee",r:"6 reps"}]}]},
+  {id:16,mods:["musculacao","crossfit","metabolico"],s:[{n:3,e:[{m:"musculacao",n:"Agachamento guiado",r:"12 reps"},{m:"musculacao",n:"Passada DB",r:"12 reps",w:"8 kg"}]},{n:3,e:[{m:"musculacao",n:"Supino reto DB",r:"12 reps",w:"7 kg"},{m:"musculacao",n:"Elevação de quadril banco",r:"14 reps"}]},{n:2,e:[{m:"crossfit",n:"Anilha swing",r:"14 reps",w:"6 kg"},{m:"crossfit",n:"DB Snatch",r:"6|6 reps",w:"6 kg"},{m:"crossfit",n:"Thruster DB",r:"10 reps",w:"6 kg"}]},{n:2,e:[{m:"metabolico",n:"Half burpee",r:"20s-30s"},{m:"metabolico",n:"Deslocamento lateral",r:"20s-30s"},{m:"metabolico",n:"Saltito lateral",r:"20s-30s"}]}]},
+  {id:17,mods:["cardio","metabolico","core"],s:[{n:3,e:[{m:"cardio",n:"RUN",r:"1min"},{m:"core",n:"Abdominal bike",r:"20 reps"},{m:"metabolico",n:"Skip tras",r:"10 reps"}]},{n:3,e:[{m:"cardio",n:"Bike",r:"1min"},{m:"core",n:"Superman tronco e pernas",r:"15 reps"},{m:"metabolico",n:"Deslocamento lateral",r:"10 reps"}]},{n:3,e:[{m:"cardio",n:"Eliptico",r:"1min"},{m:"core",n:"Abdominal canivete",r:"15 reps"},{m:"metabolico",n:"Polichinelo frontal",r:"20 reps"}]},{n:3,e:[{m:"core",n:"Prancha frontal",r:"20s"},{m:"core",n:"Prancha inversa",r:"20s"}]}]},
+  {id:18,mods:["metabolico","crossfit"],s:[{n:3,e:[{m:"metabolico",n:"Polichinelo lateral",r:"25s"},{m:"crossfit",n:"Snatch DB",r:"15 reps",w:"7 kg"}]},{n:3,e:[{m:"crossfit",n:"Burpee",r:"6 reps"},{m:"crossfit",n:"Thruster barra",r:"12 reps",w:"4 kg"}]},{n:3,e:[{m:"metabolico",n:"Deslocamento lateral",r:"25s"},{m:"crossfit",n:"Anilha swing",r:"15 reps",w:"12 kg"}]},{n:3,e:[{m:"metabolico",n:"Saltito lateral",r:"25s"},{m:"crossfit",n:"SDLHP DB unilateral",r:"8|8 reps",w:"8 kg"}]},{n:3,e:[{m:"metabolico",n:"Skip tras",r:"25s"},{m:"crossfit",n:"Passada DB",r:"12 reps",w:"6 kg"}]}]},
+  {id:19,mods:["core","musculacao","metabolico"],s:[{n:2,e:[{m:"core",n:"Prancha joelho alternado",r:"20 reps"},{m:"core",n:"Prancha maos ombros alternado",r:"20 reps"},{m:"core",n:"Abdominal supra 90",r:"15 reps"},{m:"core",n:"Abdominal infra estendido",r:"15 reps"}]},{n:3,e:[{m:"musculacao",n:"Agachamento fechado guiado",r:"10 reps"},{m:"musculacao",n:"Agachamento aberto guiado",r:"10 reps"},{m:"musculacao",n:"Avanço posterior alternado",r:"12 reps",w:"8 kg"}]},{n:3,e:[{m:"musculacao",n:"Supino reto DB",r:"12 reps",w:"7 kg"},{m:"musculacao",n:"Remada curvada DB",r:"12 reps",w:"7 kg"}]},{n:2,e:[{m:"metabolico",n:"Saltito lateral",r:"20s"},{m:"metabolico",n:"Skip tras",r:"20s"},{m:"metabolico",n:"Polichinelo lateral",r:"20s"}]}]},
+  {id:20,mods:["musculacao","core"],s:[{n:3,e:[{m:"musculacao",n:"Abdução de quadril cross tras",r:"15 reps",w:"10 kg"},{m:"musculacao",n:"Avanço posterior alternado cross",r:"14 reps",w:"25 kg"}]},{n:3,e:[{m:"core",n:"Abdominal supra estendido",r:"15 reps"},{m:"core",n:"Prancha lateral",r:"15s"},{m:"core",n:"Extensão tronco solo bracos para baixo",r:"15 reps"}]},{n:3,e:[{m:"musculacao",n:"Agachamento guiado fechado",r:"10-12-14 reps",w:"10 kg"},{m:"musculacao",n:"Passada anilha",r:"14 reps",w:"10 kg"}]},{n:3,e:[{m:"core",n:"Abdominal obliquo lateral",r:"12 reps"},{m:"core",n:"Abdominal rotacao cross (baixo-cima)",r:"12 reps",w:"10 kg"}]},{n:3,e:[{m:"musculacao",n:"Gluteo cross joelho estendido",r:"14 reps",w:"15 kg"},{m:"musculacao",n:"Agachamento sumo DB",r:"10 reps",w:"8 kg"}]}]},
+];
+
+const home='home',lib='lib',setup='setup',cal='cal';
+const musculacao='musculacao',core='core',cardio='cardio',metabolico='metabolico',funcional='funcional',crossfit='crossfit';
+const S={screen:'home',libFilter:[],setupSel:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{}};
+
+/* ============== EXERCISE DEMONSTRATION MEDIA ==============
+   Base de imagens demonstrativas vinda da workoutxapp/free-exercise-db (open source).
+   Carrega sob demanda quando o usuário abre "Ver execução".
+   Para exercícios sem correspondência, mostra um link de busca no YouTube. */
+const EX_DB_URL='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json';
+const EX_IMG_BASE='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+let _exDb=null;let _exDbPromise=null;const _exMatchCache={};
+function loadExDb(){
+  if(_exDb)return Promise.resolve(_exDb);
+  if(_exDbPromise)return _exDbPromise;
+  _exDbPromise=fetch(EX_DB_URL).then(r=>r.json()).then(data=>{
+    _exDb=data.map(e=>({name:e.name,images:e.images||[],tokens:e.name.toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean)}));
+    return _exDb;
+  }).catch(()=>{_exDb=[];return _exDb;});
+  return _exDbPromise;
+}
+const STOPWORDS={'the':1,'a':1,'an':1,'of':1,'with':1,'and':1,'on':1,'in':1,'to':1,'for':1,'at':1,'or':1,'db':1,'bb':1};
+const SYNONYMS={
+  'lunge':['lunges'],'lunges':['lunge'],
+  'squat':['squats'],'squats':['squat'],
+  'deadlift':['deadlifts'],'deadlifts':['deadlift'],
+  'crunch':['crunches','crunch'],'crunches':['crunch'],
+  'curl':['curls'],'curls':['curl'],
+  'press':['press'],'pulldown':['pulldown','pull-down'],
+  'row':['rows'],'rows':['row'],
+  'raise':['raises'],'raises':['raise'],
+  'jack':['jacks'],'jacks':['jack'],
+  'climber':['climbers'],'climbers':['climber'],
+  'kickback':['kickbacks'],'twist':['twists','twist'],
+  'shrug':['shrugs'],'extension':['extensions'],
+  'thrust':['thrusts'],'pushup':['push-up','pushups','push','up'],
+  'situp':['sit-up','sit','up'],
+  'dumbbell':['dumbbell','db'],'barbell':['barbell','bb'],
+  'cable':['cable','cross','cross-over','crossover'],
+  'kettlebell':['kettlebell','kb']
+};
+function tokenize(name){
+  let n=(name||'').toLowerCase();
+  n=n.replace(/db\b/g,'dumbbell').replace(/bb\b/g,'barbell').replace(/kb\b/g,'kettlebell');
+  n=n.replace(/[^a-z0-9 ]/g,' ');
+  const toks=n.split(/\s+/).filter(t=>t&&!STOPWORDS[t]);
+  const expanded=new Set(toks);
+  toks.forEach(t=>(SYNONYMS[t]||[]).forEach(s=>expanded.add(s)));
+  return Array.from(expanded);
+}
+function findExerciseMatch(ptName){
+  if(!_exDb||_exDb.length===0)return null;
+  const enName=(typeof TRANS_EX!=='undefined'&&TRANS_EX[ptName])?TRANS_EX[ptName]:ptName;
+  const cacheKey=enName.toLowerCase();
+  if(_exMatchCache[cacheKey]!==undefined)return _exMatchCache[cacheKey];
+  const queryToks=tokenize(enName);
+  if(queryToks.length===0){_exMatchCache[cacheKey]=null;return null;}
+  let best=null,bestScore=0;
+  for(let i=0;i<_exDb.length;i++){
+    const ex=_exDb[i];
+    if(!ex.images||ex.images.length===0)continue;
+    const overlap=queryToks.filter(t=>ex.tokens.indexOf(t)>-1).length;
+    if(overlap===0)continue;
+    /* Score = overlap balanced for length difference */
+    const score=overlap*2-Math.abs(ex.tokens.length-queryToks.length)*0.3;
+    if(score>bestScore){bestScore=score;best=ex;}
+  }
+  /* Require at least 2 matched tokens, or 1 if name is very short */
+  const minOverlap=queryToks.length<=2?1:2;
+  const finalMatched=queryToks.filter(t=>best&&best.tokens.indexOf(t)>-1).length;
+  const result=(best&&finalMatched>=minOverlap)?best:null;
+  _exMatchCache[cacheKey]=result;
+  return result;
+}
+function exerciseImageUrl(ptName){
+  const m=findExerciseMatch(ptName);
+  if(!m||!m.images||m.images.length===0)return null;
+  return EX_IMG_BASE+m.images[0];
+}
+function exerciseImageAlt(ptName){
+  const m=findExerciseMatch(ptName);
+  return m?m.name:ptName;
+}
+function ytSearchUrl(name){return 'https://www.youtube.com/results?search_query='+encodeURIComponent('como fazer '+name);}
+function toggleExpand(stId,ei){
+  const k=stId+'-'+ei;
+  if(S.expanded[k]){delete S.expanded[k];render();return;}
+  S.expanded[k]=true;
+  if(!_exDb){loadExDb().then(()=>render());}
+  render();
+}
+
+function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+const EPM={cardio:1,metabolico:2,core:2,crossfit:2,funcional:2,musculacao:2};
+function buildGP(mod){const r={};(GEN[mod]||[]).forEach(ex=>{const g=ex.g||'g';r[g]=r[g]||[];r[g].push(ex);});return r;}
+function generateWorkout(mods,num){
+  const gp={},ug={};
+  mods.forEach(mod=>{if(GEN[mod]&&GEN[mod][0]&&GEN[mod][0].g){gp[mod]=buildGP(mod);ug[mod]=[];}});
+  const pools={},used={};mods.forEach(mod=>{pools[mod]=shuffle(GEN[mod]||[]);used[mod]=0;});
+  function pickSeq(mod,n){const r=[];for(let i=0;i<n;i++){if(used[mod]>=pools[mod].length){pools[mod]=shuffle(GEN[mod]||[]);used[mod]=0;}if(pools[mod].length>0)r.push({...pools[mod][used[mod]++],modality:mod});}return r;}
+  function pickGrp(mod,n){const allG=Object.keys(gp[mod]);const av=allG.filter(g=>ug[mod].indexOf(g)===-1);const pool=av.length>0?av:allG;const cg=pool[Math.floor(Math.random()*pool.length)];ug[mod].push(cg);if(ug[mod].length>=allG.length)ug[mod]=[];return shuffle(gp[mod][cg]).slice(0,Math.min(n,gp[mod][cg].length)).map(ex=>({...ex,modality:mod}));}
+  return Array.from({length:num},(_,i)=>{const exercises=[];mods.forEach(mod=>{const n=EPM[mod]||2;exercises.push(...(gp[mod]?pickGrp(mod,n):pickSeq(mod,n)));});return{id:i+1,sets:3,exercises};});
+}
+
+function navTo(s){S.screen=s;render();}
+function toggleLibFilter(mod){const i=S.libFilter.indexOf(mod);if(i>-1)S.libFilter.splice(i,1);else S.libFilter.push(mod);render();}
+function toggleSetupMod(mod){const i=S.setupSel.indexOf(mod);if(i>-1)S.setupSel.splice(i,1);else S.setupSel.push(mod);render();}
+function setDur(d){S.setupDur=d;render();}
+function toggleSet(stId,s){const k=stId+'-'+s;S.done[k]=S.done[k]?false:true;render();}
+function editWeight(stId,ei){const k=stId+'-'+ei;const v=prompt(t('weightPrompt'),S.weights[k]||'');if(v!==null){S.weights[k]=v;render();}}
+function openPreMade(idx){
+  const w=WDB[idx];
+  S.workout=w.s.map((st,i)=>({id:i+1,sets:st.n||3,exercises:(st.e||[]).map((ex,ei)=>({...ex,modality:ex.m,name:ex.n,metric:ex.r,weight:ex.w,id:ex.id||('e'+ei)}))}));
+  S.wMods=w.mods;S.wTitle=t('wTitleReady');S.wSub=S.workout.length+' '+t('blocks');S.isPre=true;S.done={};S.weights={};S.screen='workout';render();
+}
+function doGenerate(){
+  if(S.setupSel.length===0||S.setupDur===null)return;
+  const n=S.setupDur===30?4:5;
+  S.wNum=n;
+  S.workout=generateWorkout(S.setupSel,n);S.wMods=[...S.setupSel];S.wTitle=t('wTitleBuild');S.wSub=S.setupDur+'min / '+n+' '+t('blocks')+' / 3 sets';S.isPre=false;S.done={};S.weights={};S.screen='workout';render();
+}
+function doRegen(){if(S.isPre)return;S.workout=generateWorkout(S.wMods,S.wNum||4);S.done={};S.weights={};render();}
+
+const MONTHS_EN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MONTHS_PT=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const WDAYS_PT=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const WDAYS_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+function loadCI(){try{return JSON.parse(localStorage.getItem('wk_ci')||'{}');}catch(e){return {};}}
+function saveCI(d,ti,c){const ci=loadCI();ci[d]={title:ti,calories:c};localStorage.setItem('wk_ci',JSON.stringify(ci));}
+function delCI(d){const ci=loadCI();delete ci[d];localStorage.setItem('wk_ci',JSON.stringify(ci));}
+function prevMonth(){if(S.calMonth===0){S.calMonth=11;S.calYear--;}else{S.calMonth--;}render();}
+function nextMonth(){if(S.calMonth===11){S.calMonth=0;S.calYear++;}else{S.calMonth++;}render();}
+function openCalDay(d){S.calModal=d;render();}
+function closeCalModal(){S.calModal=null;render();}
+function saveCalEntry(){const ti=(document.getElementById('ci-title')||{}).value||'';const c=(document.getElementById('ci-cals')||{}).value||'';if(S.calModal){saveCI(S.calModal,ti,c);}S.calModal=null;render();}
+function delCalEntry(d){delCI(d);S.calModal=null;render();}
+
+function langToggleBtn(){
+  return '<div style="display:flex;border:1px solid #222;border-radius:8px;overflow:hidden;flex-shrink:0">'
+    +'<button onclick="if(LANG!==\'pt\'){toggleLang()}" style="padding:4px 8px;font-size:10px;font-weight:800;background:'+(LANG==='pt'?'#fff':'none')+';color:'+(LANG==='pt'?'#000':'#444')+'">PT</button>'
+    +'<button onclick="if(LANG!==\'en\'){toggleLang()}" style="padding:4px 8px;font-size:10px;font-weight:800;background:'+(LANG==='en'?'#fff':'none')+';color:'+(LANG==='en'?'#000':'#444')+'">EN</button>'
+    +'</div>';
+}
+
+function calScreen(){
+  const ci=loadCI();
+  const now=new Date();
+  const todayStr=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+  const y=S.calYear,m=S.calMonth;
+  const firstDay=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const mKey=y+'-'+String(m+1).padStart(2,'0');
+  const ciKeys=Object.keys(ci).filter(k=>k.startsWith(mKey));
+  const totalCals=ciKeys.reduce((a,k)=>a+(parseInt(ci[k].calories)||0),0);
+  const MONTHS=LANG==='en'?MONTHS_EN:MONTHS_PT;
+  const WDAYS=LANG==='en'?WDAYS_EN:WDAYS_PT;
+  const wdayHtml=WDAYS.map(d=>'<div style="text-align:center;font-size:9px;font-weight:700;color:#333;padding:4px 0">'+d+'</div>').join('');
+  let cells='';
+  for(let i=0;i<firstDay;i++)cells+='<div></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const hasCi=!!ci[ds];const isToday=ds===todayStr;
+    cells+='<div onclick="openCalDay(\''+ds+'\')" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;cursor:pointer;border:2px solid '+(isToday?'#fff':'transparent')+';background:'+(hasCi?'#071507':'transparent')+';position:relative">'
+      +'<span style="font-size:13px;font-weight:'+(isToday||hasCi?'800':'400')+';color:'+(isToday?'#fff':hasCi?'#2ED573':'#666')+'">'+d+'</span>'
+      +(hasCi?'<span style="width:4px;height:4px;border-radius:50%;background:#2ED573;position:absolute;bottom:4px"></span>':'')
+      +'</div>';
+  }
+  const header='<div class="sticky" style="padding:13px 16px 11px;border-bottom:1px solid #141414">'
+    +'<div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">'
+    +'<button onclick="navTo(home)" style="background:none;color:#666;font-size:22px;padding:0 4px">←</button>'
+    +'<div style="font-size:13px;font-weight:900;letter-spacing:1px">'+t('calHeader')+'</div>'
+    +'<div style="margin-left:auto">'+langToggleBtn()+'</div>'
+    +'</div>'
+    +'<div style="display:flex;align-items:center;justify-content:space-between">'
+    +'<button onclick="prevMonth()" style="background:none;color:#666;font-size:24px;padding:2px 10px">‹</button>'
+    +'<div style="font-size:14px;font-weight:800">'+MONTHS[m]+' '+y+'</div>'
+    +'<button onclick="nextMonth()" style="background:none;color:#666;font-size:24px;padding:2px 10px">›</button>'
+    +'</div>'+'</div>';
+  const statsHtml=ciKeys.length>0
+    ?'<div style="display:flex;gap:8px;margin:12px 14px 0">'
+    +'<div style="flex:1;background:#0e0e0e;border-radius:12px;padding:11px;border:1px solid #1a1a1a;text-align:center">'
+    +'<div style="font-size:22px;font-weight:900;color:#2ED573">'+ciKeys.length+'</div>'
+    +'<div style="font-size:9px;color:#555;margin-top:2px">'+t('workoutsLabel')+'</div></div>'
+    +(totalCals>0?'<div style="flex:1;background:#0e0e0e;border-radius:12px;padding:11px;border:1px solid #1a1a1a;text-align:center">'
+    +'<div style="font-size:22px;font-weight:900;color:#FFA502">'+totalCals.toLocaleString()+'</div>'
+    +'<div style="font-size:9px;color:#555;margin-top:2px">'+t('kcalLabel')+'</div></div>':'')
+    +'</div>':'';
+  const grid='<div style="padding:10px 12px">'
+    +'<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px">'+wdayHtml+'</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px">'+cells+'</div>'
+    +'</div>'
+    +'<p style="text-align:center;font-size:10px;color:#333;margin-top:8px">'+t('tapDay')+'</p>';
+  let modalHtml='';
+  if(S.calModal){
+    const ds=S.calModal;
+    const parts=ds.split('-');
+    const MONTHS2=LANG==='en'?MONTHS_EN:MONTHS_PT;
+    const dateLabel=LANG==='en'
+      ?(MONTHS2[parseInt(parts[1])-1]+' '+parseInt(parts[2])+', '+parts[0])
+      :(parseInt(parts[2])+' de '+MONTHS2[parseInt(parts[1])-1]+' '+parts[0]);
+    const ex=ci[ds]||null;
+    modalHtml='<div onclick="closeCalModal()" style="position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;display:flex;align-items:flex-end">'
+      +'<div onclick="event.stopPropagation()" style="background:#111;border-radius:20px 20px 0 0;padding:24px 18px 36px;width:100%;max-width:480px;margin:0 auto;border-top:1px solid #222">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">'
+      +'<div><div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#555;margin-bottom:3px">'+t('checkin')+'</div>'
+      +'<div style="font-size:17px;font-weight:900">'+dateLabel+'</div></div>'
+      +(ex?'<button onclick="delCalEntry(\''+ds+'\')" style="background:none;color:#555;font-size:11px;padding:6px 10px;border:1px solid #222;border-radius:8px;cursor:pointer">'+t('deleteBtn')+'</button>':'<button onclick="closeCalModal()" style="background:none;color:#555;font-size:20px;padding:0 6px">×</button>')
+      +'</div>'
+      +'<div style="margin-bottom:12px">'
+      +'<label style="font-size:9px;font-weight:700;letter-spacing:2px;color:#555;display:block;margin-bottom:6px">'+t('titleLabel')+'</label>'
+      +'<input id="ci-title" type="text" placeholder="'+t('titlePlaceholder')+'" value="'+(ex?ex.title:'')+'" style="width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:12px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none">'
+      +'</div>'
+      +'<div style="margin-bottom:22px">'
+      +'<label style="font-size:9px;font-weight:700;letter-spacing:2px;color:#555;display:block;margin-bottom:6px">'+t('calsLabel')+'</label>'
+      +'<input id="ci-cals" type="number" placeholder="'+t('calsPlaceholder')+'" value="'+(ex&&ex.calories?ex.calories:'')+'" style="width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:12px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none">'
+      +'</div>'
+      +'<button onclick="saveCalEntry()" style="width:100%;padding:14px;border-radius:12px;background:#2ED573;color:#000;font-size:13px;font-weight:900;letter-spacing:1px;cursor:pointer">'+t('saveBtn')+'</button>'
+      +'</div>'
+      +'</div>';
+  }
+  return '<div style="min-height:100vh;padding-bottom:40px">'+header+statsHtml+grid+modalHtml+'</div>';
+}
+
+function badge(mod){const m=MC[mod];if(!m)return'';return '<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;background:'+m.b+';color:'+m.c+';display:inline-block">'+m.e+' '+mLabel(m)+'</span>';}
+function isComp(st){return Array.from({length:st.sets},(e,i)=>i+1).every(s=>S.done[st.id+'-'+s]===true);}
+
+function homeScreen(){
+  const ci=loadCI();const now=new Date();
+  const mKey=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  const ciMonth=Object.keys(ci).filter(k=>k.startsWith(mKey)).length;
+  const ciLabel=ciMonth===1?t('workoutsThisMonth'):t('workoutsThisMonthPlural');
+  return '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 18px">'
+    +'<div style="position:absolute;top:16px;right:16px">'+langToggleBtn()+'</div>'
+    +'<div style="text-align:center;margin-bottom:44px"><div style="font-size:52px;margin-bottom:7px">💪🏻</div><h1 style="font-size:32px;font-weight:900;letter-spacing:-2px;color:#fff;margin:0 0 5px">WORKOUT</h1><p style="color:#444;font-size:12px;margin:0">'+t('tagline')+'</p></div>'
+    +'<div style="width:100%;display:flex;flex-direction:column;gap:11px">'
+    +'<button onclick="navTo(lib)" style="width:100%;padding:20px 18px;border-radius:16px;border:1px solid #1e1e1e;background:#0e0e0e;color:#fff;text-align:left;display:flex;align-items:center;gap:13px"><div style="width:46px;height:46px;border-radius:12px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📋</div><div><div style="font-size:15px;font-weight:800;margin-bottom:2px">'+t('readyWorkout')+'</div><div style="font-size:11px;color:#555">'+t('readyDesc')+' · '+WDB.length+' '+t('workoutsCount')+'</div></div></button>'
+    +'<button onclick="navTo(setup)" style="width:100%;padding:20px 18px;border-radius:16px;border:1px solid #1e1e1e;background:#0e0e0e;color:#fff;text-align:left;display:flex;align-items:center;gap:13px"><div style="width:46px;height:46px;border-radius:12px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">⚡</div><div><div style="font-size:15px;font-weight:800;margin-bottom:2px">'+t('buildWorkout')+'</div><div style="font-size:11px;color:#555">'+t('buildDesc')+'</div></div></button>'
+    +'<button onclick="navTo(cal)" style="width:100%;padding:20px 18px;border-radius:16px;border:1px solid #1e1e1e;background:#0e0e0e;color:#fff;text-align:left;display:flex;align-items:center;gap:13px"><div style="width:46px;height:46px;border-radius:12px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📅</div><div><div style="font-size:15px;font-weight:800;margin-bottom:2px">'+t('calendar')+'</div><div style="font-size:11px;color:#555">'+(ciMonth>0?ciMonth+' '+ciLabel:'')+'</div></div></button>'
+    +'</div></div>';
+}
+
+function libScreen(){
+  const filt=S.libFilter.length>0?WDB.filter(w=>S.libFilter.every(f=>w.mods.indexOf(f)>-1)):WDB;
+  const chips=ML.map(m=>{const s=S.libFilter.indexOf(m.id)>-1;return '<button onclick="toggleLibFilter('+m.id+')" style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:99px;border:1px solid '+(s?m.c:'#2a2a2a')+';background:'+(s?m.b:'transparent')+';color:'+(s?m.c:'#555')+'">'+m.e+' '+mLabel(m)+'</button>';}).join('');
+  const items=filt.length===0?'<div style="text-align:center;color:#444;margin-top:36px;font-size:12px">'+t('noWorkouts')+'</div>':filt.map(w=>{const ri=WDB.indexOf(w);const tot=w.s.reduce((a,st)=>a+(st.e||[]).length,0);return '<button onclick="openPreMade('+ri+')" style="width:100%;padding:13px 14px;border-radius:13px;border:1px solid #1a1a1a;background:#0e0e0e;text-align:left;color:#fff;margin-bottom:7px"><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px">'+w.mods.map(badge).join(' ')+'</div><div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:#555">'+w.s.length+' '+t('blocks')+' - '+tot+' '+t('exercises')+'</span><span style="font-size:11px;color:#333">#'+w.id+'</span></div></button>';}).join('');
+  return '<div style="min-height:100vh;padding-bottom:40px"><div class="sticky" style="padding:13px 14px 9px;border-bottom:1px solid #141414"><div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><button onclick="navTo(home)" style="background:none;color:#666;font-size:22px;padding:0 4px">←</button><div style="font-size:13px;font-weight:900;letter-spacing:1px">'+t('readyWorkouts')+'</div><span style="font-size:10px;color:#444;margin-left:auto;margin-right:8px">'+filt.length+' '+t('workoutsCount')+'</span>'+langToggleBtn()+'</div><div style="display:flex;flex-wrap:wrap;gap:5px">'+chips+'</div></div><div style="padding:9px 14px">'+items+'</div></div>';
+}
+
+function setupScreen(){
+  const modGrid=ML.map(m=>{const s=S.setupSel.indexOf(m.id)>-1;return '<button onclick="toggleSetupMod('+m.id+')" style="padding:11px 6px;border-radius:11px;border:2px solid '+(s?m.c:'#1e1e1e')+';background:'+(s?m.b:'#0e0e0e')+';color:#fff;text-align:center;transform:'+(s?'scale(0.95)':'scale(1)')+'"><div style="font-size:18px;margin-bottom:3px">'+m.e+'</div><div style="font-size:9px;font-weight:700;color:'+(s?m.c:'#444')+'">'+mLabel(m)+'</div></button>';}).join('');
+  const durBtns=[{v:30,l:'30 min',d:t('block4')},{v:45,l:'45 min',d:t('block5')}].map(o=>{const s=S.setupDur===o.v;return '<button onclick="setDur('+o.v+')" style="padding:16px;border-radius:12px;border:2px solid '+(s?'#fff':'#1e1e1e')+';background:'+(s?'#fff':'#0e0e0e')+';color:'+(s?'#000':'#fff')+'"><div style="font-size:20px;font-weight:900">'+o.l+'</div><div style="font-size:9px;color:'+(s?'#777':'#444')+';margin-top:3px">'+o.d+'</div></button>';}).join('');
+  const selB=S.setupSel.map(badge).join(' ');
+  const ok=S.setupSel.length>0&&S.setupDur!==null;
+  return '<div style="min-height:100vh;padding:16px 16px 40px"><div style="display:flex;align-items:center;gap:9px;margin-bottom:26px"><button onclick="navTo(home)" style="background:none;color:#666;font-size:22px;padding:0 4px">←</button><div style="font-size:13px;font-weight:900;letter-spacing:1px">'+t('buildTitle')+'</div><div style="margin-left:auto">'+langToggleBtn()+'</div></div><div style="margin-bottom:24px"><p style="font-size:9px;font-weight:700;letter-spacing:3px;color:#555;margin-bottom:9px;text-transform:uppercase">'+t('modalities')+'</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px">'+modGrid+'</div></div><div style="margin-bottom:26px"><p style="font-size:9px;font-weight:700;letter-spacing:3px;color:#555;margin-bottom:9px;text-transform:uppercase">'+t('duration')+'</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">'+durBtns+'</div></div>'+(selB?'<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px">'+selB+'</div>':'')+'<button '+(ok?'onclick="doGenerate()"':'')+' style="width:100%;padding:15px;border-radius:12px;border:none;background:'+(ok?'#fff':'#151515')+';color:'+(ok?'#000':'#333')+';font-size:13px;font-weight:900;letter-spacing:1.5px;cursor:'+(ok?'pointer':'not-allowed')+'">'+(ok?t('generate'):t('selectPrompt'))+'</button></div>';
+}
+
+function workoutScreen(){
+  if(!S.workout)return'';
+  const sts=S.workout;const tot=sts.length;
+  const comp=sts.filter(st=>isComp(st)).length;const allDone=comp===tot;
+  const pct=Math.round((comp/tot)*100);
+  const stHtml=sts.map((st,idx)=>{
+    const done=isComp(st);const exs=st.exercises||[];
+    const setBtns=Array.from({length:st.sets},(e,i)=>i+1).map(s=>{const k=st.id+'-'+s;const d=S.done[k]===true;return '<button onclick="toggleSet('+st.id+','+s+')" style="width:30px;height:30px;border-radius:50%;border:2px solid '+(d?'#fff':'#2a2a2a')+';background:'+(d?'#fff':'transparent')+';color:'+(d?'#000':'#444')+';font-size:10px;font-weight:800">'+(d?'OK':s)+'</button>';}).join('');
+    const exHtml=exs.map((ex,ei)=>{
+      const mk=ex.modality||ex.m;const m=MC[mk];const wk=st.id+'-'+ei;
+      const cw=S.weights[wk]!==undefined?S.weights[wk]:(ex.w||ex.weight||'');
+      const ptName=ex.n||ex.name||'';
+      const dispName=exName(ptName);
+      const expKey=st.id+'-'+ei;
+      const isExp=!!S.expanded[expKey];
+      let mediaHtml='';
+      if(isExp){
+        const ytUrl=ytSearchUrl(dispName);
+        if(!_exDb){
+          mediaHtml='<div style="padding:14px;text-align:center;color:#555;font-size:11px">'+t('loadingMedia')+'</div>';
+        }else{
+          const imgUrl=exerciseImageUrl(ptName);
+          if(imgUrl){
+            const altTxt=exerciseImageAlt(ptName);
+            mediaHtml='<div style="padding:10px 14px 12px"><div style="background:#000;border-radius:10px;overflow:hidden;border:1px solid #1a1a1a"><img src="'+imgUrl+'" alt="'+altTxt.replace(/"/g,'&quot;')+'" loading="lazy" style="width:100%;height:auto;display:block" onerror="this.parentNode.innerHTML=\'<div style=&quot;padding:24px;text-align:center;color:#555;font-size:11px&quot;>'+t('noMedia').replace(/'/g,"\\'")+'</div>\'"></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:10px;color:#555"><span style="font-style:italic">'+altTxt+'</span><a href="'+ytUrl+'" target="_blank" rel="noopener" style="color:'+(m?m.c:'#888')+';text-decoration:none">▶ '+t('searchYt')+'</a></div></div>';
+          }else{
+            mediaHtml='<div style="padding:14px"><div style="padding:18px;text-align:center;color:#666;font-size:11px;background:#0a0a0a;border-radius:10px;border:1px dashed #1f1f1f">'+t('noMedia')+'<br><a href="'+ytUrl+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;padding:8px 14px;background:#151515;color:'+(m?m.c:'#aaa')+';border-radius:8px;text-decoration:none;font-weight:700">▶ '+t('searchYt')+'</a></div></div>';
+          }
+        }
+      }
+      const toggleLabel=isExp?t('hideExec'):t('showExec');
+      return '<div style="border-bottom:'+(ei<exs.length-1?'1px solid #111':'none')+'">'
+        +'<div style="padding:10px 14px">'
+        +(m?'<div style="font-size:9px;font-weight:700;color:'+m.c+';margin-bottom:3px">'+m.e+' '+mLabel(m).toUpperCase()+'</div>':'')
+        +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">'
+        +'<div style="flex:1"><div style="font-size:12px;font-weight:600;line-height:1.4;color:#ddd">'+dispName+'</div>'
+        +(ex.note?'<div style="font-size:9px;color:#555;margin-top:1px">'+ex.note+'</div>':'')+'</div>'
+        +'<div style="text-align:right;flex-shrink:0">'
+        +'<div style="font-size:13px;font-weight:900;color:'+(m?m.c:'#aaa')+'">'+(ex.r||ex.metric||'')+'</div>'
+        +'<div onclick="editWeight('+st.id+','+ei+')" style="font-size:9px;color:#555;margin-top:2px;cursor:pointer">🏋 <span style="border-bottom:1px dashed #444">'+(cw||'— kg')+'</span></div>'
+        +'</div></div>'
+        +'<button onclick="toggleExpand('+st.id+','+ei+')" style="margin-top:8px;background:'+(isExp?'#151515':'transparent')+';color:'+(m?m.c:'#888')+';border:1px solid '+(isExp?(m?m.c:'#333'):'#1a1a1a')+';border-radius:8px;padding:5px 10px;font-size:10px;font-weight:700;letter-spacing:0.5px;cursor:pointer">'+toggleLabel+'</button>'
+        +'</div>'
+        +mediaHtml
+        +'</div>';
+    }).join('');
+    return '<div style="border-radius:16px;border:1px solid '+(done?'#1c4a2c':'#1a1a1a')+';background:'+(done?'#081508':'#0e0e0e')+';overflow:hidden;margin-bottom:10px"><div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid #161616"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:22px;font-weight:900;color:'+(done?'#2ED573':'#2a2a2a')+'">'+String(idx+1).padStart(2,'0')+'</span><span style="font-size:9px;font-weight:800;padding:2px 8px;border-radius:99px;background:'+(done?'#2ED573':'#1a1a1a')+';color:'+(done?'#000':'#555')+'">'+(done?'OK':st.sets+' '+t('sets'))+'</span></div>'+(done?'':'<div style="display:flex;gap:5px">'+setBtns+'</div>')+'</div>'+exHtml+'</div>';
+  }).join('');
+  const compHtml=allDone?'<div style="border-radius:16px;border:1px solid rgba(46,213,115,.4);background:#051005;padding:26px 18px;text-align:center;margin-top:4px"><div style="font-size:40px;margin-bottom:8px">🎉</div><div style="font-size:18px;font-weight:900;color:#2ED573">'+t('workoutDone')+'</div><div style="color:#2a6a3a;font-size:12px;margin-top:5px">'+t('workoutDoneMsg')+'</div><button onclick="navTo(home)" style="margin-top:18px;background:#2ED573;color:#000;border-radius:10px;padding:11px 24px;font-size:12px;font-weight:900;cursor:pointer">'+t('newWorkout')+'</button></div>':'';
+  const modBadges=S.wMods.map(badge).join(' ');
+  return '<div style="min-height:100vh;padding-bottom:80px"><div class="sticky" style="padding:13px 16px 11px;border-bottom:1px solid #141414"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px"><button onclick="navTo(home)" style="background:none;color:#666;font-size:22px;padding:0 4px">←</button><div style="text-align:center"><div style="font-size:13px;font-weight:900;letter-spacing:1px">'+S.wTitle+'</div><div style="font-size:9px;color:#555">'+S.wSub+'</div></div>'+(S.isPre?'<div style="width:26px"></div>':'<button onclick="doRegen()" style="background:none;color:#666;font-size:18px;padding:0 4px">↺</button>')+'</div><div style="background:#1a1a1a;border-radius:99px;height:3px;overflow:hidden"><div style="height:100%;background:'+(allDone?'#2ED573':'#fff')+';width:'+pct+'%;transition:width 0.4s;border-radius:99px"></div></div><div style="display:flex;justify-content:space-between;margin-top:5px"><div style="display:flex;flex-wrap:wrap;gap:4px">'+modBadges+'</div><span style="font-size:10px;color:#444">'+comp+'/'+tot+'</span></div></div><div style="padding:11px 14px">'+stHtml+compHtml+'</div></div>';
+}
+
+function render(){
+  const root=document.getElementById('root');
+  const sc=window.scrollY;
+  if(S.screen==='home')root.innerHTML=homeScreen();
+  else if(S.screen==='lib')root.innerHTML=libScreen();
+  else if(S.screen==='setup')root.innerHTML=setupScreen();
+  else if(S.screen==='workout')root.innerHTML=workoutScreen();
+  else if(S.screen==='cal')root.innerHTML=calScreen();
+  if(S.screen==='workout')setTimeout(()=>window.scrollTo(0,sc),0);
+}
+render();
+</script>
+</body>
+</html>
