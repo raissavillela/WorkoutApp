@@ -56,7 +56,7 @@ const T={
     hideExec:'▲ Esconder',
     loadingMedia:'Carregando demonstração…',
     noMedia:'Sem demonstração para este exercício.',
-    searchYt:'Buscar vídeo no YouTube',
+    apiMissing:'Demonstrações indisponíveis (configurar chave da API).',
     workoutDone:'TREINO CONCLUÍDO!',
     workoutDoneMsg:'Incrível! Você mandou bem hoje!',
     newWorkout:'NOVO TREINO',
@@ -105,7 +105,7 @@ const T={
     hideExec:'▲ Hide',
     loadingMedia:'Loading demonstration…',
     noMedia:'No demonstration for this exercise.',
-    searchYt:'Search video on YouTube',
+    apiMissing:'Demonstrations unavailable (configure API key).',
     workoutDone:'WORKOUT COMPLETE!',
     workoutDoneMsg:'Amazing! You crushed it today!',
     newWorkout:'NEW WORKOUT',
@@ -465,89 +465,34 @@ const musculacao='musculacao',core='core',cardio='cardio',metabolico='metabolico
 const S={screen:'home',libFilter:[],setupSel:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{}};
 
 /* ============== EXERCISE DEMONSTRATION MEDIA ==============
-   Base de imagens demonstrativas vinda da workoutxapp/free-exercise-db (open source).
-   Carrega sob demanda quando o usuário abre "Ver execução".
-   Para exercícios sem correspondência, mostra um link de busca no YouTube. */
-const EX_DB_URL='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json';
-const EX_IMG_BASE='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
-let _exDb=null;let _exDbPromise=null;const _exMatchCache={};
-function loadExDb(){
-  if(_exDb)return Promise.resolve(_exDb);
-  if(_exDbPromise)return _exDbPromise;
-  _exDbPromise=fetch(EX_DB_URL).then(r=>r.json()).then(data=>{
-    _exDb=data.map(e=>({name:e.name,images:e.images||[],tokens:e.name.toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean)}));
-    return _exDb;
-  }).catch(()=>{_exDb=[];return _exDb;});
-  return _exDbPromise;
+   GIFs demonstrativos vindos da API workoutxapp via proxy /api/exercise-media.
+   Nunca exibido para exercícios de Cardio. */
+const _media={}; /* normalizedName -> {state:'loading'|'ok'|'miss'|'err', data} */
+function _normName(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
+function fetchMedia(ptName){
+  const k=_normName(ptName);
+  if(_media[k])return;
+  _media[k]={state:'loading'};
+  fetch('/api/exercise-media?name='+encodeURIComponent(ptName))
+    .then(r=>r.json().then(j=>({ok:r.ok,status:r.status,j})))
+    .then(({ok,status,j})=>{
+      if(!ok){
+        _media[k]={state:status===503?'noapi':'err',msg:j&&j.message||j&&j.error||''};
+      }else if(j.exerciseId&&j.gifUrl){
+        _media[k]={state:'ok',data:j};
+      }else{
+        _media[k]={state:'miss'};
+      }
+      render();
+    })
+    .catch(e=>{_media[k]={state:'err',msg:String(e)};render();});
 }
-const STOPWORDS={'the':1,'a':1,'an':1,'of':1,'with':1,'and':1,'on':1,'in':1,'to':1,'for':1,'at':1,'or':1,'db':1,'bb':1};
-const SYNONYMS={
-  'lunge':['lunges'],'lunges':['lunge'],
-  'squat':['squats'],'squats':['squat'],
-  'deadlift':['deadlifts'],'deadlifts':['deadlift'],
-  'crunch':['crunches','crunch'],'crunches':['crunch'],
-  'curl':['curls'],'curls':['curl'],
-  'press':['press'],'pulldown':['pulldown','pull-down'],
-  'row':['rows'],'rows':['row'],
-  'raise':['raises'],'raises':['raise'],
-  'jack':['jacks'],'jacks':['jack'],
-  'climber':['climbers'],'climbers':['climber'],
-  'kickback':['kickbacks'],'twist':['twists','twist'],
-  'shrug':['shrugs'],'extension':['extensions'],
-  'thrust':['thrusts'],'pushup':['push-up','pushups','push','up'],
-  'situp':['sit-up','sit','up'],
-  'dumbbell':['dumbbell','db'],'barbell':['barbell','bb'],
-  'cable':['cable','cross','cross-over','crossover'],
-  'kettlebell':['kettlebell','kb']
-};
-function tokenize(name){
-  let n=(name||'').toLowerCase();
-  n=n.replace(/db\b/g,'dumbbell').replace(/bb\b/g,'barbell').replace(/kb\b/g,'kettlebell');
-  n=n.replace(/[^a-z0-9 ]/g,' ');
-  const toks=n.split(/\s+/).filter(t=>t&&!STOPWORDS[t]);
-  const expanded=new Set(toks);
-  toks.forEach(t=>(SYNONYMS[t]||[]).forEach(s=>expanded.add(s)));
-  return Array.from(expanded);
-}
-function findExerciseMatch(ptName){
-  if(!_exDb||_exDb.length===0)return null;
-  const enName=(typeof TRANS_EX!=='undefined'&&TRANS_EX[ptName])?TRANS_EX[ptName]:ptName;
-  const cacheKey=enName.toLowerCase();
-  if(_exMatchCache[cacheKey]!==undefined)return _exMatchCache[cacheKey];
-  const queryToks=tokenize(enName);
-  if(queryToks.length===0){_exMatchCache[cacheKey]=null;return null;}
-  let best=null,bestScore=0;
-  for(let i=0;i<_exDb.length;i++){
-    const ex=_exDb[i];
-    if(!ex.images||ex.images.length===0)continue;
-    const overlap=queryToks.filter(t=>ex.tokens.indexOf(t)>-1).length;
-    if(overlap===0)continue;
-    /* Score = overlap balanced for length difference */
-    const score=overlap*2-Math.abs(ex.tokens.length-queryToks.length)*0.3;
-    if(score>bestScore){bestScore=score;best=ex;}
-  }
-  /* Require at least 2 matched tokens, or 1 if name is very short */
-  const minOverlap=queryToks.length<=2?1:2;
-  const finalMatched=queryToks.filter(t=>best&&best.tokens.indexOf(t)>-1).length;
-  const result=(best&&finalMatched>=minOverlap)?best:null;
-  _exMatchCache[cacheKey]=result;
-  return result;
-}
-function exerciseImageUrl(ptName){
-  const m=findExerciseMatch(ptName);
-  if(!m||!m.images||m.images.length===0)return null;
-  return EX_IMG_BASE+m.images[0];
-}
-function exerciseImageAlt(ptName){
-  const m=findExerciseMatch(ptName);
-  return m?m.name:ptName;
-}
-function ytSearchUrl(name){return 'https://www.youtube.com/results?search_query='+encodeURIComponent('como fazer '+name);}
-function toggleExpand(stId,ei){
+function getMedia(ptName){return _media[_normName(ptName)];}
+function toggleExpand(stId,ei,ptName){
   const k=stId+'-'+ei;
   if(S.expanded[k]){delete S.expanded[k];render();return;}
   S.expanded[k]=true;
-  if(!_exDb){loadExDb().then(()=>render());}
+  if(ptName)fetchMedia(ptName);
   render();
 }
 
@@ -730,23 +675,23 @@ function workoutScreen(){
       const ptName=ex.n||ex.name||'';
       const dispName=exName(ptName);
       const expKey=st.id+'-'+ei;
-      const isExp=!!S.expanded[expKey];
+      const isCardio=mk===cardio;
+      const isExp=!isCardio&&!!S.expanded[expKey];
       let mediaHtml='';
       if(isExp){
-        const ytUrl=ytSearchUrl(dispName);
-        if(!_exDb){
-          mediaHtml='<div style="padding:14px;text-align:center;color:#555;font-size:11px">'+t('loadingMedia')+'</div>';
+        const md=getMedia(ptName);
+        if(!md||md.state==='loading'){
+          mediaHtml='<div style="padding:18px;text-align:center;color:#555;font-size:11px">'+t('loadingMedia')+'</div>';
+        }else if(md.state==='ok'){
+          const altTxt=(md.data.name||dispName).replace(/"/g,'&quot;');
+          mediaHtml='<div style="padding:10px 14px 12px"><div style="background:#000;border-radius:10px;overflow:hidden;border:1px solid #1a1a1a"><img src="'+md.data.gifUrl+'" alt="'+altTxt+'" loading="lazy" style="width:100%;height:auto;display:block"></div><div style="margin-top:6px;font-size:10px;color:#555;font-style:italic">'+altTxt+(md.data.exerciseId?' · #'+md.data.exerciseId:'')+'</div></div>';
+        }else if(md.state==='noapi'){
+          mediaHtml='<div style="padding:14px"><div style="padding:14px;text-align:center;color:#666;font-size:11px;background:#0a0a0a;border-radius:10px;border:1px dashed #1f1f1f">'+t('apiMissing')+'</div></div>';
         }else{
-          const imgUrl=exerciseImageUrl(ptName);
-          if(imgUrl){
-            const altTxt=exerciseImageAlt(ptName);
-            mediaHtml='<div style="padding:10px 14px 12px"><div style="background:#000;border-radius:10px;overflow:hidden;border:1px solid #1a1a1a"><img src="'+imgUrl+'" alt="'+altTxt.replace(/"/g,'&quot;')+'" loading="lazy" style="width:100%;height:auto;display:block" onerror="this.parentNode.innerHTML=\'<div style=&quot;padding:24px;text-align:center;color:#555;font-size:11px&quot;>'+t('noMedia').replace(/'/g,"\\'")+'</div>\'"></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:10px;color:#555"><span style="font-style:italic">'+altTxt+'</span><a href="'+ytUrl+'" target="_blank" rel="noopener" style="color:'+(m?m.c:'#888')+';text-decoration:none">▶ '+t('searchYt')+'</a></div></div>';
-          }else{
-            mediaHtml='<div style="padding:14px"><div style="padding:18px;text-align:center;color:#666;font-size:11px;background:#0a0a0a;border-radius:10px;border:1px dashed #1f1f1f">'+t('noMedia')+'<br><a href="'+ytUrl+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;padding:8px 14px;background:#151515;color:'+(m?m.c:'#aaa')+';border-radius:8px;text-decoration:none;font-weight:700">▶ '+t('searchYt')+'</a></div></div>';
-          }
+          mediaHtml='<div style="padding:14px"><div style="padding:14px;text-align:center;color:#666;font-size:11px;background:#0a0a0a;border-radius:10px;border:1px dashed #1f1f1f">'+t('noMedia')+'</div></div>';
         }
       }
-      const toggleLabel=isExp?t('hideExec'):t('showExec');
+      const toggleBtn=isCardio?'':'<button onclick="toggleExpand('+st.id+','+ei+",'"+ptName.replace(/'/g,"\\'")+"'"+')" style="margin-top:8px;background:'+(isExp?'#151515':'transparent')+';color:'+(m?m.c:'#888')+';border:1px solid '+(isExp?(m?m.c:'#333'):'#1a1a1a')+';border-radius:8px;padding:5px 10px;font-size:10px;font-weight:700;letter-spacing:0.5px;cursor:pointer">'+(isExp?t('hideExec'):t('showExec'))+'</button>';
       return '<div style="border-bottom:'+(ei<exs.length-1?'1px solid #111':'none')+'">'
         +'<div style="padding:10px 14px">'
         +(m?'<div style="font-size:9px;font-weight:700;color:'+m.c+';margin-bottom:3px">'+m.e+' '+mLabel(m).toUpperCase()+'</div>':'')
@@ -757,7 +702,7 @@ function workoutScreen(){
         +'<div style="font-size:13px;font-weight:900;color:'+(m?m.c:'#aaa')+'">'+(ex.r||ex.metric||'')+'</div>'
         +'<div onclick="editWeight('+st.id+','+ei+')" style="font-size:9px;color:#555;margin-top:2px;cursor:pointer">🏋 <span style="border-bottom:1px dashed #444">'+(cw||'— kg')+'</span></div>'
         +'</div></div>'
-        +'<button onclick="toggleExpand('+st.id+','+ei+')" style="margin-top:8px;background:'+(isExp?'#151515':'transparent')+';color:'+(m?m.c:'#888')+';border:1px solid '+(isExp?(m?m.c:'#333'):'#1a1a1a')+';border-radius:8px;padding:5px 10px;font-size:10px;font-weight:700;letter-spacing:0.5px;cursor:pointer">'+toggleLabel+'</button>'
+        +toggleBtn
         +'</div>'
         +mediaHtml
         +'</div>';
