@@ -18201,5 +18201,563 @@
       "caloriesPerMinute": 7.3,
       "description": "Barbell Reverse Grip Skullcrusher is a intermediate single-joint isolation pushing exercise targeting the Triceps in the Upper Arms region. Performed using barbell, it falls under the strength category. Secondary muscles engaged include Forearms."
     }
+  ],
+  "abdominal": [
+    {
+      "id": "0805",
+      "name": "Suspended Abdominal Fallout",
+      "bodyPart": "Waist",
+      "equipment": "Body Weight",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Obliques",
+        "Hip Flexors"
+      ],
+      "instructions": [
+        "Attach a suspension trainer to a high anchor point and adjust the straps to waist height.",
+        "Stand facing away from the anchor point and hold the handles with your arms extended in front of you.",
+        "Lean forward at the waist, keeping your body straight and your core engaged.",
+        "Lower your body as far as you can while maintaining control and tension in your abs.",
+        "Pause for a moment at the bottom, then slowly raise your body back up to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0805.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Suspended Abdominal Fallout is a beginner single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using bodyweight, it falls under the strength category. Secondary muscles engaged include Obliques and Hip Flexors."
+    }
+  ],
+  "infra": [],
+  "estendido": [],
+  "abs": [],
+  "normal": [],
+  "dumbell": [],
+  "vertical": [
+    {
+      "id": "0826",
+      "name": "Vertical Leg Raise (on Parallel Bars)",
+      "bodyPart": "Waist",
+      "equipment": "Body Weight",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Hip Flexors"
+      ],
+      "instructions": [
+        "Hang from the parallel bars with your arms fully extended and your body straight.",
+        "Engage your core and lift your legs up in front of you, keeping them straight.",
+        "Continue lifting until your legs are parallel to the ground or slightly higher.",
+        "Pause for a moment at the top, then slowly lower your legs back down to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0826.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Vertical Leg Raise (on Parallel Bars) is a beginner single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using bodyweight, it falls under the strength category. Secondary muscles engaged include Hip Flexors."
+    },
+    {
+      "id": "1015",
+      "name": "Band Vertical Pallof Press",
+      "bodyPart": "Waist",
+      "equipment": "Band",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Obliques",
+        "Glutes"
+      ],
+      "instructions": [
+        "Stand with your feet shoulder-width apart and wrap the band around a sturdy object at chest height.",
+        "Hold the band with both hands and step away from the anchor point, creating tension in the band.",
+        "Position yourself perpendicular to the anchor point, with your side facing the band.",
+        "Extend your arms straight out in front of you, keeping your hands at chest height.",
+        "Engage your core and press the band away from your chest, fully extending your arms.",
+        "Hold the position for a few seconds, then slowly bring the band back towards your chest.",
+        "Repeat for the desired number of repetitions, then switch sides."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/1015.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "static",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Vertical Pallof Press is a beginner single-joint isolation static exercise targeting the Abs in the Waist region. Performed using band, it falls under the strength category. Secondary muscles engaged include Obliques and Glutes."
+    },
+    {
+      "id": "1348",
+      "name": "Lever Reverse Grip Vertical Row",
+      "bodyPart": "Back",
+      "equipment": "Leverage Machine",
+      "target": "Upper Back",
+      "secondaryMuscles": [
+        "Biceps",
+        "Forearms"
+      ],
+      "instructions": [
+        "Adjust the seat height and footplate position to ensure proper alignment.",
+        "Sit on the machine with your chest against the pad and your feet flat on the footplate.",
+        "Grasp the handles with an underhand grip, palms facing up.",
+        "Keep your back straight and engage your core.",
+        "Pull the handles towards your chest, squeezing your shoulder blades together.",
+        "Pause for a moment at the top of the movement, then slowly release and extend your arms back to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/1348.gif",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "mechanic": "compound",
+      "force": "pull",
+      "met": 4.5,
+      "caloriesPerMinute": 5.5,
+      "description": "Lever Reverse Grip Vertical Row is a intermediate multi-joint compound pulling exercise targeting the Upper Back in the Back region. Performed using leverage machine, it falls under the strength category. Secondary muscles engaged include Biceps and Forearms."
+    },
+    {
+      "id": "1401",
+      "name": "Muscle-up (on Vertical Bar)",
+      "bodyPart": "Back",
+      "equipment": "Body Weight",
+      "target": "Lats",
+      "secondaryMuscles": [
+        "Biceps",
+        "Triceps",
+        "Forearms"
+      ],
+      "instructions": [
+        "Start by hanging from a vertical bar with your palms facing away from you and your arms fully extended.",
+        "Engage your core and pull your body up towards the bar, leading with your chest.",
+        "As you pull yourself up, lean back slightly and bring your elbows towards your sides.",
+        "Continue pulling until your chest reaches the bar and your elbows are fully bent.",
+        "Pause for a moment at the top, then slowly lower yourself back down to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/1401.gif",
+      "category": "strength",
+      "difficulty": "advanced",
+      "mechanic": "compound",
+      "force": "pull",
+      "met": 5.5,
+      "caloriesPerMinute": 6.7,
+      "description": "Muscle-up (on Vertical Bar) is a advanced multi-joint compound pulling exercise targeting the Lats in the Back region. Performed using bodyweight, it falls under the strength category. Secondary muscles engaged include Biceps and Triceps."
+    }
+  ],
+  "band": [
+    {
+      "id": "0968",
+      "name": "Band Alternating Biceps Curl",
+      "bodyPart": "Upper Arms",
+      "equipment": "Band",
+      "target": "Biceps",
+      "secondaryMuscles": [
+        "Forearms"
+      ],
+      "instructions": [
+        "Stand with your feet shoulder-width apart and hold the band with an underhand grip, palms facing up.",
+        "Keep your elbows close to your sides and slowly curl one arm up towards your shoulder, squeezing your biceps at the top.",
+        "Lower the arm back down to the starting position and repeat with the other arm.",
+        "Continue alternating arms for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0968.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "pull",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Alternating Biceps Curl is a beginner single-joint isolation pulling exercise targeting the Biceps in the Upper Arms region. Performed using band, it falls under the strength category. Secondary muscles engaged include Forearms."
+    },
+    {
+      "id": "0969",
+      "name": "Band Alternating V-up",
+      "bodyPart": "Waist",
+      "equipment": "Band",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Hip Flexors"
+      ],
+      "instructions": [
+        "Lie flat on your back with your legs straight and your arms extended overhead, holding the band.",
+        "Engage your abs and lift your legs and upper body off the ground simultaneously, reaching your hands towards your toes.",
+        "As you lower your legs and upper body back down, switch the position of your legs, crossing one over the other.",
+        "Repeat the movement, alternating the position of your legs with each repetition.",
+        "Continue for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0969.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Alternating V-up is a beginner single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using band, it falls under the strength category. Secondary muscles engaged include Hip Flexors."
+    },
+    {
+      "id": "0970",
+      "name": "Band Assisted Pull-up",
+      "bodyPart": "Back",
+      "equipment": "Band",
+      "target": "Lats",
+      "secondaryMuscles": [
+        "Biceps",
+        "Forearms"
+      ],
+      "instructions": [
+        "Attach the band to a pull-up bar or sturdy anchor point.",
+        "Step onto the band and grip the bar with your palms facing away from you, hands slightly wider than shoulder-width apart.",
+        "Hang with your arms fully extended, keeping your core engaged and your shoulders down and back.",
+        "Pull your body up towards the bar by squeezing your shoulder blades together and driving your elbows down towards your hips.",
+        "Continue pulling until your chin is above the bar, then slowly lower yourself back down to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0970.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "compound",
+      "force": "pull",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Assisted Pull-up is a beginner multi-joint compound pulling exercise targeting the Lats in the Back region. Performed using band, it falls under the strength category. Secondary muscles engaged include Biceps and Forearms."
+    },
+    {
+      "id": "0971",
+      "name": "Band Assisted Wheel Rollerout",
+      "bodyPart": "Waist",
+      "equipment": "Band",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Lower Back"
+      ],
+      "instructions": [
+        "Kneel on the floor and hold the handles of the band with both hands, palms facing down.",
+        "Place the band on the ground in front of you and position your hands shoulder-width apart.",
+        "Engage your core and slowly roll the wheel forward, extending your body as far as you can while maintaining control.",
+        "Pause for a moment at the furthest point, then slowly roll the wheel back towards your knees to return to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0971.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Assisted Wheel Rollerout is a beginner single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using band, it falls under the strength category. Secondary muscles engaged include Lower Back."
+    },
+    {
+      "id": "0972",
+      "name": "Band Bicycle Crunch",
+      "bodyPart": "Waist",
+      "equipment": "Band",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Hip Flexors",
+        "Obliques"
+      ],
+      "instructions": [
+        "Lie flat on your back with your hands behind your head and your knees bent.",
+        "Lift your feet off the ground and bring your right knee towards your chest while simultaneously twisting your torso to bring your left elbow towards your right knee.",
+        "Straighten your right leg while bringing your left knee towards your chest and twisting your torso to bring your right elbow towards your left knee.",
+        "Continue alternating the twisting motion, as if you are pedaling a bicycle, while keeping your core engaged throughout the movement.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0972.gif",
+      "category": "cardio",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 8,
+      "caloriesPerMinute": 9.8,
+      "description": "Band Bicycle Crunch is a beginner single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using band, it falls under the cardio category. Secondary muscles engaged include Hip Flexors and Obliques."
+    },
+    {
+      "id": "0974",
+      "name": "Band Close-grip Pulldown",
+      "bodyPart": "Back",
+      "equipment": "Band",
+      "target": "Lats",
+      "secondaryMuscles": [
+        "Biceps",
+        "Forearms"
+      ],
+      "instructions": [
+        "Attach the band to a high anchor point, such as a pull-up bar or sturdy beam.",
+        "Stand facing the anchor point and grab the band with an underhand grip, hands shoulder-width apart.",
+        "Step back to create tension in the band, keeping your feet hip-width apart.",
+        "Engage your core and keep your back straight as you pull the band down towards your chest, squeezing your shoulder blades together.",
+        "Pause for a moment at the bottom of the movement, then slowly release the band back to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0974.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "compound",
+      "force": "pull",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Close-grip Pulldown is a beginner multi-joint compound pulling exercise targeting the Lats in the Back region. Performed using band, it falls under the strength category. Secondary muscles engaged include Biceps and Forearms."
+    },
+    {
+      "id": "0975",
+      "name": "Band Close-grip Push-up",
+      "bodyPart": "Upper Arms",
+      "equipment": "Band",
+      "target": "Triceps",
+      "secondaryMuscles": [
+        "Chest",
+        "Shoulders"
+      ],
+      "instructions": [
+        "Place a band around your upper arms, just above the elbows.",
+        "Assume a push-up position with your hands directly under your shoulders and your body in a straight line from head to heels.",
+        "Bend your elbows and lower your chest towards the ground, keeping your elbows close to your sides.",
+        "Push through your palms to extend your arms and return to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0975.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "compound",
+      "force": "push",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Close-grip Push-up is a beginner multi-joint compound pushing exercise targeting the Triceps in the Upper Arms region. Performed using band, it falls under the strength category. Secondary muscles engaged include Chest and Shoulders."
+    },
+    {
+      "id": "0976",
+      "name": "Band Concentration Curl",
+      "bodyPart": "Upper Arms",
+      "equipment": "Band",
+      "target": "Biceps",
+      "secondaryMuscles": [
+        "Forearms"
+      ],
+      "instructions": [
+        "Sit on a bench or chair with your legs spread apart and your feet flat on the ground.",
+        "Hold one end of the band in your hand and step on the other end with your foot on the same side.",
+        "Lean forward slightly and rest your elbow on the inside of your thigh, just above the knee.",
+        "With your palm facing up, slowly curl your hand towards your shoulder, keeping your upper arm stationary.",
+        "Pause for a moment at the top, then slowly lower your hand back down to the starting position.",
+        "Repeat for the desired number of repetitions, then switch sides."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0976.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "pull",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Concentration Curl is a beginner single-joint isolation pulling exercise targeting the Biceps in the Upper Arms region. Performed using band, it falls under the strength category. Secondary muscles engaged include Forearms."
+    },
+    {
+      "id": "0977",
+      "name": "Band Front Lateral Raise",
+      "bodyPart": "Shoulders",
+      "equipment": "Band",
+      "target": "Delts",
+      "secondaryMuscles": [
+        "Traps",
+        "Upper Back"
+      ],
+      "instructions": [
+        "Stand with your feet shoulder-width apart and hold the band in front of your thighs with your palms facing down.",
+        "Keep your arms straight and lift the band up in front of you until your arms are parallel to the ground.",
+        "Pause for a moment at the top, then slowly lower the band back down to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0977.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Front Lateral Raise is a beginner single-joint isolation pushing exercise targeting the Delts in the Shoulders region. Performed using band, it falls under the strength category. Secondary muscles engaged include Traps and Upper Back."
+    },
+    {
+      "id": "0978",
+      "name": "Band Front Raise",
+      "bodyPart": "Shoulders",
+      "equipment": "Band",
+      "target": "Delts",
+      "secondaryMuscles": [
+        "Triceps",
+        "Upper Back"
+      ],
+      "instructions": [
+        "Stand with your feet shoulder-width apart and hold the band in front of your thighs with your palms facing down.",
+        "Keep your arms straight and slowly raise them forward until they are parallel to the ground.",
+        "Pause for a moment at the top, then slowly lower your arms back down to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0978.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "Band Front Raise is a beginner single-joint isolation pushing exercise targeting the Delts in the Shoulders region. Performed using band, it falls under the strength category. Secondary muscles engaged include Triceps and Upper Back."
+    }
+  ],
+  "bend": [
+    {
+      "id": "0002",
+      "name": "45° Side Bend",
+      "bodyPart": "Waist",
+      "equipment": "Body Weight",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Obliques"
+      ],
+      "instructions": [
+        "Stand with your feet shoulder-width apart and your arms extended straight down by your sides.",
+        "Keeping your back straight and your core engaged, slowly bend your torso to one side, lowering your hand towards your knee.",
+        "Pause for a moment at the bottom, then slowly return to the starting position.",
+        "Repeat on the other side.",
+        "Continue alternating sides for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0002.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 3.5,
+      "caloriesPerMinute": 4.3,
+      "description": "45° Side Bend is a beginner single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using bodyweight, it falls under the strength category. Secondary muscles engaged include Obliques."
+    },
+    {
+      "id": "0221",
+      "name": "Cable Side Bend Crunch (bosu Ball)",
+      "bodyPart": "Waist",
+      "equipment": "Cable",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Obliques"
+      ],
+      "instructions": [
+        "Stand with your feet shoulder-width apart, holding a cable handle in one hand.",
+        "Place the other hand on your hip.",
+        "Engage your core and slowly bend sideways towards the hand holding the cable, keeping your back straight.",
+        "Pause for a moment at the bottom of the movement, then slowly return to the starting position.",
+        "Repeat for the desired number of repetitions, then switch sides."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0221.gif",
+      "category": "cardio",
+      "difficulty": "intermediate",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 8,
+      "caloriesPerMinute": 9.8,
+      "description": "Cable Side Bend Crunch (bosu Ball) is a intermediate single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using cable, it falls under the cardio category. Secondary muscles engaged include Obliques."
+    },
+    {
+      "id": "0222",
+      "name": "Cable Side Bend",
+      "bodyPart": "Waist",
+      "equipment": "Cable",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Obliques"
+      ],
+      "instructions": [
+        "Stand with your feet shoulder-width apart and grasp the cable handle with one hand.",
+        "Keep your back straight and your core engaged.",
+        "Slowly bend sideways at the waist, lowering the cable handle towards your knee.",
+        "Pause for a moment, then return to the starting position.",
+        "Repeat on the other side.",
+        "Alternate sides for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0222.gif",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 4.5,
+      "caloriesPerMinute": 5.5,
+      "description": "Cable Side Bend is a intermediate single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using cable, it falls under the strength category. Secondary muscles engaged include Obliques."
+    },
+    {
+      "id": "0407",
+      "name": "Dumbbell Side Bend",
+      "bodyPart": "Waist",
+      "equipment": "Dumbbell",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Obliques"
+      ],
+      "instructions": [
+        "Stand up straight with your feet shoulder-width apart and hold a dumbbell in one hand, letting it hang down by your side.",
+        "Keeping your back straight and your core engaged, slowly bend sideways at the waist towards the opposite side of the dumbbell, lowering the weight as far as you comfortably can.",
+        "Pause for a moment, then slowly return to the starting position.",
+        "Repeat for the desired number of repetitions, then switch sides and repeat."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0407.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 5,
+      "caloriesPerMinute": 6.1,
+      "description": "Dumbbell Side Bend is a beginner single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using dumbbell, it falls under the strength category. Secondary muscles engaged include Obliques."
+    },
+    {
+      "id": "0850",
+      "name": "Weighted Side Bend (on Stability Ball)",
+      "bodyPart": "Waist",
+      "equipment": "Weighted",
+      "target": "Abs",
+      "secondaryMuscles": [
+        "Obliques",
+        "Lower Back"
+      ],
+      "instructions": [
+        "Sit on a stability ball with your feet shoulder-width apart and flat on the ground.",
+        "Hold a weight in one hand and place your other hand on your hip.",
+        "Engage your core and slowly bend sideways towards the weighted side, keeping your back straight.",
+        "Pause for a moment at the bottom, then slowly return to the starting position.",
+        "Repeat for the desired number of repetitions, then switch sides."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0850.gif",
+      "category": "balance",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 3,
+      "caloriesPerMinute": 3.7,
+      "description": "Weighted Side Bend (on Stability Ball) is a beginner single-joint isolation pushing exercise targeting the Abs in the Waist region. Performed using weighted, it falls under the balance category. Secondary muscles engaged include Obliques and Lower Back."
+    },
+    {
+      "id": "3221",
+      "name": "Half Knee Bends (male)",
+      "bodyPart": "Cardio",
+      "equipment": "Body Weight",
+      "target": "Cardiovascular System",
+      "secondaryMuscles": [
+        "Quadriceps",
+        "Hamstrings",
+        "Glutes"
+      ],
+      "instructions": [
+        "Stand with your feet shoulder-width apart.",
+        "Bend your knees and lower your body down as if you were sitting back into a chair.",
+        "Keep your chest up and your weight in your heels.",
+        "Pause for a moment at the bottom, then push through your heels to return to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/3221.gif",
+      "category": "cardio",
+      "difficulty": "beginner",
+      "mechanic": "compound",
+      "force": "push",
+      "met": 8,
+      "caloriesPerMinute": 9.8,
+      "description": "Half Knee Bends (male) is a beginner multi-joint compound pushing exercise targeting the Cardiovascular System in the Cardio region. Performed using bodyweight, it falls under the cardio category. Secondary muscles engaged include Quadriceps and Hamstrings."
+    }
   ]
 }

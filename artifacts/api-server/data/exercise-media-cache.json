@@ -1,344 +1,4 @@
 {
-  "abdominal bicicleta": {
-    "query": "Abdominal bicicleta",
-    "exerciseId": "0972",
-    "name": "Band Bicycle Crunch",
-    "gifUrl": "/api/exercise-media/gif/0972",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "0972",
-        "name": "Band Bicycle Crunch",
-        "gifUrl": "/api/exercise-media/gif/0972",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0262",
-        "name": "Cross Body Crunch",
-        "gifUrl": "/api/exercise-media/gif/0262",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0267",
-        "name": "Crunch (hands Overhead)",
-        "gifUrl": "/api/exercise-media/gif/0267",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0242",
-        "name": "Cable Tuck Reverse Crunch",
-        "gifUrl": "/api/exercise-media/gif/0242",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      }
-    ],
-    "ts": 1776807024369,
-    "source": "auto"
-  },
-  "abdominal bike": {
-    "query": "Abdominal bike",
-    "exerciseId": "0972",
-    "name": "Band Bicycle Crunch",
-    "gifUrl": "/api/exercise-media/gif/0972",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "0972",
-        "name": "Band Bicycle Crunch",
-        "gifUrl": "/api/exercise-media/gif/0972",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0262",
-        "name": "Cross Body Crunch",
-        "gifUrl": "/api/exercise-media/gif/0262",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0267",
-        "name": "Crunch (hands Overhead)",
-        "gifUrl": "/api/exercise-media/gif/0267",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0242",
-        "name": "Cable Tuck Reverse Crunch",
-        "gifUrl": "/api/exercise-media/gif/0242",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      }
-    ],
-    "ts": 1776807024433,
-    "source": "auto"
-  },
-  "abdominal canivete": {
-    "query": "Abdominal canivete",
-    "exerciseId": "0507",
-    "name": "Jackknife Sit-up",
-    "gifUrl": "/api/exercise-media/gif/0507",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "0507",
-        "name": "Jackknife Sit-up",
-        "gifUrl": "/api/exercise-media/gif/0507",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0262",
-        "name": "Cross Body Crunch",
-        "gifUrl": "/api/exercise-media/gif/0262",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0267",
-        "name": "Crunch (hands Overhead)",
-        "gifUrl": "/api/exercise-media/gif/0267",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0242",
-        "name": "Cable Tuck Reverse Crunch",
-        "gifUrl": "/api/exercise-media/gif/0242",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      }
-    ],
-    "ts": 1776807026463,
-    "source": "auto"
-  },
-  "abdominal em pe no cross": {
-    "query": "Abdominal em pé no cross",
-    "exerciseId": "0226",
-    "name": "Cable Standing Crunch",
-    "gifUrl": "/api/exercise-media/gif/0226",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0242",
-        "name": "Cable Tuck Reverse Crunch",
-        "gifUrl": "/api/exercise-media/gif/0242",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0221",
-        "name": "Cable Side Bend Crunch (bosu Ball)",
-        "gifUrl": "/api/exercise-media/gif/0221",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0151",
-        "name": "Cable Bench Press",
-        "gifUrl": "/api/exercise-media/gif/0151",
-        "bodyPart": "Chest",
-        "target": "Pectorals"
-      },
-      {
-        "id": "0158",
-        "name": "Cable Decline Fly",
-        "gifUrl": "/api/exercise-media/gif/0158",
-        "bodyPart": "Chest",
-        "target": "Pectorals"
-      }
-    ],
-    "ts": 1776807028576,
-    "source": "auto"
-  },
-  "abdominal infra estendido": {
-    "query": "Abdominal infra estendido",
-    "exerciseId": "1352",
-    "name": "Lower Back Curl",
-    "gifUrl": "/api/exercise-media/gif/1352",
-    "bodyPart": "Back",
-    "target": "Spine",
-    "candidates": [
-      {
-        "id": "1352",
-        "name": "Lower Back Curl",
-        "gifUrl": "/api/exercise-media/gif/1352",
-        "bodyPart": "Back",
-        "target": "Spine"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0262",
-        "name": "Cross Body Crunch",
-        "gifUrl": "/api/exercise-media/gif/0262",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0267",
-        "name": "Crunch (hands Overhead)",
-        "gifUrl": "/api/exercise-media/gif/0267",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0690",
-        "name": "Seated Lower Back Stretch",
-        "gifUrl": "/api/exercise-media/gif/0690",
-        "bodyPart": "Back",
-        "target": "Lats"
-      }
-    ],
-    "ts": 1776807030661,
-    "source": "auto"
-  },
   "abdominal obliquo": {
     "query": "Abdominal obliquo",
     "exerciseId": "1495",
@@ -405,210 +65,6 @@
       }
     ],
     "ts": 1776807032766,
-    "source": "auto"
-  },
-  "abdominal obliquo em pe cross": {
-    "query": "Abdominal obliquo em pé cross",
-    "exerciseId": "0226",
-    "name": "Cable Standing Crunch",
-    "gifUrl": "/api/exercise-media/gif/0226",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "1495",
-        "name": "Oblique Crunch V. 2",
-        "gifUrl": "/api/exercise-media/gif/1495",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0242",
-        "name": "Cable Tuck Reverse Crunch",
-        "gifUrl": "/api/exercise-media/gif/0242",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0221",
-        "name": "Cable Side Bend Crunch (bosu Ball)",
-        "gifUrl": "/api/exercise-media/gif/0221",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "1761",
-        "name": "Hanging Oblique Knee Raise",
-        "gifUrl": "/api/exercise-media/gif/1761",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      }
-    ],
-    "ts": 1776807032819,
-    "source": "auto"
-  },
-  "abdominal obliquo lateral": {
-    "query": "Abdominal obliquo lateral",
-    "exerciseId": "1495",
-    "name": "Oblique Crunch V. 2",
-    "gifUrl": "/api/exercise-media/gif/1495",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "1495",
-        "name": "Oblique Crunch V. 2",
-        "gifUrl": "/api/exercise-media/gif/1495",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0635",
-        "name": "Oblique Crunches Floor",
-        "gifUrl": "/api/exercise-media/gif/0635",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0262",
-        "name": "Cross Body Crunch",
-        "gifUrl": "/api/exercise-media/gif/0262",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0267",
-        "name": "Crunch (hands Overhead)",
-        "gifUrl": "/api/exercise-media/gif/0267",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      }
-    ],
-    "ts": 1776807032873,
-    "source": "auto"
-  },
-  "abdominal rotacao cross baixo cima": {
-    "query": "Abdominal rotacao cross (baixo-cima)",
-    "exerciseId": "0216",
-    "name": "Cable Seated Shoulder Internal Rotation",
-    "gifUrl": "/api/exercise-media/gif/0216",
-    "bodyPart": "Shoulders",
-    "target": "Delts",
-    "candidates": [
-      {
-        "id": "0216",
-        "name": "Cable Seated Shoulder Internal Rotation",
-        "gifUrl": "/api/exercise-media/gif/0216",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      },
-      {
-        "id": "0235",
-        "name": "Cable Standing Shoulder External Rotation",
-        "gifUrl": "/api/exercise-media/gif/0235",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      },
-      {
-        "id": "1336",
-        "name": "Exercise Ball Back Extension With Rotation",
-        "gifUrl": "/api/exercise-media/gif/1336",
-        "bodyPart": "Back",
-        "target": "Spine"
-      },
-      {
-        "id": "0152",
-        "name": "Cable Concentration Extension (on Knee)",
-        "gifUrl": "/api/exercise-media/gif/0152",
-        "bodyPart": "Upper Arms",
-        "target": "Triceps"
-      },
-      {
-        "id": "0153",
-        "name": "Cable Cross-over Lateral Pulldown",
-        "gifUrl": "/api/exercise-media/gif/0153",
-        "bodyPart": "Back",
-        "target": "Lats"
-      },
-      {
-        "id": "0154",
-        "name": "Cable Cross-over Reverse Fly",
-        "gifUrl": "/api/exercise-media/gif/0154",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      },
-      {
-        "id": "0863",
-        "name": "Dumbbell Lying External Shoulder Rotation",
-        "gifUrl": "/api/exercise-media/gif/0863",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      },
-      {
-        "id": "0864",
-        "name": "Dumbbell Upright Shoulder External Rotation",
-        "gifUrl": "/api/exercise-media/gif/0864",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      }
-    ],
-    "ts": 1776807037006,
     "source": "auto"
   },
   "abdominal sit up": {
@@ -747,210 +203,6 @@
     "ts": 1776807039122,
     "source": "auto"
   },
-  "abdominal supra infra unilateral db": {
-    "query": "Abdominal supra + infra unilateral DB",
-    "exerciseId": "1467",
-    "name": "Push-up On Lower Arms",
-    "gifUrl": "/api/exercise-media/gif/1467",
-    "bodyPart": "Upper Arms",
-    "target": "Triceps",
-    "candidates": [
-      {
-        "id": "1467",
-        "name": "Push-up On Lower Arms",
-        "gifUrl": "/api/exercise-media/gif/1467",
-        "bodyPart": "Upper Arms",
-        "target": "Triceps"
-      },
-      {
-        "id": "1270",
-        "name": "Cable Upper Chest Crossovers",
-        "gifUrl": "/api/exercise-media/gif/1270",
-        "bodyPart": "Chest",
-        "target": "Pectorals"
-      },
-      {
-        "id": "0690",
-        "name": "Seated Lower Back Stretch",
-        "gifUrl": "/api/exercise-media/gif/0690",
-        "bodyPart": "Back",
-        "target": "Lats"
-      },
-      {
-        "id": "1341",
-        "name": "Exercise Ball Lower Back Stretch (pyramid)",
-        "gifUrl": "/api/exercise-media/gif/1341",
-        "bodyPart": "Back",
-        "target": "Lats"
-      },
-      {
-        "id": "1421",
-        "name": "Modified Push Up To Lower Arms",
-        "gifUrl": "/api/exercise-media/gif/1421",
-        "bodyPart": "Lower Arms",
-        "target": "Forearms"
-      },
-      {
-        "id": "0221",
-        "name": "Cable Side Bend Crunch (bosu Ball)",
-        "gifUrl": "/api/exercise-media/gif/0221",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0242",
-        "name": "Cable Tuck Reverse Crunch",
-        "gifUrl": "/api/exercise-media/gif/0242",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0271",
-        "name": "Crunch (on Stability Ball)",
-        "gifUrl": "/api/exercise-media/gif/0271",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      }
-    ],
-    "ts": 1776807041174,
-    "source": "auto"
-  },
-  "abdominal supra 90": {
-    "query": "Abdominal supra 90",
-    "exerciseId": "1324",
-    "name": "Cable Upper Row",
-    "gifUrl": "/api/exercise-media/gif/1324",
-    "bodyPart": "Back",
-    "target": "Upper Back",
-    "candidates": [
-      {
-        "id": "1324",
-        "name": "Cable Upper Row",
-        "gifUrl": "/api/exercise-media/gif/1324",
-        "bodyPart": "Back",
-        "target": "Upper Back"
-      },
-      {
-        "id": "1365",
-        "name": "Upper Back Stretch",
-        "gifUrl": "/api/exercise-media/gif/1365",
-        "bodyPart": "Back",
-        "target": "Upper Back"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0262",
-        "name": "Cross Body Crunch",
-        "gifUrl": "/api/exercise-media/gif/0262",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0267",
-        "name": "Crunch (hands Overhead)",
-        "gifUrl": "/api/exercise-media/gif/0267",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      }
-    ],
-    "ts": 1776807041227,
-    "source": "auto"
-  },
-  "abdominal supra estendido": {
-    "query": "Abdominal supra estendido",
-    "exerciseId": "1324",
-    "name": "Cable Upper Row",
-    "gifUrl": "/api/exercise-media/gif/1324",
-    "bodyPart": "Back",
-    "target": "Upper Back",
-    "candidates": [
-      {
-        "id": "1324",
-        "name": "Cable Upper Row",
-        "gifUrl": "/api/exercise-media/gif/1324",
-        "bodyPart": "Back",
-        "target": "Upper Back"
-      },
-      {
-        "id": "1365",
-        "name": "Upper Back Stretch",
-        "gifUrl": "/api/exercise-media/gif/1365",
-        "bodyPart": "Back",
-        "target": "Upper Back"
-      },
-      {
-        "id": "0175",
-        "name": "Cable Kneeling Crunch",
-        "gifUrl": "/api/exercise-media/gif/0175",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0212",
-        "name": "Cable Seated Crunch",
-        "gifUrl": "/api/exercise-media/gif/0212",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0223",
-        "name": "Cable Side Crunch",
-        "gifUrl": "/api/exercise-media/gif/0223",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0226",
-        "name": "Cable Standing Crunch",
-        "gifUrl": "/api/exercise-media/gif/0226",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0262",
-        "name": "Cross Body Crunch",
-        "gifUrl": "/api/exercise-media/gif/0262",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0267",
-        "name": "Crunch (hands Overhead)",
-        "gifUrl": "/api/exercise-media/gif/0267",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      }
-    ],
-    "ts": 1776807041281,
-    "source": "auto"
-  },
   "abdominal twist": {
     "query": "Abdominal twist",
     "exerciseId": "0243",
@@ -1010,468 +262,6 @@
       }
     ],
     "ts": 1776807043264,
-    "source": "auto"
-  },
-  "abdominal twist anilha": {
-    "query": "Abdominal twist anilha",
-    "exerciseId": "0094",
-    "name": "Barbell Seated Twist",
-    "gifUrl": "/api/exercise-media/gif/0094",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "0094",
-        "name": "Barbell Seated Twist",
-        "gifUrl": "/api/exercise-media/gif/0094",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0112",
-        "name": "Barbell Standing Twist",
-        "gifUrl": "/api/exercise-media/gif/0112",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0014",
-        "name": "Assisted Motion Russian Twist",
-        "gifUrl": "/api/exercise-media/gif/0014",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0243",
-        "name": "Cable Twist",
-        "gifUrl": "/api/exercise-media/gif/0243",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0307",
-        "name": "Dumbbell Decline Twist Fly",
-        "gifUrl": "/api/exercise-media/gif/0307",
-        "bodyPart": "Chest",
-        "target": "Pectorals"
-      },
-      {
-        "id": "0464",
-        "name": "Front Plank With Twist",
-        "gifUrl": "/api/exercise-media/gif/0464",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0236",
-        "name": "Cable Standing Twist Row (v-bar)",
-        "gifUrl": "/api/exercise-media/gif/0236",
-        "bodyPart": "Back",
-        "target": "Upper Back"
-      }
-    ],
-    "ts": 1776807043317,
-    "source": "auto"
-  },
-  "abdominal twist com anilha": {
-    "query": "Abdominal twist com anilha",
-    "exerciseId": "0094",
-    "name": "Barbell Seated Twist",
-    "gifUrl": "/api/exercise-media/gif/0094",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "0094",
-        "name": "Barbell Seated Twist",
-        "gifUrl": "/api/exercise-media/gif/0094",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0112",
-        "name": "Barbell Standing Twist",
-        "gifUrl": "/api/exercise-media/gif/0112",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0014",
-        "name": "Assisted Motion Russian Twist",
-        "gifUrl": "/api/exercise-media/gif/0014",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0243",
-        "name": "Cable Twist",
-        "gifUrl": "/api/exercise-media/gif/0243",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0307",
-        "name": "Dumbbell Decline Twist Fly",
-        "gifUrl": "/api/exercise-media/gif/0307",
-        "bodyPart": "Chest",
-        "target": "Pectorals"
-      },
-      {
-        "id": "0464",
-        "name": "Front Plank With Twist",
-        "gifUrl": "/api/exercise-media/gif/0464",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0236",
-        "name": "Cable Standing Twist Row (v-bar)",
-        "gifUrl": "/api/exercise-media/gif/0236",
-        "bodyPart": "Back",
-        "target": "Upper Back"
-      }
-    ],
-    "ts": 1776807043371,
-    "source": "auto"
-  },
-  "abducao de quadril cross tras": {
-    "query": "Abdução de quadril cross tras",
-    "exerciseId": "0597",
-    "name": "Lever Seated Hip Abduction",
-    "gifUrl": "/api/exercise-media/gif/0597",
-    "bodyPart": "Upper Legs",
-    "target": "Abductors",
-    "candidates": [
-      {
-        "id": "0597",
-        "name": "Lever Seated Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/0597",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "1774",
-        "name": "Side Bridge Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/1774",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "0710",
-        "name": "Side Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/0710",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "3006",
-        "name": "Resistance Band Seated Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/3006",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "0202",
-        "name": "Cable Rear Delt Row (stirrups)",
-        "gifUrl": "/api/exercise-media/gif/0202",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      },
-      {
-        "id": "0204",
-        "name": "Cable Rear Drive",
-        "gifUrl": "/api/exercise-media/gif/0204",
-        "bodyPart": "Upper Arms",
-        "target": "Triceps"
-      },
-      {
-        "id": "0205",
-        "name": "Cable Rear Pulldown",
-        "gifUrl": "/api/exercise-media/gif/0205",
-        "bodyPart": "Back",
-        "target": "Lats"
-      },
-      {
-        "id": "0215",
-        "name": "Cable Seated Rear Lateral Raise",
-        "gifUrl": "/api/exercise-media/gif/0215",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      }
-    ],
-    "ts": 1776807047463,
-    "source": "auto"
-  },
-  "abducao de quadril em pe cross": {
-    "query": "Abdução de quadril em pé cross",
-    "exerciseId": "0228",
-    "name": "Cable Standing Hip Extension",
-    "gifUrl": "/api/exercise-media/gif/0228",
-    "bodyPart": "Upper Legs",
-    "target": "Glutes",
-    "candidates": [
-      {
-        "id": "0228",
-        "name": "Cable Standing Hip Extension",
-        "gifUrl": "/api/exercise-media/gif/0228",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0597",
-        "name": "Lever Seated Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/0597",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "1774",
-        "name": "Side Bridge Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/1774",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "0710",
-        "name": "Side Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/0710",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "3006",
-        "name": "Resistance Band Seated Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/3006",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "0168",
-        "name": "Cable Hip Adduction",
-        "gifUrl": "/api/exercise-media/gif/0168",
-        "bodyPart": "Upper Legs",
-        "target": "Adductors"
-      },
-      {
-        "id": "0148",
-        "name": "Cable Alternate Shoulder Press",
-        "gifUrl": "/api/exercise-media/gif/0148",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      },
-      {
-        "id": "0149",
-        "name": "Cable Alternate Triceps Extension",
-        "gifUrl": "/api/exercise-media/gif/0149",
-        "bodyPart": "Upper Arms",
-        "target": "Triceps"
-      }
-    ],
-    "ts": 1776807049602,
-    "source": "auto"
-  },
-  "abducao horizontal de ombros db": {
-    "query": "Abdução horizontal de ombros DB",
-    "exerciseId": "0979",
-    "name": "Band Horizontal Pallof Press",
-    "gifUrl": "/api/exercise-media/gif/0979",
-    "bodyPart": "Waist",
-    "target": "Abs",
-    "candidates": [
-      {
-        "id": "0979",
-        "name": "Band Horizontal Pallof Press",
-        "gifUrl": "/api/exercise-media/gif/0979",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "0597",
-        "name": "Lever Seated Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/0597",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "1774",
-        "name": "Side Bridge Hip Abduction",
-        "gifUrl": "/api/exercise-media/gif/1774",
-        "bodyPart": "Upper Legs",
-        "target": "Abductors"
-      },
-      {
-        "id": "0050",
-        "name": "Barbell Incline Shoulder Raise",
-        "gifUrl": "/api/exercise-media/gif/0050",
-        "bodyPart": "Chest",
-        "target": "Serratus Anterior"
-      },
-      {
-        "id": "0148",
-        "name": "Cable Alternate Shoulder Press",
-        "gifUrl": "/api/exercise-media/gif/0148",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      },
-      {
-        "id": "0164",
-        "name": "Cable Front Shoulder Raise",
-        "gifUrl": "/api/exercise-media/gif/0164",
-        "bodyPart": "Shoulders",
-        "target": "Delts"
-      },
-      {
-        "id": "0328",
-        "name": "Dumbbell Incline Shoulder Raise",
-        "gifUrl": "/api/exercise-media/gif/0328",
-        "bodyPart": "Chest",
-        "target": "Serratus Anterior"
-      },
-      {
-        "id": "2611",
-        "name": "Lever Horizontal One Leg Press",
-        "gifUrl": "/api/exercise-media/gif/2611",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      }
-    ],
-    "ts": 1776807053686,
-    "source": "auto"
-  },
-  "afundo db": {
-    "query": "Afundo DB",
-    "exerciseId": "0054",
-    "name": "Barbell Lunge",
-    "gifUrl": "/api/exercise-media/gif/0054",
-    "bodyPart": "Upper Legs",
-    "target": "Glutes",
-    "candidates": [
-      {
-        "id": "0054",
-        "name": "Barbell Lunge",
-        "gifUrl": "/api/exercise-media/gif/0054",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0336",
-        "name": "Dumbbell Lunge",
-        "gifUrl": "/api/exercise-media/gif/0336",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "1460",
-        "name": "Walking Lunge",
-        "gifUrl": "/api/exercise-media/gif/1460",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0078",
-        "name": "Barbell Rear Lunge",
-        "gifUrl": "/api/exercise-media/gif/0078",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0381",
-        "name": "Dumbbell Rear Lunge",
-        "gifUrl": "/api/exercise-media/gif/0381",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0769",
-        "name": "Smith Sprint Lunge",
-        "gifUrl": "/api/exercise-media/gif/0769",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "1410",
-        "name": "Barbell Lateral Lunge",
-        "gifUrl": "/api/exercise-media/gif/1410",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0536",
-        "name": "Kettlebell Lunge Pass Through",
-        "gifUrl": "/api/exercise-media/gif/0536",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      }
-    ],
-    "ts": 1776807055871,
-    "source": "auto"
-  },
-  "afundo guiado": {
-    "query": "Afundo guiado",
-    "exerciseId": "0054",
-    "name": "Barbell Lunge",
-    "gifUrl": "/api/exercise-media/gif/0054",
-    "bodyPart": "Upper Legs",
-    "target": "Glutes",
-    "candidates": [
-      {
-        "id": "0054",
-        "name": "Barbell Lunge",
-        "gifUrl": "/api/exercise-media/gif/0054",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0336",
-        "name": "Dumbbell Lunge",
-        "gifUrl": "/api/exercise-media/gif/0336",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "1460",
-        "name": "Walking Lunge",
-        "gifUrl": "/api/exercise-media/gif/1460",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0078",
-        "name": "Barbell Rear Lunge",
-        "gifUrl": "/api/exercise-media/gif/0078",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0381",
-        "name": "Dumbbell Rear Lunge",
-        "gifUrl": "/api/exercise-media/gif/0381",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0769",
-        "name": "Smith Sprint Lunge",
-        "gifUrl": "/api/exercise-media/gif/0769",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "1410",
-        "name": "Barbell Lateral Lunge",
-        "gifUrl": "/api/exercise-media/gif/1410",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0536",
-        "name": "Kettlebell Lunge Pass Through",
-        "gifUrl": "/api/exercise-media/gif/0536",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      }
-    ],
-    "ts": 1776807057890,
     "source": "auto"
   },
   "afundo isometrico c puxada neutra cross": {
@@ -1541,15 +331,6 @@
     ],
     "ts": 1776807062175,
     "source": "auto"
-  },
-  "afundo isometrico c desenvolvimento unilateral db": {
-    "query": "Afundo isométrico c/ desenvolvimento unilateral DB",
-    "exerciseId": null,
-    "name": null,
-    "gifUrl": null,
-    "candidates": [],
-    "ts": 1776807068469,
-    "source": "miss"
   },
   "afundo isometrico c remada unilateral cross": {
     "query": "Afundo isométrico c/ remada unilateral cross",
@@ -5766,15 +4547,6 @@
     ],
     "ts": 1776807193843,
     "source": "auto"
-  },
-  "hollow rocks": {
-    "query": "Hollow rocks",
-    "exerciseId": null,
-    "name": null,
-    "gifUrl": null,
-    "candidates": [],
-    "ts": 1776807197905,
-    "source": "miss"
   },
   "levantamento terra barra": {
     "query": "Levantamento terra barra",
@@ -10526,5 +9298,181 @@
     ],
     "ts": 1776807688680,
     "source": "auto"
+  },
+  "abdominal bicicleta": {
+    "query": "Abdominal bicicleta",
+    "exerciseId": "0972",
+    "name": "Band Bicycle Crunch",
+    "gifUrl": "/api/exercise-media/gif/0972",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "ts": 1776819304758,
+    "source": "override"
+  },
+  "abdominal bike": {
+    "query": "Abdominal bike",
+    "exerciseId": "0972",
+    "name": "Band Bicycle Crunch",
+    "gifUrl": "/api/exercise-media/gif/0972",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "ts": 1776819310489,
+    "source": "override"
+  },
+  "abdominal canivete": {
+    "query": "Abdominal canivete",
+    "exerciseId": "0507",
+    "name": "Jackknife Sit-up",
+    "gifUrl": "/api/exercise-media/gif/0507",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "ts": 1776819327792,
+    "source": "override"
+  },
+  "abdominal em pe no cross": {
+    "query": "Abdominal em pé no cross",
+    "exerciseId": "0226",
+    "name": "Cable Standing Crunch",
+    "gifUrl": "/api/exercise-media/gif/0226",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "ts": 1776819368703,
+    "source": "override"
+  },
+  "abdominal supra estendido": {
+    "query": "Abdominal supra estendido",
+    "exerciseId": "0267",
+    "name": "Crunch (hands Overhead)",
+    "gifUrl": "/api/exercise-media/gif/0267",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "ts": 1776820219727,
+    "source": "override"
+  },
+  "abdominal supra infra unilateral db": {
+    "query": "Abdominal supra + infra unilateral DB",
+    "exerciseId": "0242",
+    "name": "Cable Tuck Reverse Crunch",
+    "gifUrl": "/api/exercise-media/gif/0242",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "ts": 1776820440399,
+    "source": "override"
+  },
+  "abdominal infra estendido": {
+    "query": "Abdominal infra estendido",
+    "exerciseId": "0013",
+    "name": "Assisted Lying Leg Raise With Throw Down",
+    "gifUrl": "/api/exercise-media/gif/0013",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "ts": 1776820619454,
+    "source": "override"
+  },
+  "abdominal obliquo lateral": {
+    "query": "Abdominal obliquo lateral",
+    "exerciseId": "0407",
+    "name": "Dumbbell Side Bend",
+    "gifUrl": "/api/exercise-media/gif/0407",
+    "bodyPart": "Waist",
+    "target": "Abs",
+    "ts": 1776820676688,
+    "source": "override"
+  },
+  "abdominal obliquo em pe cross": {
+    "query": "Abdominal obliquo em pé cross",
+    "exerciseId": "0222",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0222",
+    "ts": 1776820690033,
+    "source": "override"
+  },
+  "abdominal rotacao cross baixo cima": {
+    "query": "Abdominal rotacao cross (baixo-cima)",
+    "exerciseId": "0243",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0243",
+    "ts": 1776820883236,
+    "source": "override"
+  },
+  "abdominal supra 90": {
+    "query": "Abdominal supra 90",
+    "exerciseId": "0271",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0271",
+    "ts": 1776821000133,
+    "source": "override"
+  },
+  "abdominal twist anilha": {
+    "query": "Abdominal twist anilha",
+    "exerciseId": "0112",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0112",
+    "ts": 1776821063247,
+    "source": "override"
+  },
+  "abdominal twist com anilha": {
+    "query": "Abdominal twist com anilha",
+    "exerciseId": "0112",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0112",
+    "ts": 1776821086770,
+    "source": "override"
+  },
+  "abducao de quadril cross tras": {
+    "query": "Abdução de quadril cross tras",
+    "exerciseId": "0228",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0228",
+    "ts": 1776821170131,
+    "source": "override"
+  },
+  "abducao de quadril em pe cross": {
+    "query": "Abdução de quadril em pé cross",
+    "exerciseId": "0168",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0168",
+    "ts": 1776821207072,
+    "source": "override"
+  },
+  "abducao horizontal de ombros db": {
+    "query": "Abdução horizontal de ombros DB",
+    "exerciseId": "0235",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0235",
+    "ts": 1776821287540,
+    "source": "override"
+  },
+  "afundo db": {
+    "query": "Afundo DB",
+    "exerciseId": "0336",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0336",
+    "ts": 1776821402715,
+    "source": "override"
+  },
+  "afundo guiado": {
+    "query": "Afundo guiado",
+    "exerciseId": "0381",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0381",
+    "ts": 1776821459749,
+    "source": "override"
+  },
+  "afundo isometrico c desenvolvimento unilateral db": {
+    "query": "Afundo isométrico c/ desenvolvimento unilateral DB",
+    "exerciseId": "0054",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0054",
+    "ts": 1776821509031,
+    "source": "override"
+  },
+  "hollow rocks": {
+    "query": "Hollow rocks",
+    "exerciseId": "0242",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0242",
+    "ts": 1776821903085,
+    "source": "override"
   }
 }
