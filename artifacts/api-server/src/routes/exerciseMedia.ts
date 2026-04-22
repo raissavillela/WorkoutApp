@@ -99,7 +99,7 @@ type WxExercise = {
 function pickFields(e: WxExercise) {
   const id = e.id || e.exerciseId || "";
   const name = e.name || "";
-  const gifUrl = e.gifUrl || e.gif_url || (id ? `${WX_BASE}/gifs/${id}` : "");
+  const gifUrl = id ? `/api/exercise-media/gif/${id}` : "";
   return { id, name, gifUrl, bodyPart: e.bodyPart ?? null, target: e.target ?? null };
 }
 
@@ -237,7 +237,7 @@ router.get("/exercise-media", async (req, res) => {
           query: ptName,
           exerciseId: e.id || id,
           name: e.name || null,
-          gifUrl: e.gifUrl || `${WX_BASE}/gifs/${id}`,
+          gifUrl: `/api/exercise-media/gif/${id}`,
           bodyPart: e.bodyPart,
           target: e.target,
           ts: Date.now(),
@@ -248,7 +248,7 @@ router.get("/exercise-media", async (req, res) => {
           query: ptName,
           exerciseId: id,
           name: null,
-          gifUrl: `${WX_BASE}/gifs/${id}`,
+          gifUrl: `/api/exercise-media/gif/${id}`,
           ts: Date.now(),
           source: "override",
         };
@@ -330,6 +330,34 @@ router.post("/exercise-media/override", express_json(), (req, res) => {
   persistOverrides();
   persistCache();
   res.json({ ok: true });
+});
+
+router.get("/exercise-media/gif/:id", async (req, res) => {
+  const id = String(req.params.id || "").replace(/[^a-zA-Z0-9_-]/g, "");
+  if (!id) return res.status(400).end();
+  if (!KEY) return res.status(503).end();
+  try {
+    const r = await fetch(`${WX_BASE}/gifs/${id}.gif`, {
+      headers: { "X-WorkoutX-Key": KEY },
+    });
+    if (!r.ok) {
+      const r2 = await fetch(`${WX_BASE}/gifs/${id}`, {
+        headers: { "X-WorkoutX-Key": KEY },
+      });
+      if (!r2.ok) return res.status(r2.status).end();
+      res.setHeader("Content-Type", r2.headers.get("content-type") || "image/gif");
+      res.setHeader("Cache-Control", "public, max-age=86400");
+      const buf = Buffer.from(await r2.arrayBuffer());
+      return res.end(buf);
+    }
+    res.setHeader("Content-Type", r.headers.get("content-type") || "image/gif");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    const buf = Buffer.from(await r.arrayBuffer());
+    return res.end(buf);
+  } catch (e) {
+    logger.warn({ err: String(e), id }, "gif proxy failed");
+    return res.status(502).end();
+  }
 });
 
 router.get("/exercise-media/_status", (_req, res) => {

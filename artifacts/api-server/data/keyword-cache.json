@@ -18070,5 +18070,136 @@
       "caloriesPerMinute": 7.3,
       "description": "Ez Bar Standing French Press is a intermediate single-joint isolation pushing exercise targeting the Triceps in the Upper Arms region. Performed using ez barbell, it falls under the strength category. Secondary muscles engaged include Shoulders."
     }
+  ],
+  "crusher": [
+    {
+      "id": "0060",
+      "name": "Barbell Lying Triceps Extension Skull Crusher",
+      "bodyPart": "Upper Arms",
+      "equipment": "Barbell",
+      "target": "Triceps",
+      "secondaryMuscles": [
+        "Shoulders"
+      ],
+      "instructions": [
+        "Lie flat on a bench with your feet flat on the ground and your head at the end of the bench.",
+        "Hold the barbell with an overhand grip, hands shoulder-width apart, and extend your arms straight up over your chest.",
+        "Keeping your upper arms stationary, slowly lower the barbell towards your forehead by bending your elbows.",
+        "Pause for a moment when the barbell is just above your forehead, then extend your arms back up to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0060.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 6,
+      "caloriesPerMinute": 7.3,
+      "description": "Barbell Lying Triceps Extension Skull Crusher is a beginner single-joint isolation pushing exercise targeting the Triceps in the Upper Arms region. Performed using barbell, it falls under the strength category. Secondary muscles engaged include Shoulders."
+    },
+    {
+      "id": "1721",
+      "name": "Barbell Reverse Grip Skullcrusher",
+      "bodyPart": "Upper Arms",
+      "equipment": "Barbell",
+      "target": "Triceps",
+      "secondaryMuscles": [
+        "Forearms"
+      ],
+      "instructions": [
+        "Lie flat on a bench with your feet flat on the ground and your head at the end of the bench.",
+        "Hold the barbell with a reverse grip, palms facing towards your face, and your hands shoulder-width apart.",
+        "Extend your arms straight up over your chest, keeping your elbows in and your wrists straight.",
+        "Slowly lower the barbell towards your forehead by bending your elbows, keeping your upper arms stationary.",
+        "Pause for a moment at the bottom, then extend your arms back up to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/1721.gif",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 6,
+      "caloriesPerMinute": 7.3,
+      "description": "Barbell Reverse Grip Skullcrusher is a intermediate single-joint isolation pushing exercise targeting the Triceps in the Upper Arms region. Performed using barbell, it falls under the strength category. Secondary muscles engaged include Forearms."
+    }
+  ],
+  "skull": [
+    {
+      "id": "0035",
+      "name": "Barbell Decline Close Grip To Skull Press",
+      "bodyPart": "Upper Arms",
+      "equipment": "Barbell",
+      "target": "Triceps",
+      "secondaryMuscles": [
+        "Chest",
+        "Shoulders"
+      ],
+      "instructions": [
+        "Lie on a decline bench with your head lower than your feet and hold a barbell with a close grip.",
+        "Lower the barbell towards your forehead by bending your elbows, keeping your upper arms stationary.",
+        "Pause for a moment, then extend your arms to press the barbell back up to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0035.gif",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 6,
+      "caloriesPerMinute": 7.3,
+      "description": "Barbell Decline Close Grip To Skull Press is a intermediate single-joint isolation pushing exercise targeting the Triceps in the Upper Arms region. Performed using barbell, it falls under the strength category. Secondary muscles engaged include Chest and Shoulders."
+    },
+    {
+      "id": "0060",
+      "name": "Barbell Lying Triceps Extension Skull Crusher",
+      "bodyPart": "Upper Arms",
+      "equipment": "Barbell",
+      "target": "Triceps",
+      "secondaryMuscles": [
+        "Shoulders"
+      ],
+      "instructions": [
+        "Lie flat on a bench with your feet flat on the ground and your head at the end of the bench.",
+        "Hold the barbell with an overhand grip, hands shoulder-width apart, and extend your arms straight up over your chest.",
+        "Keeping your upper arms stationary, slowly lower the barbell towards your forehead by bending your elbows.",
+        "Pause for a moment when the barbell is just above your forehead, then extend your arms back up to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/0060.gif",
+      "category": "strength",
+      "difficulty": "beginner",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 6,
+      "caloriesPerMinute": 7.3,
+      "description": "Barbell Lying Triceps Extension Skull Crusher is a beginner single-joint isolation pushing exercise targeting the Triceps in the Upper Arms region. Performed using barbell, it falls under the strength category. Secondary muscles engaged include Shoulders."
+    },
+    {
+      "id": "1721",
+      "name": "Barbell Reverse Grip Skullcrusher",
+      "bodyPart": "Upper Arms",
+      "equipment": "Barbell",
+      "target": "Triceps",
+      "secondaryMuscles": [
+        "Forearms"
+      ],
+      "instructions": [
+        "Lie flat on a bench with your feet flat on the ground and your head at the end of the bench.",
+        "Hold the barbell with a reverse grip, palms facing towards your face, and your hands shoulder-width apart.",
+        "Extend your arms straight up over your chest, keeping your elbows in and your wrists straight.",
+        "Slowly lower the barbell towards your forehead by bending your elbows, keeping your upper arms stationary.",
+        "Pause for a moment at the bottom, then extend your arms back up to the starting position.",
+        "Repeat for the desired number of repetitions."
+      ],
+      "gifUrl": "https://api.workoutxapp.com/v1/gifs/1721.gif",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "mechanic": "isolation",
+      "force": "push",
+      "met": 6,
+      "caloriesPerMinute": 7.3,
+      "description": "Barbell Reverse Grip Skullcrusher is a intermediate single-joint isolation pushing exercise targeting the Triceps in the Upper Arms region. Performed using barbell, it falls under the strength category. Secondary muscles engaged include Forearms."
+    }
   ]
 }
