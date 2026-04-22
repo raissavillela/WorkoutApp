@@ -24,6 +24,7 @@ function resolveDataDir(): string {
 const DATA_DIR = resolveDataDir();
 const CACHE_FILE = path.join(DATA_DIR, "exercise-media-cache.json");
 const OVERRIDES_FILE = path.join(DATA_DIR, "exercise-media-overrides.json");
+const CUSTOM_URLS_FILE = path.join(DATA_DIR, "exercise-media-custom-urls.json");
 const TRANSLATIONS_FILE = path.join(DATA_DIR, "exercise-translations.json");
 
 type CacheEntry = {
@@ -35,7 +36,8 @@ type CacheEntry = {
   target?: string | null;
   candidates?: Array<{ id: string; name: string; gifUrl: string }>;
   ts: number;
-  source: "auto" | "override" | "miss";
+  source: "auto" | "override" | "miss" | "custom";
+  customUrl?: string;
 };
 
 function ensureDir() {
@@ -56,6 +58,7 @@ function writeJson(file: string, data: unknown) {
 
 let cache: Record<string, CacheEntry> = readJson(CACHE_FILE, {});
 let overrides: Record<string, string> = readJson(OVERRIDES_FILE, {});
+let customUrls: Record<string, string> = readJson(CUSTOM_URLS_FILE, {});
 const translations: Record<string, string> = readJson(TRANSLATIONS_FILE, {});
 
 function normKey(s: string) {
@@ -73,6 +76,9 @@ function persistCache() {
 }
 function persistOverrides() {
   writeJson(OVERRIDES_FILE, overrides);
+}
+function persistCustomUrls() {
+  writeJson(CUSTOM_URLS_FILE, customUrls);
 }
 
 async function wxFetch(p: string): Promise<unknown> {
@@ -224,6 +230,18 @@ router.get("/exercise-media", async (req, res) => {
   if (!ptName) return res.status(400).json({ error: "name required" });
   const key = normKey(ptName);
 
+  if (customUrls[key]) {
+    return res.json({
+      query: ptName,
+      exerciseId: null,
+      name: null,
+      gifUrl: customUrls[key],
+      ts: Date.now(),
+      source: "custom",
+      customUrl: customUrls[key],
+    });
+  }
+
   if (overrides[key]) {
     const id = overrides[key];
     let entry = cache[key];
@@ -329,6 +347,23 @@ router.post("/exercise-media/override", express_json(), (req, res) => {
   }
   persistOverrides();
   persistCache();
+  res.json({ ok: true });
+});
+
+router.post("/exercise-media/custom-url", express_json(), (req, res) => {
+  const { name, url } = (req.body || {}) as { name?: string; url?: string | null };
+  if (!name) return res.status(400).json({ error: "name required" });
+  const key = normKey(name);
+  if (!url || !String(url).trim()) {
+    delete customUrls[key];
+  } else {
+    const u = String(url).trim();
+    if (!/^https?:\/\//i.test(u)) {
+      return res.status(400).json({ error: "url must be http(s)" });
+    }
+    customUrls[key] = u;
+  }
+  persistCustomUrls();
   res.json({ ok: true });
 });
 

@@ -1,0 +1,70 @@
+# 💪🏻 Workout App
+
+A web application for workout tracking, built with pure HTML, CSS, and vanilla JavaScript — no external dependencies.
+
+---
+
+> **A note on the development process**
+>
+> This project was built using AI-powered tools — specifically **Claude (Anthropic)** and **Replit Agent** — as part of a modern approach to software development.
+>
+> The idea, feature structure, workout data, and all product decisions are entirely my own. The AI tools were used to accelerate technical implementation, debug issues, and iterate quickly on design and app behavior.
+>
+> To me, this way of working demonstrates two things: the ability to **think like a developer** — knowing what to build, how to structure it, what to fix, and how to evolve a product — and the skill to **use LLMs effectively**, leveraging their capabilities without losing control of the final result.
+>
+> Knowing how to use these tools intelligently is, increasingly, a technical skill in its own right.
+
+---
+
+## Features
+
+### Ready Workout
+Access a library of 20 real pre-defined workouts, organized by modality. Filter by workout type (Weight Training, Core, Cardio, etc.) and start any workout with a single tap.
+
+### Build Workout
+Automatic personalized workout generation. Choose your preferred modalities and duration (30 or 45 minutes) — the app builds a workout with balanced blocks and sets at random.
+
+### Calendar & Check-in
+Daily workout logging with:
+- Monthly view with trained days highlighted
+- Free-text title field (e.g. "Workout A — Weight Training")
+- Calories burned log (kcal)
+- Monthly totals (number of workouts and calories)
+- Data saved locally in the browser (localStorage)
+
+### During the Workout
+- Mark completed sets per block
+- Edit the weight used for each exercise
+- Workout progress bar
+- Visual indicator when all blocks are complete
+
+### Language Toggle
+Switch between **Portuguese (PT)** and **English (EN)** at any time using the toggle button available on every screen. Language preference is saved between sessions.
+
+## Available Modalities
+| Modality | Description |
+|---|---|
+| 💪🏻 Weight Training | Free weights, machines and cables |
+| 🎯 Core | Abs, planks and stability work |
+| 🏃🏻 Cardio | Run, elliptical, bike |
+| 🔥 Metabolic | High-intensity exercises and locomotion |
+| ⚡ Functional | Compound and functional movements |
+| 🏋🏻 Crossfit | Olympic lifts and gymnastic movements |
+
+## Tech Stack
+- HTML5 + CSS3 + JavaScript (vanilla)
+- No frameworks or external libraries
+- Persistent data via `localStorage`
+- Responsive design, optimized for mobile
+
+## Running Locally
+
+You can open `index.html` directly in the browser — no server required.
+
+To run with a local Node.js server:
+
+```bash
+node server.js
+```
+
+The app will be available at `http://localhost:5000`.

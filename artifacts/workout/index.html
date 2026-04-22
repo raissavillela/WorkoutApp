@@ -83,6 +83,13 @@ const T={
     legitFilterMiss:'Sem match',
     legitFilterAuto:'Auto',
     legitFilterManual:'Manual',
+    legitFilterCustom:'URL',
+    legitCustomLabel:'URL personalizada (cole um link de GIF/imagem):',
+    legitCustomPh:'https://...gif',
+    legitCustomSave:'Salvar URL',
+    legitCustomClear:'Remover URL',
+    legitCustomBadge:'Custom',
+    legitCustomInvalid:'URL precisa começar com http:// ou https://',
   },
   en:{
     tagline:'Train with what works for you',
@@ -148,6 +155,13 @@ const T={
     legitFilterMiss:'No match',
     legitFilterAuto:'Auto',
     legitFilterManual:'Manual',
+    legitFilterCustom:'URL',
+    legitCustomLabel:'Custom URL (paste a GIF/image link):',
+    legitCustomPh:'https://...gif',
+    legitCustomSave:'Save URL',
+    legitCustomClear:'Remove URL',
+    legitCustomBadge:'Custom',
+    legitCustomInvalid:'URL must start with http:// or https://',
   },
 };
 function t(k){return T[LANG][k]||k;}
@@ -599,17 +613,31 @@ function legitClear(k){
   fetch('/api/exercise-media/override',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:row.name,exerciseId:null})})
     .then(()=>{delete _media[k];delete S.legitCands[k];fetchMedia(row.name);});
 }
+function legitSaveCustom(k){
+  const row=legitRows().find(r=>r.key===k);if(!row)return;
+  const inp=document.getElementById('lcu_'+k);if(!inp)return;
+  const url=inp.value.trim();
+  if(url&&!/^https?:\/\//i.test(url)){alert(t('legitCustomInvalid'));return;}
+  fetch('/api/exercise-media/custom-url',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:row.name,url:url||null})})
+    .then(()=>{delete _media[k];fetchMedia(row.name);});
+}
+function legitClearCustom(k){
+  const row=legitRows().find(r=>r.key===k);if(!row)return;
+  fetch('/api/exercise-media/custom-url',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:row.name,url:null})})
+    .then(()=>{delete _media[k];fetchMedia(row.name);});
+}
 function legitScreen(){
   const rows=legitRows();
-  const stat={ok:0,manual:0,miss:0,loading:0};
-  rows.forEach(r=>{const m=_media[r.key];if(!m||m.state==='loading')stat.loading++;else if(m.state==='ok'&&m.data&&m.data.source==='override')stat.manual++;else if(m.state==='ok')stat.ok++;else stat.miss++;});
-  const filt=rows.filter(r=>{const m=_media[r.key];const isOk=m&&m.state==='ok'&&m.data&&m.data.source!=='override';const isMan=m&&m.state==='ok'&&m.data&&m.data.source==='override';const isMiss=m&&(m.state==='miss'||m.state==='err');if(S.legitFilter==='all')return true;if(S.legitFilter==='miss')return isMiss;if(S.legitFilter==='auto')return isOk;if(S.legitFilter==='manual')return isMan;return true;});
+  const stat={ok:0,manual:0,miss:0,custom:0,loading:0};
+  rows.forEach(r=>{const m=_media[r.key];if(!m||m.state==='loading')stat.loading++;else if(m.state==='ok'&&m.data&&m.data.source==='custom')stat.custom++;else if(m.state==='ok'&&m.data&&m.data.source==='override')stat.manual++;else if(m.state==='ok')stat.ok++;else stat.miss++;});
+  const filt=rows.filter(r=>{const m=_media[r.key];const src=m&&m.data&&m.data.source;const isCustom=m&&m.state==='ok'&&src==='custom';const isMan=m&&m.state==='ok'&&src==='override';const isOk=m&&m.state==='ok'&&src!=='override'&&src!=='custom';const isMiss=m&&(m.state==='miss'||m.state==='err');if(S.legitFilter==='all')return true;if(S.legitFilter==='miss')return isMiss;if(S.legitFilter==='auto')return isOk;if(S.legitFilter==='manual')return isMan;if(S.legitFilter==='custom')return isCustom;return true;});
   const fbtn=(id,label,n)=>'<button onclick="legitSetFilter(\''+id+'\')" style="font-size:10px;font-weight:700;padding:5px 10px;border-radius:99px;border:1px solid '+(S.legitFilter===id?'#fff':'#2a2a2a')+';background:'+(S.legitFilter===id?'#fff':'transparent')+';color:'+(S.legitFilter===id?'#000':'#888')+';cursor:pointer">'+label+' '+n+'</button>';
   const filters='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">'
     +fbtn('all',t('legitFilterAll'),rows.length)
     +fbtn('miss',t('legitFilterMiss'),stat.miss)
     +fbtn('auto',t('legitFilterAuto'),stat.ok)
     +fbtn('manual',t('legitFilterManual'),stat.manual)
+    +fbtn('custom',t('legitFilterCustom'),stat.custom)
     +'</div>';
   const items=filt.map(r=>{
     const m=_media[r.key];const open=S.legitOpen===r.key;
@@ -617,11 +645,13 @@ function legitScreen(){
     if(!m||m.state==='loading'){badge='<span style="font-size:9px;color:#666">…</span>';}
     else if(m.state==='ok'&&m.data){
       const src=m.data.source;
-      badge=src==='override'
+      badge=src==='custom'
+        ?'<span style="font-size:9px;font-weight:800;color:#7DD3FC;background:#03182a;padding:2px 6px;border-radius:99px;border:1px solid #0a3a55">'+t('legitCustomBadge')+'</span>'
+        :src==='override'
         ?'<span style="font-size:9px;font-weight:800;color:#FFD93D;background:#241f00;padding:2px 6px;border-radius:99px;border:1px solid #4a3f00">'+t('legitOverride')+'</span>'
         :'<span style="font-size:9px;font-weight:800;color:#2ED573;background:#051005;padding:2px 6px;border-radius:99px;border:1px solid #103a1a">'+t('legitOk')+'</span>';
-      gif='<img src="'+m.data.gifUrl+'" alt="" style="width:48px;height:48px;border-radius:8px;object-fit:cover;background:#111" loading="lazy">';
-      name=m.data.name||'—';
+      gif='<img src="'+m.data.gifUrl+'" alt="" style="width:48px;height:48px;border-radius:8px;object-fit:cover;background:#111" loading="lazy" onerror="this.style.opacity=0.2">';
+      name=src==='custom'?(m.data.customUrl||'—'):(m.data.name||'—');
     }else{
       badge='<span style="font-size:9px;font-weight:800;color:#FF6B6B;background:#1a0606;padding:2px 6px;border-radius:99px;border:1px solid #4a1010">'+t('legitMiss')+'</span>';
       gif='<div style="width:48px;height:48px;border-radius:8px;background:#111;display:flex;align-items:center;justify-content:center;font-size:18px;color:#333">?</div>';
@@ -641,8 +671,17 @@ function legitScreen(){
           }).join('')
         +'</div>';
       const q=(S.legitQuery[r.key]!==undefined?S.legitQuery[r.key]:r.name).replace(/"/g,'&quot;');
+      const curUrl=(m&&m.data&&m.data.source==='custom'&&m.data.customUrl)?m.data.customUrl.replace(/"/g,'&quot;'):'';
+      const customBlock='<div style="margin-top:9px;padding:8px 9px;border-radius:9px;background:#03101a;border:1px solid #0a2a3a">'
+        +'<div style="font-size:9px;font-weight:700;color:#7DD3FC;margin-bottom:5px;letter-spacing:.5px">'+t('legitCustomLabel')+'</div>'
+        +'<div style="display:flex;gap:5px;flex-wrap:wrap">'
+        +'<input id="lcu_'+r.key+'" value="'+curUrl+'" placeholder="'+t('legitCustomPh')+'" onkeydown="if(event.key===\'Enter\')legitSaveCustom(\''+r.key+'\')" style="flex:1;min-width:160px;padding:7px 9px;border-radius:8px;border:1px solid #0a2a3a;background:#020a12;color:#fff;font-size:11px">'
+        +'<button onclick="legitSaveCustom(\''+r.key+'\')" style="padding:7px 11px;border-radius:8px;border:1px solid #0a3a55;background:#03182a;color:#7DD3FC;font-size:10px;font-weight:700;cursor:pointer">'+t('legitCustomSave')+'</button>'
+        +(curUrl?'<button onclick="legitClearCustom(\''+r.key+'\')" style="padding:7px 11px;border-radius:8px;border:1px solid #4a1010;background:#1a0606;color:#FF6B6B;font-size:10px;font-weight:700;cursor:pointer">'+t('legitCustomClear')+'</button>':'')
+        +'</div></div>';
       panel='<div style="margin-top:9px;padding:9px;border-radius:10px;background:#070707;border:1px solid #1a1a1a">'
-        +'<div style="display:flex;gap:5px;margin-bottom:7px">'
+        +customBlock
+        +'<div style="display:flex;gap:5px;margin:9px 0 7px">'
         +'<input id="lq_'+r.key+'" value="'+q+'" placeholder="'+t('legitSearchPh')+'" onkeydown="if(event.key===\'Enter\')legitDoSearch(\''+r.key+'\')" style="flex:1;padding:7px 9px;border-radius:8px;border:1px solid #222;background:#0e0e0e;color:#fff;font-size:11px">'
         +'<button onclick="legitDoSearch(\''+r.key+'\')" style="padding:7px 11px;border-radius:8px;border:1px solid #333;background:#161616;color:#fff;font-size:10px;font-weight:700;cursor:pointer">'+t('legitSearch')+'</button>'
         +(m&&m.data&&m.data.source==='override'?'<button onclick="legitClear(\''+r.key+'\')" style="padding:7px 11px;border-radius:8px;border:1px solid #4a1010;background:#1a0606;color:#FF6B6B;font-size:10px;font-weight:700;cursor:pointer">'+t('legitClear')+'</button>':'')
