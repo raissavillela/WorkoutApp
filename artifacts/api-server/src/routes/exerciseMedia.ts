@@ -26,6 +26,8 @@ const CACHE_FILE = path.join(DATA_DIR, "exercise-media-cache.json");
 const OVERRIDES_FILE = path.join(DATA_DIR, "exercise-media-overrides.json");
 const CUSTOM_URLS_FILE = path.join(DATA_DIR, "exercise-media-custom-urls.json");
 const TRANSLATIONS_FILE = path.join(DATA_DIR, "exercise-translations.json");
+const GIF_CACHE_DIR = path.join(DATA_DIR, "gif-cache");
+if (!fs.existsSync(GIF_CACHE_DIR)) fs.mkdirSync(GIF_CACHE_DIR, { recursive: true });
 
 type CacheEntry = {
   query: string;
@@ -367,28 +369,56 @@ router.post("/exercise-media/custom-url", express_json(), (req, res) => {
   res.json({ ok: true });
 });
 
+async function fetchAndCacheGif(id: string): Promise<{ buf: Buffer; ct: string } | null> {
+  for (const urlSuffix of [`/gifs/${id}.gif`, `/gifs/${id}`]) {
+    try {
+      const r = await fetch(`${WX_BASE}${urlSuffix}`, {
+        headers: { "X-WorkoutX-Key": KEY },
+      });
+      if (!r.ok) continue;
+      const ct = r.headers.get("content-type") || "image/gif";
+      const buf = Buffer.from(await r.arrayBuffer());
+      if (buf.length < 100) continue;
+      const ext = ct.includes("webp") ? "webp" : ct.includes("png") ? "png" : "gif";
+      const cachePath = path.join(GIF_CACHE_DIR, `${id}.${ext}`);
+      fs.writeFileSync(cachePath, buf);
+      return { buf, ct };
+    } catch {
+      continue;
+    }
+  }
+  return null;
+}
+
+function findCachedGif(id: string): { buf: Buffer; ct: string } | null {
+  for (const ext of ["gif", "webp", "png"]) {
+    const p = path.join(GIF_CACHE_DIR, `${id}.${ext}`);
+    if (fs.existsSync(p)) {
+      const ct = ext === "webp" ? "image/webp" : ext === "png" ? "image/png" : "image/gif";
+      return { buf: fs.readFileSync(p), ct };
+    }
+  }
+  return null;
+}
+
 router.get("/exercise-media/gif/:id", async (req, res) => {
   const id = String(req.params.id || "").replace(/[^a-zA-Z0-9_-]/g, "");
   if (!id) return res.status(400).end();
+
+  const fromDisk = findCachedGif(id);
+  if (fromDisk) {
+    res.setHeader("Content-Type", fromDisk.ct);
+    res.setHeader("Cache-Control", "public, max-age=604800, immutable");
+    return res.end(fromDisk.buf);
+  }
+
   if (!KEY) return res.status(503).end();
   try {
-    const r = await fetch(`${WX_BASE}/gifs/${id}.gif`, {
-      headers: { "X-WorkoutX-Key": KEY },
-    });
-    if (!r.ok) {
-      const r2 = await fetch(`${WX_BASE}/gifs/${id}`, {
-        headers: { "X-WorkoutX-Key": KEY },
-      });
-      if (!r2.ok) return res.status(r2.status).end();
-      res.setHeader("Content-Type", r2.headers.get("content-type") || "image/gif");
-      res.setHeader("Cache-Control", "public, max-age=86400");
-      const buf = Buffer.from(await r2.arrayBuffer());
-      return res.end(buf);
-    }
-    res.setHeader("Content-Type", r.headers.get("content-type") || "image/gif");
-    res.setHeader("Cache-Control", "public, max-age=86400");
-    const buf = Buffer.from(await r.arrayBuffer());
-    return res.end(buf);
+    const result = await fetchAndCacheGif(id);
+    if (!result) return res.status(404).end();
+    res.setHeader("Content-Type", result.ct);
+    res.setHeader("Cache-Control", "public, max-age=604800, immutable");
+    return res.end(result.buf);
   } catch (e) {
     logger.warn({ err: String(e), id }, "gif proxy failed");
     return res.status(502).end();

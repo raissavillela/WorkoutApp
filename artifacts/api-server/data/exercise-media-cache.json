@@ -9474,5 +9474,14 @@
     "gifUrl": "/api/exercise-media/gif/0242",
     "ts": 1776821903085,
     "source": "override"
+  },
+  "agachamento": {
+    "query": "Agachamento",
+    "exerciseId": null,
+    "name": null,
+    "gifUrl": null,
+    "candidates": [],
+    "ts": 1777660560678,
+    "source": "miss"
   }
 }
