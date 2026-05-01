@@ -9648,11 +9648,11 @@
   },
   "hollow rocks": {
     "query": "Hollow rocks",
-    "exerciseId": "fp-plank",
-    "name": "Hollow Rocks",
-    "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/plank.gif",
-    "ts": 1776821903085,
-    "source": "auto"
+    "exerciseId": "0242",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0242",
+    "ts": 1777670330292,
+    "source": "override"
   },
   "agachamento": {
     "query": "Agachamento",
