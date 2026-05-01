@@ -40,10 +40,11 @@ Daily workout logging with:
 - Inline **"Show execution"** toggle on every non-cardio exercise that reveals an animated demonstration GIF
 
 ### Exercise Demonstration GIFs
-Each exercise (except cardio) shows an animated GIF demonstrating proper form. GIFs come from the [WorkoutX API](https://www.workoutxapp.com), proxied through the local API server which:
+Each exercise (except cardio) shows an animated GIF demonstrating proper form. GIFs are sourced from [fitnessprogramer.com](https://fitnessprogramer.com) — a public library with 1,200+ exercises — and served directly from their CDN. The API server:
 - Translates Portuguese exercise names to English
-- Caches every search and resolution to disk so the API quota is hit only once per exercise
-- Re-streams the GIFs through `/api/exercise-media/gif/:id` to add the auth header and bypass cross-origin restrictions
+- Fuzzy-matches each exercise against the fitnessprogramer.com exercise catalogue (1,234 entries from their sitemap)
+- Caches every resolution to disk so lookups are instant and require no external calls at runtime
+- Supports manual override or custom URL per exercise via the "Legitimize GIFs" screen
 
 ### Legitimize GIFs (manual override screen)
 Because no public exercise database perfectly maps to Brazilian cross-training nomenclature, a dedicated "Legitimize GIFs" screen on the home menu lets you verify and manually fix every exercise:
@@ -82,9 +83,9 @@ Switch between **Portuguese (PT)** and **English (EN)** at any time using the to
 
 **Back-end** (`artifacts/api-server/`)
 - Node.js + Express 5 + TypeScript
-- Proxies the WorkoutX API and serves GIF files
-- Disk-based JSON cache for exercise mapping, candidates and custom URLs
-- Throttled to respect the WorkoutX free plan (30 req/min, 500/month)
+- Resolves exercise GIFs from fitnessprogramer.com (no API key required)
+- Disk-based JSON cache for exercise mapping and custom URL overrides
+- WorkoutX API integration available as optional secondary source
 
 **Repository layout**
 - `pnpm` workspace monorepo
@@ -105,7 +106,7 @@ pnpm --filter @workspace/workout run dev      # web app
 The web app is served on its own port and talks to the API server through `/api/exercise-media/*`.
 
 ### Environment variables
-- `WORKOUTX_API_KEY` — required by the API server. Free key available at workoutxapp.com.
+- `WORKOUTX_API_KEY` — optional. Used only if you want WorkoutX as a fallback source for exercises not found on fitnessprogramer.com.
 
 ## API Endpoints (back-end)
 
