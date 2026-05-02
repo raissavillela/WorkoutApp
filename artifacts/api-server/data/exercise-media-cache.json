@@ -8210,75 +8210,6 @@
     "source": "auto",
     "fpSlug": "dumbbell-step-up"
   },
-  "step up lateral db": {
-    "query": "Step up lateral DB",
-    "exerciseId": "2796",
-    "name": "Dumbbell Step-up Lunge",
-    "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/12/Dumbeel-Step-Up.gif",
-    "bodyPart": "Upper Legs",
-    "target": "Quads",
-    "candidates": [
-      {
-        "id": "2796",
-        "name": "Dumbbell Step-up Lunge",
-        "gifUrl": "/api/exercise-media/gif/2796",
-        "bodyPart": "Upper Legs",
-        "target": "Quads"
-      },
-      {
-        "id": "0114",
-        "name": "Barbell Step-up",
-        "gifUrl": "/api/exercise-media/gif/0114",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "0431",
-        "name": "Dumbbell Step-up",
-        "gifUrl": "/api/exercise-media/gif/0431",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "1008",
-        "name": "Band Step-up",
-        "gifUrl": "/api/exercise-media/gif/1008",
-        "bodyPart": "Upper Legs",
-        "target": "Glutes"
-      },
-      {
-        "id": "2812",
-        "name": "Dumbbell Step-up Split Squat",
-        "gifUrl": "/api/exercise-media/gif/2812",
-        "bodyPart": "Upper Legs",
-        "target": "Quads"
-      },
-      {
-        "id": "1684",
-        "name": "Dumbbell Step Up Single Leg Balance With Bicep Curl",
-        "gifUrl": "/api/exercise-media/gif/1684",
-        "bodyPart": "Upper Arms",
-        "target": "Biceps"
-      },
-      {
-        "id": "1687",
-        "name": "Posterior Step To Overhead Reach",
-        "gifUrl": "/api/exercise-media/gif/1687",
-        "bodyPart": "Waist",
-        "target": "Abs"
-      },
-      {
-        "id": "2798",
-        "name": "Barbell Squat Jump Step Rear Lunge",
-        "gifUrl": "/api/exercise-media/gif/2798",
-        "bodyPart": "Upper Legs",
-        "target": "Quads"
-      }
-    ],
-    "ts": 1776807259116,
-    "source": "auto",
-    "fpSlug": "dumbbell-step-up"
-  },
   "step up lateral db c elevacao frontal": {
     "query": "Step up lateral DB c/ elevacao frontal",
     "exerciseId": "0012",
@@ -9742,5 +9673,13 @@
     "ts": 1777661842725,
     "source": "auto",
     "fpSlug": "deadlift"
+  },
+  "step up lateral db": {
+    "query": "Step up lateral DB",
+    "exerciseId": "0013",
+    "name": null,
+    "gifUrl": "/api/exercise-media/gif/0013",
+    "ts": 1777676298412,
+    "source": "override"
   }
 }
