@@ -21,7 +21,6 @@ A web application for workout tracking, built with pure HTML, CSS, and vanilla J
 ### Profile
 On first launch the home screen shows a **Create Profile** prompt. Set up your name and optionally upload a profile photo. Once created, the home screen becomes a personal dashboard:
 
-- Circular profile photo with an orange border
 - Your name
 - Four live stats: **Check-ins · Days active · Duration · Calories** — all calculated from real logged data
 - A monthly calendar where every workout day shows your photo as a small circle
@@ -62,11 +61,7 @@ Each exercise (except cardio) shows an animated GIF demonstrating proper form. G
 
 ### Legitimize GIFs (manual override screen)
 Because no public exercise database perfectly maps to Brazilian cross-training nomenclature, a dedicated "Legitimize GIFs" screen on the home menu lets you verify and manually fix every exercise:
-- Lists all non-cardio exercises with their current GIF preview, matched name, and a status badge:
-  - 🟢 **Auto** — automatic match from WorkoutX
-  - 🟡 **Manual** — you picked a different WorkoutX candidate
-  - 🔵 **Custom** — you pasted your own external image/GIF URL
-  - 🔴 **No match** — no candidate found
+- Lists all non-cardio exercises with their current GIF preview, matched name, and status badge
 - Filter chips: All / No match / Auto / Manual / URL — plus a progress bar
 - Inline candidate picker with mini GIFs (search by any English keyword to refine)
 - **Custom URL field**: paste any public link to a `.gif` / `.jpg` / `.png` (Tenor, Giphy, Imgur, Instagram CDN, etc.) and the app will use that image instead
