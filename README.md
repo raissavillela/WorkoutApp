@@ -37,10 +37,17 @@ Log a workout for today directly from the home screen:
 The card turns green with ✅ once you've checked in for the day. Your photo immediately appears on that day in the home calendar. The four stats update in real time as sessions accumulate.
 
 ### Ready Workout
-Access a library of 20 real pre-defined workouts, organized by modality. Filter by workout type (Weight Training, Core, Cardio, etc.) and start any workout with a single tap.
+Access a library of **33 real pre-defined workouts**, organized by modality. Filter by workout type (Weight Training, Core, Cardio, etc.) and start any workout with a single tap.
 
 ### Build Workout
-Automatic personalized workout generation. Choose your preferred modalities and duration (30 or 45 minutes) — the app builds a workout with balanced blocks and sets at random.
+Automatic personalized workout generation. Configure four options and the app builds a workout at random:
+
+- **Modalities** — pick one or more (Weight Training, Core, Cardio, Metabolic, Functional, Crossfit)
+- **Duration** — 30 min or 45 min
+- **Blocks** — 3 / 4 / 5 / 6 / 7 / 8 blocks
+- **Sets** — 2 / 3 / 4 sets per block
+
+If Weight Training is selected, an optional muscle-group filter lets you narrow exercises to a specific area (legs, chest, back, etc.).
 
 ### Calendar
 Full calendar view showing all months with logged sessions. Tap any day to edit or delete that session (title, calories). Monthly totals visible at a glance. All data saved locally in `localStorage`.
