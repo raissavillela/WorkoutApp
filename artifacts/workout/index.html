@@ -1018,9 +1018,9 @@ function homeScreen(){
       +'<p style="color:#6E6050;font-size:10px;margin:0;letter-spacing:3px;text-transform:uppercase">'+t('tagline')+'</p>'
     +'</div>'
     +'<div style="display:flex;gap:0;margin-bottom:32px;border:1px solid #302820;border-radius:12px;overflow:hidden">'
-      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+WDB.length+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">TREINOS</div></div>'
-      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">1.2K</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">GIFS</div></div>'
-      +'<div style="flex:1;padding:14px 0;text-align:center"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+ML.length+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">MODALIDADES</div></div>'
+      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+(Object.keys(ci).length||'—')+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">CHECK-INS</div></div>'
+      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+(Object.keys(ci).length||'—')+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">'+(LANG==='pt'?'DIAS ATIVOS':'DAYS ACTIVE')+'</div></div>'
+      +'<div style="flex:1;padding:14px 0;text-align:center"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+(Object.keys(ci).length?Math.round(Object.keys(ci).length*45/60)+'h':'—')+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">'+(LANG==='pt'?'DURAÇÃO':'DURATION')+'</div></div>'
     +'</div>'
     +'<div style="display:flex;flex-direction:column;gap:8px">'
       +card('navTo(lib)','📋',t('readyWorkout'),t('readyDesc')+' · '+WDB.length+' '+t('workoutsCount'))
