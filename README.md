@@ -18,19 +18,33 @@ A web application for workout tracking, built with pure HTML, CSS, and vanilla J
 
 ## Features
 
+### Profile
+On first launch the home screen shows a **Create Profile** prompt. Set up your name and optionally upload a profile photo. Once created, the home screen becomes a personal dashboard:
+
+- Circular profile photo with an orange border
+- Your name
+- Four live stats: **Check-ins · Days active · Duration · Calories** — all calculated from real logged data
+- A monthly calendar where every workout day shows your photo as a small circle
+
+Tap **Edit** (top-right) to update your name or photo at any time. **Log out** removes the profile from `localStorage`.
+
+### Check-in
+Log a workout for today directly from the home screen:
+
+1. Tap the **Check-in** card
+2. A bottom sheet opens — enter your **Duration (minutes)** and **Calories (kcal)**
+3. Tap **Save**
+
+The card turns green with ✅ once you've checked in for the day. Your photo immediately appears on that day in the home calendar. The four stats update in real time as sessions accumulate.
+
 ### Ready Workout
 Access a library of 20 real pre-defined workouts, organized by modality. Filter by workout type (Weight Training, Core, Cardio, etc.) and start any workout with a single tap.
 
 ### Build Workout
 Automatic personalized workout generation. Choose your preferred modalities and duration (30 or 45 minutes) — the app builds a workout with balanced blocks and sets at random.
 
-### Calendar & Check-in
-Daily workout logging with:
-- Monthly view with trained days highlighted
-- Free-text title field (e.g. "Workout A — Weight Training")
-- Calories burned log (kcal)
-- Monthly totals (number of workouts and calories)
-- Data saved locally in the browser (localStorage)
+### Calendar
+Full calendar view showing all months with logged sessions. Tap any day to edit or delete that session (title, calories). Monthly totals visible at a glance. All data saved locally in `localStorage`.
 
 ### During the Workout
 - Mark completed sets per block
@@ -92,6 +106,16 @@ Switch between **Portuguese (PT)** and **English (EN)** at any time using the to
 - `artifacts/workout/` — the web app itself
 - `artifacts/api-server/` — the GIF proxy and override API
 - `artifacts/api-server/data/` — persistent cache, overrides, custom URLs and PT→EN translations
+
+## Data Storage
+
+All user data lives in the browser — no account server needed.
+
+| `localStorage` key | Contents |
+|---|---|
+| `wk_profile` | `{ name, photo (base64) }` |
+| `wk_ci` | `{ [YYYY-MM-DD]: { title, calories, duration } }` |
+| `wk_lang` | `"pt"` or `"en"` |
 
 ## Running Locally
 
