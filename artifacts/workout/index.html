@@ -114,6 +114,8 @@ const T={
     calsPh:'ex: 300',
     cancelBtn:'Cancelar',
     calories:'Calorias',
+    editCheckIn:'Editar treino',
+    deleteCheckIn:'Excluir treino',
     muscGrps:{costas:'Costas',peito:'Peito',triceps:'Tríceps',biceps:'Bíceps',ombros:'Ombros',trapezio:'Trapézio',panturrilhas:'Panturrilhas',gluteos:'Glúteos',post_coxa:'Post. Coxa',quadriceps:'Quadríceps'},
   },
   en:{
@@ -210,6 +212,8 @@ const T={
     calsPh:'e.g. 300',
     cancelBtn:'Cancel',
     calories:'Calories',
+    editCheckIn:'Edit workout',
+    deleteCheckIn:'Delete workout',
     muscGrps:{costas:'Back',peito:'Chest',triceps:'Triceps',biceps:'Biceps',ombros:'Shoulders',trapezio:'Trapezius',panturrilhas:'Calves',gluteos:'Glutes',post_coxa:'Hamstrings',quadriceps:'Quads'},
   },
 };
@@ -594,7 +598,7 @@ const LOGO_SVG='<svg width="72" height="36" viewBox="0 0 80 40" fill="none" xmln
 
 const home='home',lib='lib',setup='setup',cal='cal',legit='legit';
 const musculacao='musculacao',core='core',cardio='cardio',metabolico='metabolico',funcional='funcional',crossfit='crossfit';
-const S={screen:'home',libFilter:[],setupSel:[],setupMuscGrp:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{},legitFilter:'all',legitOpen:null,legitCands:{},legitQuery:{},profilePhotoPreview:null,profileEditing:false,checkInModal:false};
+const S={screen:'home',libFilter:[],setupSel:[],setupMuscGrp:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{},legitFilter:'all',legitOpen:null,legitCands:{},legitQuery:{},profilePhotoPreview:null,profileEditing:false,checkInModal:null};
 
 /* ============== EXERCISE DEMONSTRATION MEDIA ==============
    GIFs demonstrativos vindos da API workoutxapp via proxy /api/exercise-media.
@@ -852,14 +856,25 @@ function saveProfileSetup(){
   saveProfile(Object.assign({},existing,{name:name,photo:S.profilePhotoPreview||existing.photo||null}));
   S.profilePhotoPreview=null;S.profileEditing=false;render();
 }
-function doCheckIn(){S.checkInModal=true;render();}
+function doCheckIn(){
+  const now=new Date();
+  const dk=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+  const ex=loadCI()[dk]||{};
+  S.checkInModal={date:dk,dur:ex.duration||0,cals:ex.calories||0};render();
+}
+function openCiEdit(dk){
+  const ex=loadCI()[dk]||{};
+  S.checkInModal={date:dk,dur:ex.duration||0,cals:ex.calories||0};render();
+}
 function saveCheckIn(){
   const dur=Number((document.getElementById('ci-dur-input')||{}).value)||0;
   const cals=Number((document.getElementById('ci-cals-input')||{}).value)||0;
-  const now=new Date();
-  const dk=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
-  saveCI(dk,'Check-in',cals,dur);
-  S.checkInModal=false;render();
+  saveCI(S.checkInModal.date,'Check-in',cals,dur);
+  S.checkInModal=null;render();
+}
+function deleteCheckIn(){
+  delCI(S.checkInModal.date);
+  S.checkInModal=null;render();
 }
 function miniCalHtml(ci,photo){
   const now=new Date();const y=now.getFullYear(),m=now.getMonth();
@@ -875,8 +890,8 @@ function miniCalHtml(ci,photo){
   for(let d=1;d<=daysInMonth;d++){
     const dk=mKey+'-'+String(d).padStart(2,'0');
     const hasCi=!!ci[dk];const isToday=(d===now.getDate());
-    if(hasCi&&photo){cells+='<div style="display:flex;justify-content:center;padding:2px 0"><div style="width:30px;height:30px;border-radius:50%;overflow:hidden;border:2px solid #E8550A"><img src="'+photo+'" style="width:100%;height:100%;object-fit:cover"></div></div>';}
-    else if(hasCi){cells+='<div style="display:flex;justify-content:center;padding:2px 0"><div style="width:30px;height:30px;border-radius:50%;background:#E8550A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff">'+d+'</div></div>';}
+    if(hasCi&&photo){cells+='<div onclick="openCiEdit(\''+dk+'\')" style="cursor:pointer;display:flex;justify-content:center;padding:2px 0"><div style="width:30px;height:30px;border-radius:50%;overflow:hidden;border:2px solid #E8550A"><img src="'+photo+'" style="width:100%;height:100%;object-fit:cover"></div></div>';}
+    else if(hasCi){cells+='<div onclick="openCiEdit(\''+dk+'\')" style="cursor:pointer;display:flex;justify-content:center;padding:2px 0"><div style="width:30px;height:30px;border-radius:50%;background:#E8550A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff">'+d+'</div></div>';}
     else{cells+='<div style="text-align:center;font-size:12px;color:'+(isToday?'#E8550A':'#4A3C2E')+';font-weight:'+(isToday?'900':'400')+';padding:7px 0">'+d+'</div>';}
   }
   return '<div style="margin-bottom:20px">'
@@ -1112,19 +1127,28 @@ function homeScreen(){
       +'</div>';})()
     +'<div style="padding:0 18px 20px">'+miniCalHtml(ci,p.photo)+'</div>'
     +'<div style="padding:0 18px">'+navCards+'</div>'
-    +(S.checkInModal?'<div style="position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;display:flex;align-items:flex-end" onclick="if(event.target===this){S.checkInModal=false;render();}">'
-      +'<div style="width:100%;background:#1F1C18;border-radius:20px 20px 0 0;padding:24px 20px 44px;box-sizing:border-box">'
-        +'<div style="font-size:15px;font-weight:900;margin-bottom:20px;letter-spacing:.5px">'+t('checkIn')+'</div>'
-        +'<div style="margin-bottom:12px"><label style="font-size:9px;font-weight:700;letter-spacing:2px;color:#9C8F80;display:block;margin-bottom:5px;text-transform:uppercase">'+t('durationLabel')+'</label>'
-          +'<input id="ci-dur-input" type="number" inputmode="numeric" placeholder="'+t('durationPh')+'" min="0" style="width:100%;box-sizing:border-box;background:#171410;border:1px solid #3A2E22;border-radius:10px;padding:12px 14px;color:#fff;font-size:15px;font-family:inherit;outline:none">'
+    +(S.checkInModal?(function(){
+      const m=S.checkInModal;const isEdit=!!(loadCI()[m.date]&&(loadCI()[m.date].duration||loadCI()[m.date].calories));
+      const durVal=m.dur>0?m.dur:'';const calsVal=m.cals>0?m.cals:'';
+      const dateLabel=(function(){const p=m.date.split('-');return p[2]+'/'+p[1]+'/'+p[0];})();
+      return '<div style="position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;display:flex;align-items:flex-end" onclick="if(event.target===this){S.checkInModal=null;render();}">'
+        +'<div style="width:100%;background:#1F1C18;border-radius:20px 20px 0 0;padding:24px 20px 44px;box-sizing:border-box">'
+          +'<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">'
+            +'<div style="font-size:15px;font-weight:900;letter-spacing:.5px">'+(isEdit?t('editCheckIn'):t('checkIn'))+'</div>'
+            +'<div style="font-size:10px;color:#9C8F80">'+dateLabel+'</div>'
+          +'</div>'
+          +'<div style="margin-bottom:12px"><label style="font-size:9px;font-weight:700;letter-spacing:2px;color:#9C8F80;display:block;margin-bottom:5px;text-transform:uppercase">'+t('durationLabel')+'</label>'
+            +'<input id="ci-dur-input" type="number" inputmode="numeric" placeholder="'+t('durationPh')+'" min="0" value="'+durVal+'" style="width:100%;box-sizing:border-box;background:#171410;border:1px solid #3A2E22;border-radius:10px;padding:12px 14px;color:#fff;font-size:15px;font-family:inherit;outline:none">'
+          +'</div>'
+          +'<div style="margin-bottom:22px"><label style="font-size:9px;font-weight:700;letter-spacing:2px;color:#9C8F80;display:block;margin-bottom:5px;text-transform:uppercase">'+t('calsLabel')+'</label>'
+            +'<input id="ci-cals-input" type="number" inputmode="numeric" placeholder="'+t('calsPh')+'" min="0" value="'+calsVal+'" style="width:100%;box-sizing:border-box;background:#171410;border:1px solid #3A2E22;border-radius:10px;padding:12px 14px;color:#fff;font-size:15px;font-family:inherit;outline:none">'
+          +'</div>'
+          +'<button onclick="saveCheckIn()" style="width:100%;padding:15px;border-radius:12px;border:none;background:#E8550A;color:#fff;font-size:13px;font-weight:900;letter-spacing:1.5px;cursor:pointer;margin-bottom:10px">'+t('saveBtn')+'</button>'
+          +(isEdit?'<button onclick="deleteCheckIn()" style="width:100%;padding:13px;border-radius:12px;border:1px solid #5A1A0A;background:transparent;color:#D44;font-size:12px;font-weight:700;cursor:pointer;margin-bottom:10px">'+t('deleteCheckIn')+'</button>':'')
+          +'<button onclick="S.checkInModal=null;render()" style="width:100%;padding:13px;border-radius:12px;border:1px solid #3A2E22;background:transparent;color:#9C8F80;font-size:12px;font-weight:700;cursor:pointer">'+t('cancelBtn')+'</button>'
         +'</div>'
-        +'<div style="margin-bottom:22px"><label style="font-size:9px;font-weight:700;letter-spacing:2px;color:#9C8F80;display:block;margin-bottom:5px;text-transform:uppercase">'+t('calsLabel')+'</label>'
-          +'<input id="ci-cals-input" type="number" inputmode="numeric" placeholder="'+t('calsPh')+'" min="0" style="width:100%;box-sizing:border-box;background:#171410;border:1px solid #3A2E22;border-radius:10px;padding:12px 14px;color:#fff;font-size:15px;font-family:inherit;outline:none">'
-        +'</div>'
-        +'<button onclick="saveCheckIn()" style="width:100%;padding:15px;border-radius:12px;border:none;background:#E8550A;color:#fff;font-size:13px;font-weight:900;letter-spacing:1.5px;cursor:pointer;margin-bottom:10px">'+t('saveBtn')+'</button>'
-        +'<button onclick="S.checkInModal=false;render()" style="width:100%;padding:13px;border-radius:12px;border:1px solid #3A2E22;background:transparent;color:#9C8F80;font-size:12px;font-weight:700;cursor:pointer">'+t('cancelBtn')+'</button>'
-      +'</div>'
-    +'</div>':'')
+      +'</div>';
+    })():'')
     +'</div>';
 }
 
