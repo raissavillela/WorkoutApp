@@ -103,6 +103,11 @@ const T={
     logout:'Sair do perfil',
     daysActive:'Dias ativos',
     thisMonth:'Este mês',
+    checkIn:'Check-in',
+    checkInDesc:'Registrar treino de hoje',
+    checkedToday:'Treino registrado hoje ✓',
+    createProfile:'Criar perfil',
+    createProfileDesc:'Adicione seu nome e foto',
     muscGrps:{costas:'Costas',peito:'Peito',triceps:'Tríceps',biceps:'Bíceps',ombros:'Ombros',trapezio:'Trapézio',panturrilhas:'Panturrilhas',gluteos:'Glúteos',post_coxa:'Post. Coxa',quadriceps:'Quadríceps'},
   },
   en:{
@@ -188,6 +193,11 @@ const T={
     logout:'Log out',
     daysActive:'Days active',
     thisMonth:'This month',
+    checkIn:'Check-in',
+    checkInDesc:"Log today's workout",
+    checkedToday:"Today's workout logged ✓",
+    createProfile:'Create profile',
+    createProfileDesc:'Add your name and photo',
     muscGrps:{costas:'Back',peito:'Chest',triceps:'Triceps',biceps:'Biceps',ombros:'Shoulders',trapezio:'Trapezius',panturrilhas:'Calves',gluteos:'Glutes',post_coxa:'Hamstrings',quadriceps:'Quads'},
   },
 };
@@ -828,6 +838,35 @@ function saveProfileSetup(){
   saveProfile(Object.assign({},existing,{name:name,photo:S.profilePhotoPreview||existing.photo||null}));
   S.profilePhotoPreview=null;S.profileEditing=false;render();
 }
+function doCheckIn(){
+  const now=new Date();
+  const dk=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+  if(!loadCI()[dk])saveCI(dk,'Check-in',0);
+  render();
+}
+function miniCalHtml(ci,photo){
+  const now=new Date();const y=now.getFullYear(),m=now.getMonth();
+  const mKey=y+'-'+String(m+1).padStart(2,'0');
+  const months_pt=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const months_en=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const monthName=(LANG==='pt'?months_pt:months_en)[m]+' '+y;
+  const DLABELS=LANG==='pt'?['D','S','T','Q','Q','S','S']:['S','M','T','W','T','F','S'];
+  const firstDay=new Date(y,m,1).getDay();const daysInMonth=new Date(y,m+1,0).getDate();
+  let cells='';
+  cells+=DLABELS.map(function(d){return '<div style="text-align:center;font-size:9px;font-weight:700;color:#6E6050;padding:5px 0">'+d+'</div>';}).join('');
+  for(let i=0;i<firstDay;i++)cells+='<div></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const dk=mKey+'-'+String(d).padStart(2,'0');
+    const hasCi=!!ci[dk];const isToday=(d===now.getDate());
+    if(hasCi&&photo){cells+='<div style="display:flex;justify-content:center;padding:2px 0"><div style="width:30px;height:30px;border-radius:50%;overflow:hidden;border:2px solid #E8550A"><img src="'+photo+'" style="width:100%;height:100%;object-fit:cover"></div></div>';}
+    else if(hasCi){cells+='<div style="display:flex;justify-content:center;padding:2px 0"><div style="width:30px;height:30px;border-radius:50%;background:#E8550A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff">'+d+'</div></div>';}
+    else{cells+='<div style="text-align:center;font-size:12px;color:'+(isToday?'#E8550A':'#4A3C2E')+';font-weight:'+(isToday?'900':'400')+';padding:7px 0">'+d+'</div>';}
+  }
+  return '<div style="margin-bottom:20px">'
+    +'<div style="font-size:14px;font-weight:900;text-align:center;color:#fff;margin-bottom:12px;letter-spacing:.5px">'+monthName+'</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px">'+cells+'</div>'
+    +'</div>';
+}
 function profileBtn(){
   const p=loadProfile();
   if(p&&p.photo)return '<button onclick="navTo(\'profile\')" style="width:30px;height:30px;border-radius:50%;overflow:hidden;border:2px solid #E8550A;padding:0;cursor:pointer;background:none;flex-shrink:0"><img src="'+p.photo+'" style="width:100%;height:100%;object-fit:cover"></button>';
@@ -1000,35 +1039,60 @@ function badge(mod){const m=MC[mod];if(!m)return'';return '<span style="font-siz
 function isComp(st){return Array.from({length:st.sets},(e,i)=>i+1).every(s=>S.done[st.id+'-'+s]===true);}
 
 function homeScreen(){
-  const ci=loadCI();const now=new Date();
+  const p=loadProfile();const ci=loadCI();const now=new Date();
   const mKey=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  const ciMonth=Object.keys(ci).filter(k=>k.startsWith(mKey)).length;
-  const ciLabel=ciMonth===1?t('workoutsThisMonth'):t('workoutsThisMonthPlural');
+  const todayKey=mKey+'-'+String(now.getDate()).padStart(2,'0');
+  const checkedToday=!!ci[todayKey];
+  const totalCI=Object.keys(ci).length;
+  const thisMonthCI=Object.keys(ci).filter(function(k){return k.startsWith(mKey);}).length;
   const card=(onclick,icon,title,sub)=>'<button onclick="'+onclick+'" style="width:100%;padding:17px 18px;border-radius:13px;border:1px solid #302820;background:#1F1C18;color:#fff;text-align:left;display:flex;align-items:center;gap:14px">'
     +'<div style="width:42px;height:42px;border-radius:10px;background:#271F16;border:1px solid #3A2E22;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0">'+icon+'</div>'
     +'<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:800;letter-spacing:.4px;margin-bottom:2px">'+title+'</div><div style="font-size:10px;color:#9C8F80;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+sub+'</div></div>'
     +'<svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="#4A3C2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     +'</button>';
-  return '<div style="min-height:100vh;display:flex;flex-direction:column;padding:0">'
-    +'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 20px">'
-    +'<div style="position:absolute;top:16px;right:16px;display:flex;align-items:center;gap:8px">'+profileBtn()+langToggleBtn()+'</div>'
-    +'<div style="margin-bottom:32px">'
-      +LOGO_SVG
-      +'<h1 style="font-size:40px;font-weight:900;letter-spacing:3px;color:#fff;margin:12px 0 6px 0;line-height:1;text-transform:uppercase">WORKOUT</h1>'
-      +'<p style="color:#6E6050;font-size:10px;margin:0;letter-spacing:3px;text-transform:uppercase">'+t('tagline')+'</p>'
+  const checkInCard=checkedToday
+    ?'<div style="width:100%;padding:17px 18px;border-radius:13px;border:1px solid #1A3A1A;background:#0D1F0D;color:#2ED573;display:flex;align-items:center;gap:14px;box-sizing:border-box"><div style="width:42px;height:42px;border-radius:10px;background:#0A2A0A;border:1px solid #1A4A1A;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0">✅</div><div><div style="font-size:13px;font-weight:800;letter-spacing:.4px;margin-bottom:2px">'+t('checkIn')+'</div><div style="font-size:10px;color:#2ED573;opacity:.7">'+t('checkedToday')+'</div></div></div>'
+    :card('doCheckIn()','<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#E8550A" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#E8550A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',t('checkIn'),t('checkInDesc'));
+  const navCards='<div style="display:flex;flex-direction:column;gap:8px">'
+    +card('navTo(lib)','📋',t('readyWorkout'),t('readyDesc')+' · '+WDB.length+' '+t('workoutsCount'))
+    +card('navTo(setup)','⚡',t('buildWorkout'),t('buildDesc'))
+    +checkInCard
+    +card('navTo(legit)','🎬',t('legitMenu'),t('legitDesc'))
+    +'</div>';
+  if(!p||!p.name){
+    return '<div style="min-height:100vh;display:flex;flex-direction:column;padding:0">'
+      +'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 20px">'
+      +'<div style="position:absolute;top:16px;right:16px;display:flex;align-items:center;gap:8px">'+langToggleBtn()+'</div>'
+      +'<div style="margin-bottom:28px">'
+        +LOGO_SVG
+        +'<h1 style="font-size:40px;font-weight:900;letter-spacing:3px;color:#fff;margin:12px 0 6px 0;line-height:1;text-transform:uppercase">WORKOUT</h1>'
+        +'<p style="color:#6E6050;font-size:10px;margin:0;letter-spacing:3px;text-transform:uppercase">'+t('tagline')+'</p>'
+      +'</div>'
+      +'<button onclick="navTo(\'profile\')" style="width:100%;padding:17px 18px;border-radius:13px;border:1px solid #3A2E22;background:#1F1C18;color:#fff;text-align:left;display:flex;align-items:center;gap:14px;margin-bottom:20px">'
+        +'<div style="width:42px;height:42px;border-radius:50%;background:#271F16;border:2px dashed #3A2E22;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">👤</div>'
+        +'<div style="flex:1"><div style="font-size:13px;font-weight:800;letter-spacing:.4px;margin-bottom:2px">'+t('createProfile')+'</div><div style="font-size:10px;color:#9C8F80">'+t('createProfileDesc')+'</div></div>'
+        +'<svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="#E8550A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      +'</button>'
+      +navCards
+      +'</div></div>';
+  }
+  return '<div style="min-height:100vh;padding-bottom:40px">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px 0">'
+      +'<div style="width:60px"></div>'
+      +'<button onclick="navTo(\'profile\')" style="font-size:10px;font-weight:700;color:#9C8F80;padding:6px 14px;border-radius:8px;border:1px solid #302820;background:transparent;cursor:pointer">'+t('editProfile')+'</button>'
+      +langToggleBtn()
     +'</div>'
-    +'<div style="display:flex;gap:0;margin-bottom:32px;border:1px solid #302820;border-radius:12px;overflow:hidden">'
-      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+(Object.keys(ci).length||'—')+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">CHECK-INS</div></div>'
-      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+(Object.keys(ci).length||'—')+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">'+(LANG==='pt'?'DIAS ATIVOS':'DAYS ACTIVE')+'</div></div>'
-      +'<div style="flex:1;padding:14px 0;text-align:center"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+(Object.keys(ci).length?Math.round(Object.keys(ci).length*45/60)+'h':'—')+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">'+(LANG==='pt'?'DURAÇÃO':'DURATION')+'</div></div>'
+    +'<div style="text-align:center;padding:20px 20px 14px">'
+      +(p.photo?'<div style="width:82px;height:82px;border-radius:50%;overflow:hidden;border:3px solid #E8550A;display:inline-block;margin-bottom:10px"><img src="'+p.photo+'" style="width:100%;height:100%;object-fit:cover"></div>':'<div style="width:82px;height:82px;border-radius:50%;background:#1F1C18;border:2px dashed #3A2E22;display:inline-flex;align-items:center;justify-content:center;font-size:28px;color:#3A2E22;margin-bottom:10px">👤</div>')
+      +'<div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:.3px">'+p.name+'</div>'
     +'</div>'
-    +'<div style="display:flex;flex-direction:column;gap:8px">'
-      +card('navTo(lib)','📋',t('readyWorkout'),t('readyDesc')+' · '+WDB.length+' '+t('workoutsCount'))
-      +card('navTo(setup)','⚡',t('buildWorkout'),t('buildDesc'))
-      +card('navTo(cal)','📅',t('calendar'),ciMonth>0?ciMonth+' '+ciLabel:'—')
-      +card('navTo(legit)','🎬',t('legitMenu'),t('legitDesc'))
+    +'<div style="display:flex;margin:0 18px 20px;border:1px solid #302820;border-radius:14px;overflow:hidden">'
+      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:22px;font-weight:900;color:#fff">'+totalCI+'</div><div style="font-size:9px;color:#9C8F80;margin-top:3px;letter-spacing:.5px">Check-ins</div></div>'
+      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:22px;font-weight:900;color:#fff">'+totalCI+'</div><div style="font-size:9px;color:#9C8F80;margin-top:3px;letter-spacing:.5px">'+t('daysActive')+'</div></div>'
+      +'<div style="flex:1;padding:14px 0;text-align:center"><div style="font-size:22px;font-weight:900;color:#fff">'+thisMonthCI+'</div><div style="font-size:9px;color:#9C8F80;margin-top:3px;letter-spacing:.5px">'+t('thisMonth')+'</div></div>'
     +'</div>'
-    +'</div>'
+    +'<div style="padding:0 18px 20px">'+miniCalHtml(ci,p.photo)+'</div>'
+    +'<div style="padding:0 18px">'+navCards+'</div>'
     +'</div>';
 }
 
