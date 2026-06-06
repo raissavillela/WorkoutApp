@@ -14,6 +14,7 @@ button{font-family:inherit;cursor:pointer;border:none;outline:none}
 </head>
 <body>
 <div id="root"></div>
+<input type="file" id="wk-photo-input" accept="image/*" style="display:none" onchange="handlePhotoUpload(this)">
 <script>
 let LANG=localStorage.getItem('wk_lang')||'pt';
 function toggleLang(){LANG=LANG==='pt'?'en':'pt';localStorage.setItem('wk_lang',LANG);render();}
@@ -92,6 +93,16 @@ const T={
     legitCustomInvalid:'URL precisa começar com http:// ou https://',
     muscGrpLabel:'Grupo muscular',
     muscGrpHint:'Opcional — sem seleção usa todos os grupos',
+    loginTitle:'Criar perfil',
+    editProfile:'Editar',
+    nameLabel:'Nome',
+    namePlaceholder:'Seu nome',
+    addPhoto:'Adicionar foto',
+    changePhoto:'Trocar foto',
+    saveProfile:'Salvar perfil',
+    logout:'Sair do perfil',
+    daysActive:'Dias ativos',
+    thisMonth:'Este mês',
     muscGrps:{costas:'Costas',peito:'Peito',triceps:'Tríceps',biceps:'Bíceps',ombros:'Ombros',trapezio:'Trapézio',panturrilhas:'Panturrilhas',gluteos:'Glúteos',post_coxa:'Post. Coxa',quadriceps:'Quadríceps'},
   },
   en:{
@@ -167,6 +178,16 @@ const T={
     legitCustomInvalid:'URL must start with http:// or https://',
     muscGrpLabel:'Muscle group',
     muscGrpHint:'Optional — no selection uses all groups',
+    loginTitle:'Create profile',
+    editProfile:'Edit',
+    nameLabel:'Name',
+    namePlaceholder:'Your name',
+    addPhoto:'Add photo',
+    changePhoto:'Change photo',
+    saveProfile:'Save profile',
+    logout:'Log out',
+    daysActive:'Days active',
+    thisMonth:'This month',
     muscGrps:{costas:'Back',peito:'Chest',triceps:'Triceps',biceps:'Biceps',ombros:'Shoulders',trapezio:'Trapezius',panturrilhas:'Calves',gluteos:'Glutes',post_coxa:'Hamstrings',quadriceps:'Quads'},
   },
 };
@@ -551,7 +572,7 @@ const LOGO_SVG='<svg width="72" height="36" viewBox="0 0 80 40" fill="none" xmln
 
 const home='home',lib='lib',setup='setup',cal='cal',legit='legit';
 const musculacao='musculacao',core='core',cardio='cardio',metabolico='metabolico',funcional='funcional',crossfit='crossfit';
-const S={screen:'home',libFilter:[],setupSel:[],setupMuscGrp:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{},legitFilter:'all',legitOpen:null,legitCands:{},legitQuery:{}};
+const S={screen:'home',libFilter:[],setupSel:[],setupMuscGrp:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{},legitFilter:'all',legitOpen:null,legitCands:{},legitQuery:{},profilePhotoPreview:null,profileEditing:false};
 
 /* ============== EXERCISE DEMONSTRATION MEDIA ==============
    GIFs demonstrativos vindos da API workoutxapp via proxy /api/exercise-media.
@@ -789,6 +810,99 @@ const WDAYS_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 function loadCI(){try{return JSON.parse(localStorage.getItem('wk_ci')||'{}');}catch(e){return {};}}
 function saveCI(d,ti,c){const ci=loadCI();ci[d]={title:ti,calories:c};localStorage.setItem('wk_ci',JSON.stringify(ci));}
 function delCI(d){const ci=loadCI();delete ci[d];localStorage.setItem('wk_ci',JSON.stringify(ci));}
+function loadProfile(){try{return JSON.parse(localStorage.getItem('wk_profile')||'null');}catch(e){return null;}}
+function saveProfile(p){localStorage.setItem('wk_profile',JSON.stringify(p));}
+function deleteProfile(){if(confirm(LANG==='pt'?'Sair do perfil?':'Log out?')){localStorage.removeItem('wk_profile');S.profileEditing=false;navTo(home);}}
+function triggerPhotoUpload(){document.getElementById('wk-photo-input').click();}
+function handlePhotoUpload(input){
+  const file=input.files&&input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{S.profilePhotoPreview=e.target.result;render();};
+  reader.readAsDataURL(file);
+}
+function saveProfileSetup(){
+  const inp=document.getElementById('profile-name-input');
+  const name=(inp?inp.value:'').trim();
+  if(!name){if(inp)inp.style.border='1px solid #E8550A';return;}
+  const existing=loadProfile()||{};
+  saveProfile(Object.assign({},existing,{name:name,photo:S.profilePhotoPreview||existing.photo||null}));
+  S.profilePhotoPreview=null;S.profileEditing=false;render();
+}
+function profileBtn(){
+  const p=loadProfile();
+  if(p&&p.photo)return '<button onclick="navTo(\'profile\')" style="width:30px;height:30px;border-radius:50%;overflow:hidden;border:2px solid #E8550A;padding:0;cursor:pointer;background:none;flex-shrink:0"><img src="'+p.photo+'" style="width:100%;height:100%;object-fit:cover"></button>';
+  if(p&&p.name){const init=p.name.trim().split(' ').map(function(n){return n[0];}).join('').toUpperCase().slice(0,2);return '<button onclick="navTo(\'profile\')" style="width:30px;height:30px;border-radius:50%;background:#E8550A;border:none;color:#fff;font-size:11px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">'+init+'</button>';}
+  return '<button onclick="navTo(\'profile\')" style="width:30px;height:30px;border-radius:50%;background:#1F1C18;border:1px solid #3A2E22;color:#9C8F80;font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;flex-shrink:0">&#x1F464;</button>';
+}
+function profileScreen(){
+  const p=loadProfile();const ci=loadCI();
+  if(!p||!p.name||S.profileEditing){
+    const photoSrc=S.profilePhotoPreview||(p&&p.photo)||null;
+    const existingName=(p&&p.name)||'';
+    return '<div style="min-height:100vh;padding:20px 20px 40px">'
+      +'<div style="display:flex;align-items:center;gap:9px;margin-bottom:36px">'
+        +'<button onclick="S.profileEditing=false;navTo(home)" style="background:none;color:#9C8F80;font-size:22px;padding:0 4px">←</button>'
+        +'<div style="font-size:13px;font-weight:900;letter-spacing:1px">'+(p&&p.name?t('editProfile').toUpperCase():t('loginTitle').toUpperCase())+'</div>'
+      +'</div>'
+      +'<div style="text-align:center;margin-bottom:28px">'
+        +'<button onclick="triggerPhotoUpload()" style="width:90px;height:90px;border-radius:50%;border:2px dashed '+(photoSrc?'#E8550A':'#3A2E22')+';background:#1F1C18;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0">'
+          +(photoSrc?'<img src="'+photoSrc+'" style="width:100%;height:100%;object-fit:cover">':'<span style="font-size:32px;color:#3A2E22;line-height:1">+</span>')
+        +'</button>'
+        +'<div style="font-size:9px;color:#9C8F80;margin-top:8px;letter-spacing:2px;text-transform:uppercase">'+(photoSrc?t('changePhoto'):t('addPhoto'))+'</div>'
+      +'</div>'
+      +'<div style="margin-bottom:16px">'
+        +'<label style="font-size:9px;font-weight:700;letter-spacing:2px;color:#9C8F80;display:block;margin-bottom:6px;text-transform:uppercase">'+t('nameLabel')+'</label>'
+        +'<input id="profile-name-input" type="text" placeholder="'+t('namePlaceholder')+'" value="'+existingName+'" autocomplete="off" style="width:100%;box-sizing:border-box;background:#1F1C18;border:1px solid #3A2E22;border-radius:10px;padding:13px 14px;color:#fff;font-size:15px;font-family:inherit;outline:none">'
+      +'</div>'
+      +'<button onclick="saveProfileSetup()" style="width:100%;padding:15px;border-radius:12px;border:none;background:#E8550A;color:#fff;font-size:13px;font-weight:900;letter-spacing:1.5px;cursor:pointer;margin-bottom:10px">'+t('saveProfile')+'</button>'
+      +(p&&p.name?'<button onclick="deleteProfile()" style="width:100%;padding:12px;border-radius:12px;border:1px solid #3A2E22;background:transparent;color:#6E6050;font-size:12px;font-weight:700;cursor:pointer">'+t('logout')+'</button>':'')
+      +'</div>';
+  }
+  const totalCI=Object.keys(ci).length;
+  const now=new Date();
+  const mKey=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  const thisMonthCI=Object.keys(ci).filter(function(k){return k.startsWith(mKey);}).length;
+  const y=now.getFullYear(),m=now.getMonth();
+  const months_pt=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const months_en=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const monthName=(LANG==='pt'?months_pt:months_en)[m]+' '+y;
+  const DLABELS=LANG==='pt'?['D','S','T','Q','Q','S','S']:['S','M','T','W','T','F','S'];
+  const firstDay=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  let cells='';
+  cells+=DLABELS.map(function(d){return '<div style="text-align:center;font-size:9px;font-weight:700;color:#6E6050;padding:5px 0">'+d+'</div>';}).join('');
+  for(let i=0;i<firstDay;i++)cells+='<div></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const dk=mKey+'-'+String(d).padStart(2,'0');
+    const hasCi=!!ci[dk];const isToday=(d===now.getDate());
+    if(hasCi&&p.photo){
+      cells+='<div style="display:flex;justify-content:center;padding:2px 0"><div style="width:30px;height:30px;border-radius:50%;overflow:hidden;border:2px solid #E8550A"><img src="'+p.photo+'" style="width:100%;height:100%;object-fit:cover"></div></div>';
+    }else if(hasCi){
+      cells+='<div style="display:flex;justify-content:center;padding:2px 0"><div style="width:30px;height:30px;border-radius:50%;background:#E8550A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff">'+d+'</div></div>';
+    }else{
+      cells+='<div style="text-align:center;font-size:12px;color:'+(isToday?'#E8550A':'#4A3C2E')+';font-weight:'+(isToday?'900':'400')+';padding:7px 0">'+d+'</div>';
+    }
+  }
+  return '<div style="min-height:100vh;padding-bottom:40px">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px 0">'
+      +'<button onclick="navTo(home)" style="background:none;color:#9C8F80;font-size:22px;padding:0 4px">←</button>'
+      +'<button onclick="S.profileEditing=true;render()" style="font-size:10px;font-weight:700;color:#9C8F80;padding:6px 12px;border-radius:8px;border:1px solid #302820;background:transparent;cursor:pointer">'+t('editProfile')+'</button>'
+    +'</div>'
+    +'<div style="text-align:center;padding:24px 20px 16px">'
+      +(p.photo?'<div style="width:82px;height:82px;border-radius:50%;overflow:hidden;border:3px solid #E8550A;display:inline-block;margin-bottom:12px"><img src="'+p.photo+'" style="width:100%;height:100%;object-fit:cover"></div>':'<button onclick="S.profileEditing=true;render()" style="width:82px;height:82px;border-radius:50%;background:#1F1C18;border:2px dashed #3A2E22;display:inline-flex;align-items:center;justify-content:center;font-size:32px;color:#3A2E22;cursor:pointer;margin-bottom:12px">+</button>')
+      +'<div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:.5px">'+p.name+'</div>'
+    +'</div>'
+    +'<div style="display:flex;margin:0 18px 28px;border:1px solid #302820;border-radius:14px;overflow:hidden">'
+      +'<div style="flex:1;padding:16px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:22px;font-weight:900;color:#fff">'+totalCI+'</div><div style="font-size:9px;color:#9C8F80;margin-top:3px;letter-spacing:.5px">Check-ins</div></div>'
+      +'<div style="flex:1;padding:16px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:22px;font-weight:900;color:#fff">'+totalCI+'</div><div style="font-size:9px;color:#9C8F80;margin-top:3px;letter-spacing:.5px">'+t('daysActive')+'</div></div>'
+      +'<div style="flex:1;padding:16px 0;text-align:center"><div style="font-size:22px;font-weight:900;color:#fff">'+thisMonthCI+'</div><div style="font-size:9px;color:#9C8F80;margin-top:3px;letter-spacing:.5px">'+t('thisMonth')+'</div></div>'
+    +'</div>'
+    +'<div style="padding:0 18px">'
+      +'<div style="font-size:14px;font-weight:900;text-align:center;color:#fff;margin-bottom:14px;letter-spacing:.5px">'+monthName+'</div>'
+      +'<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px">'+cells+'</div>'
+    +'</div>'
+    +'</div>';
+}
 function prevMonth(){if(S.calMonth===0){S.calMonth=11;S.calYear--;}else{S.calMonth--;}render();}
 function nextMonth(){if(S.calMonth===11){S.calMonth=0;S.calYear++;}else{S.calMonth++;}render();}
 function openCalDay(d){S.calModal=d;render();}
@@ -897,7 +1011,7 @@ function homeScreen(){
     +'</button>';
   return '<div style="min-height:100vh;display:flex;flex-direction:column;padding:0">'
     +'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 20px">'
-    +'<div style="position:absolute;top:16px;right:16px">'+langToggleBtn()+'</div>'
+    +'<div style="position:absolute;top:16px;right:16px;display:flex;align-items:center;gap:8px">'+profileBtn()+langToggleBtn()+'</div>'
     +'<div style="margin-bottom:32px">'
       +LOGO_SVG
       +'<h1 style="font-size:40px;font-weight:900;letter-spacing:3px;color:#fff;margin:12px 0 6px 0;line-height:1;text-transform:uppercase">WORKOUT</h1>'
@@ -1002,6 +1116,7 @@ function render(){
   else if(S.screen==='workout')root.innerHTML=workoutScreen();
   else if(S.screen==='cal')root.innerHTML=calScreen();
   else if(S.screen==='legit')root.innerHTML=legitScreen();
+  else if(S.screen==='profile')root.innerHTML=profileScreen();
   if(S.screen==='workout')setTimeout(()=>window.scrollTo(0,sc),0);
 }
 render();
