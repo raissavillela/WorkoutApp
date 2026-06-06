@@ -547,6 +547,8 @@ const WDB=[
   {id:20,mods:["musculacao","core"],s:[{n:3,e:[{m:"musculacao",n:"Abdução de quadril cross tras",r:"15 reps",w:"10 kg"},{m:"musculacao",n:"Avanço posterior alternado cross",r:"14 reps",w:"25 kg"}]},{n:3,e:[{m:"core",n:"Abdominal supra estendido",r:"15 reps"},{m:"core",n:"Prancha lateral",r:"15s"},{m:"core",n:"Extensão tronco solo bracos para baixo",r:"15 reps"}]},{n:3,e:[{m:"musculacao",n:"Agachamento guiado fechado",r:"10-12-14 reps",w:"10 kg"},{m:"musculacao",n:"Passada anilha",r:"14 reps",w:"10 kg"}]},{n:3,e:[{m:"core",n:"Abdominal obliquo lateral",r:"12 reps"},{m:"core",n:"Abdominal rotacao cross (baixo-cima)",r:"12 reps",w:"10 kg"}]},{n:3,e:[{m:"musculacao",n:"Gluteo cross joelho estendido",r:"14 reps",w:"15 kg"},{m:"musculacao",n:"Agachamento sumo DB",r:"10 reps",w:"8 kg"}]}]},
 ];
 
+const LOGO_SVG='<svg width="72" height="36" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="22" y="17" width="36" height="6" rx="2" fill="#E8550A"/><rect x="10" y="9" width="14" height="22" rx="4" fill="#E8550A"/><rect x="56" y="9" width="14" height="22" rx="4" fill="#E8550A"/><rect x="3" y="13" width="8" height="14" rx="3" fill="#C0430A"/><rect x="69" y="13" width="8" height="14" rx="3" fill="#C0430A"/></svg>';
+
 const home='home',lib='lib',setup='setup',cal='cal',legit='legit';
 const musculacao='musculacao',core='core',cardio='cardio',metabolico='metabolico',funcional='funcional',crossfit='crossfit';
 const S={screen:'home',libFilter:[],setupSel:[],setupMuscGrp:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{},legitFilter:'all',legitOpen:null,legitCands:{},legitQuery:{}};
@@ -888,35 +890,32 @@ function homeScreen(){
   const mKey=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
   const ciMonth=Object.keys(ci).filter(k=>k.startsWith(mKey)).length;
   const ciLabel=ciMonth===1?t('workoutsThisMonth'):t('workoutsThisMonthPlural');
-  return '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 18px">'
+  const card=(onclick,icon,title,sub)=>'<button onclick="'+onclick+'" style="width:100%;padding:17px 18px;border-radius:13px;border:1px solid #302820;background:#1F1C18;color:#fff;text-align:left;display:flex;align-items:center;gap:14px">'
+    +'<div style="width:42px;height:42px;border-radius:10px;background:#271F16;border:1px solid #3A2E22;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0">'+icon+'</div>'
+    +'<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:800;letter-spacing:.4px;margin-bottom:2px">'+title+'</div><div style="font-size:10px;color:#9C8F80;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+sub+'</div></div>'
+    +'<svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="#4A3C2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    +'</button>';
+  return '<div style="min-height:100vh;display:flex;flex-direction:column;padding:0">'
+    +'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 20px">'
     +'<div style="position:absolute;top:16px;right:16px">'+langToggleBtn()+'</div>'
-    +'<div style="text-align:center;margin-bottom:40px">'
-      +'<div style="width:64px;height:64px;border-radius:18px;background:#E8550A;display:inline-flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:14px;box-shadow:0 8px 24px rgba(232,85,10,.35)">💪</div>'
-      +'<h1 style="font-size:36px;font-weight:900;letter-spacing:2px;color:#fff;margin:0 0 6px;text-transform:uppercase">WORKOUT</h1>'
-      +'<p style="color:#6E6050;font-size:11px;margin:0;letter-spacing:2px;text-transform:uppercase">'+t('tagline')+'</p>'
+    +'<div style="margin-bottom:32px">'
+      +LOGO_SVG
+      +'<h1 style="font-size:40px;font-weight:900;letter-spacing:3px;color:#fff;margin:12px 0 6px 0;line-height:1;text-transform:uppercase">WORKOUT</h1>'
+      +'<p style="color:#6E6050;font-size:10px;margin:0;letter-spacing:3px;text-transform:uppercase">'+t('tagline')+'</p>'
     +'</div>'
-    +'<div style="width:100%;display:flex;flex-direction:column;gap:9px">'
-    +'<button onclick="navTo(lib)" style="width:100%;padding:18px;border-radius:14px;border:1px solid #302820;background:#1F1C18;color:#fff;text-align:left;display:flex;align-items:center;gap:14px;transition:background .15s">'
-      +'<div style="width:44px;height:44px;border-radius:11px;background:rgba(232,85,10,.15);border:1px solid rgba(232,85,10,.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📋</div>'
-      +'<div style="flex:1"><div style="font-size:14px;font-weight:800;letter-spacing:.3px;margin-bottom:2px">'+t('readyWorkout')+'</div><div style="font-size:11px;color:#9C8F80">'+t('readyDesc')+' · '+WDB.length+' treinos</div></div>'
-      +'<span style="color:#E8550A;font-size:18px;opacity:.7">›</span>'
-    +'</button>'
-    +'<button onclick="navTo(setup)" style="width:100%;padding:18px;border-radius:14px;border:1px solid #E8550A;background:linear-gradient(135deg,#2A1A0E 0%,#1F1C18 100%);color:#fff;text-align:left;display:flex;align-items:center;gap:14px">'
-      +'<div style="width:44px;height:44px;border-radius:11px;background:#E8550A;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 4px 12px rgba(232,85,10,.4)">⚡</div>'
-      +'<div style="flex:1"><div style="font-size:14px;font-weight:800;letter-spacing:.3px;margin-bottom:2px;color:#fff">'+t('buildWorkout')+'</div><div style="font-size:11px;color:#9C8F80">'+t('buildDesc')+'</div></div>'
-      +'<span style="color:#E8550A;font-size:18px">›</span>'
-    +'</button>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">'
-    +'<button onclick="navTo(cal)" style="padding:16px;border-radius:14px;border:1px solid #302820;background:#1F1C18;color:#fff;text-align:left;display:flex;flex-direction:column;gap:8px">'
-      +'<div style="font-size:22px">📅</div>'
-      +'<div><div style="font-size:12px;font-weight:800">'+t('calendar')+'</div><div style="font-size:10px;color:#9C8F80;margin-top:1px">'+(ciMonth>0?ciMonth+' '+ciLabel:'—')+'</div></div>'
-    +'</button>'
-    +'<button onclick="navTo(legit)" style="padding:16px;border-radius:14px;border:1px solid #302820;background:#1F1C18;color:#fff;text-align:left;display:flex;flex-direction:column;gap:8px">'
-      +'<div style="font-size:22px">🎬</div>'
-      +'<div><div style="font-size:12px;font-weight:800">'+t('legitMenu')+'</div><div style="font-size:10px;color:#9C8F80;margin-top:1px">'+t('legitDesc')+'</div></div>'
-    +'</button>'
+    +'<div style="display:flex;gap:0;margin-bottom:32px;border:1px solid #302820;border-radius:12px;overflow:hidden">'
+      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+WDB.length+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">TREINOS</div></div>'
+      +'<div style="flex:1;padding:14px 0;text-align:center;border-right:1px solid #302820"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">1.2K</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">GIFS</div></div>'
+      +'<div style="flex:1;padding:14px 0;text-align:center"><div style="font-size:20px;font-weight:900;color:#E8550A;letter-spacing:-1px">'+ML.length+'</div><div style="font-size:8px;font-weight:700;color:#6E6050;letter-spacing:2px;margin-top:2px;text-transform:uppercase">MODALIDADES</div></div>'
     +'</div>'
-    +'</div></div>';
+    +'<div style="display:flex;flex-direction:column;gap:8px">'
+      +card('navTo(lib)','📋',t('readyWorkout'),t('readyDesc')+' · '+WDB.length+' '+t('workoutsCount'))
+      +card('navTo(setup)','⚡',t('buildWorkout'),t('buildDesc'))
+      +card('navTo(cal)','📅',t('calendar'),ciMonth>0?ciMonth+' '+ciLabel:'—')
+      +card('navTo(legit)','🎬',t('legitMenu'),t('legitDesc'))
+    +'</div>'
+    +'</div>'
+    +'</div>';
 }
 
 function libScreen(){
