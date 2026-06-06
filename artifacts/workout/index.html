@@ -90,6 +90,8 @@ const T={
     legitCustomClear:'Remover URL',
     legitCustomBadge:'Custom',
     legitCustomInvalid:'URL precisa começar com http:// ou https://',
+    muscGrpLabel:'Grupo muscular',
+    muscGrps:{costas:'Costas',peito:'Peito',triceps:'Tríceps',biceps:'Bíceps',ombros:'Ombros',trapezio:'Trapézio',panturrilhas:'Panturrilhas',gluteos:'Glúteos',post_coxa:'Post. Coxa',quadriceps:'Quadríceps'},
   },
   en:{
     tagline:'Train with what works for you',
@@ -162,6 +164,8 @@ const T={
     legitCustomClear:'Remove URL',
     legitCustomBadge:'Custom',
     legitCustomInvalid:'URL must start with http:// or https://',
+    muscGrpLabel:'Muscle group',
+    muscGrps:{costas:'Back',peito:'Chest',triceps:'Triceps',biceps:'Biceps',ombros:'Shoulders',trapezio:'Trapezius',panturrilhas:'Calves',gluteos:'Glutes',post_coxa:'Hamstrings',quadriceps:'Quads'},
   },
 };
 function t(k){return T[LANG][k]||k;}
@@ -361,6 +365,41 @@ const TRANS_EX={
 };
 function exName(n){return(LANG==='en'&&TRANS_EX[n])?TRANS_EX[n]:n;}
 
+const MUSC_EX_GRP={
+  'Afundo guiado':'quadriceps','Agachamento com repique baixo':'quadriceps','Agachamento sumo DB':'quadriceps',
+  'Passada DB':'quadriceps','Afundo DB':'quadriceps','Agachamento guiado':'quadriceps',
+  'Avanço posterior alternado DB':'quadriceps','Avanço anterior e posterior DB':'quadriceps',
+  'Agachamento cross over':'quadriceps','Agachamento guiado fechado':'quadriceps',
+  'Agachamento fechado guiado':'quadriceps','Agachamento aberto guiado':'quadriceps',
+  'Avanço posterior alternado cross':'quadriceps','Passada anilha':'quadriceps',
+  'Avanço posterior alternado':'quadriceps',
+  'Elevação de quadril banco DB':'gluteos','Elevação de quadril banco':'gluteos',
+  'Gluteo coice cross':'gluteos','Gluteo cross joelho estendido':'gluteos',
+  'Abdução de quadril em pé cross':'gluteos','Flexão de quadril em pé cross':'gluteos',
+  'Abdução de quadril cross tras':'gluteos',
+  'Stiff guiado':'post_coxa','Stiff unilateral DB':'post_coxa','Stiff unilateral':'post_coxa','Stiff cross':'post_coxa',
+  'Panturrilha em pé cross':'panturrilhas',
+  'Supino reto DB':'peito','Supino 45 DB':'peito','Crucifixo cross linha dos ombros':'peito',
+  'Crucifixo em pé cross':'peito','Crucifixo cross':'peito','Pullover DB':'peito',
+  'Tríceps cross corda':'triceps','Tríceps testa DB':'triceps','Tríceps frances unilateral DB':'triceps',
+  'Elevação lateral DB':'ombros','Desenvolvimento DB':'ombros','Elevação frontal DB':'ombros',
+  'Elevação frontal DB neutro':'ombros','Abdução horizontal de ombros DB':'ombros',
+  'Remada baixa cross corda':'costas','Remada curvada DB':'costas','Puxada supinada cross':'costas',
+  'Puxada V cross':'costas','Pulldown cross corda':'costas','Remada baixa cross barra reta':'costas',
+  'Remada baixa pronada fechada cross':'costas','Remada baixa cross over supinado':'costas',
+  'Remada curvada cross neutro':'costas','Remada curvada cross':'costas','Remada em pé cross':'costas',
+  'Remada curvada unilateral cross':'costas','Remada baixa cross barra reta pronado':'costas',
+  'Pulldown cross':'costas','Remada baixa cross':'costas',
+  'Rosca direta cross barra':'biceps','Rosca direta DB neutro':'biceps','Rosca concentrada DB':'biceps',
+  'Rosca direta cross barra reta':'biceps',
+  'Remada alta cross barra reta':'trapezio','Encolhimento ombros cross':'trapezio',
+  'Remada alta DB':'trapezio','Remada alta DB alternado':'trapezio','Remada alta cross':'trapezio',
+};
+const MUSC_GRPS=[
+  {id:'costas'},{id:'peito'},{id:'triceps'},{id:'biceps'},{id:'ombros'},
+  {id:'trapezio'},{id:'panturrilhas'},{id:'gluteos'},{id:'post_coxa'},{id:'quadriceps'},
+];
+
 const GEN={
   musculacao:[
     {id:"m1",g:"inf_ant",n:"Afundo guiado",r:"8|8 reps",w:"5 kg",note:"Unilateral"},
@@ -508,7 +547,7 @@ const WDB=[
 
 const home='home',lib='lib',setup='setup',cal='cal',legit='legit';
 const musculacao='musculacao',core='core',cardio='cardio',metabolico='metabolico',funcional='funcional',crossfit='crossfit';
-const S={screen:'home',libFilter:[],setupSel:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{},legitFilter:'all',legitOpen:null,legitCands:{},legitQuery:{}};
+const S={screen:'home',libFilter:[],muscGrpFilter:[],setupSel:[],setupDur:null,workout:null,wMods:[],wTitle:'',wSub:'',wNum:4,isPre:false,done:{},weights:{},calYear:new Date().getFullYear(),calMonth:new Date().getMonth(),calModal:null,expanded:{},legitFilter:'all',legitOpen:null,legitCands:{},legitQuery:{}};
 
 /* ============== EXERCISE DEMONSTRATION MEDIA ==============
    GIFs demonstrativos vindos da API workoutxapp via proxy /api/exercise-media.
@@ -712,7 +751,8 @@ function legitScreen(){
     +'<div style="padding:9px 13px">'+(items||'<div style="color:#444;text-align:center;margin-top:30px;font-size:12px">—</div>')+'</div>'
     +'</div>';
 }
-function toggleLibFilter(mod){const i=S.libFilter.indexOf(mod);if(i>-1)S.libFilter.splice(i,1);else S.libFilter.push(mod);render();}
+function toggleLibFilter(mod){const i=S.libFilter.indexOf(mod);if(i>-1){S.libFilter.splice(i,1);if(mod===musculacao)S.muscGrpFilter=[];}else{S.libFilter.push(mod);}render();}
+function toggleMuscGrpFilter(g){const i=S.muscGrpFilter.indexOf(g);if(i>-1)S.muscGrpFilter.splice(i,1);else S.muscGrpFilter.push(g);render();}
 function toggleSetupMod(mod){const i=S.setupSel.indexOf(mod);if(i>-1)S.setupSel.splice(i,1);else S.setupSel.push(mod);render();}
 function setDur(d){S.setupDur=d;render();}
 function toggleSet(stId,s){const k=stId+'-'+s;S.done[k]=S.done[k]?false:true;render();}
@@ -851,10 +891,21 @@ function homeScreen(){
 }
 
 function libScreen(){
-  const filt=S.libFilter.length>0?WDB.filter(w=>S.libFilter.every(f=>w.mods.indexOf(f)>-1)):WDB;
+  let filt=S.libFilter.length>0?WDB.filter(w=>S.libFilter.every(f=>w.mods.indexOf(f)>-1)):WDB;
+  const hasMuscSel=S.libFilter.indexOf(musculacao)>-1;
+  if(hasMuscSel&&S.muscGrpFilter.length>0){
+    filt=filt.filter(w=>w.s.some(st=>(st.e||[]).some(ex=>ex.m===musculacao&&MUSC_EX_GRP[ex.n]&&S.muscGrpFilter.indexOf(MUSC_EX_GRP[ex.n])>-1)));
+  }
   const chips=ML.map(m=>{const s=S.libFilter.indexOf(m.id)>-1;return '<button onclick="toggleLibFilter('+m.id+')" style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:99px;border:1px solid '+(s?m.c:'#2a2a2a')+';background:'+(s?m.b:'transparent')+';color:'+(s?m.c:'#555')+'">'+m.e+' '+mLabel(m)+'</button>';}).join('');
+  const muscGrpHtml=hasMuscSel
+    ?'<div style="margin-top:7px;padding-top:7px;border-top:1px solid #1a1a1a">'
+      +'<div style="font-size:8px;font-weight:700;color:#FF6B35;letter-spacing:1.5px;margin-bottom:5px">'+t('muscGrpLabel').toUpperCase()+'</div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:4px">'
+      +MUSC_GRPS.map(g=>{const s=S.muscGrpFilter.indexOf(g.id)>-1;const lbl=(T[LANG].muscGrps&&T[LANG].muscGrps[g.id])||g.id;return'<button onclick="toggleMuscGrpFilter(\''+g.id+'\')" style="font-size:9px;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid '+(s?'#FF6B35':'#2a2a2a')+';background:'+(s?'#200D00':'transparent')+';color:'+(s?'#FF6B35':'#555')+'">'+lbl+'</button>';}).join('')
+      +'</div></div>'
+    :'';
   const items=filt.length===0?'<div style="text-align:center;color:#444;margin-top:36px;font-size:12px">'+t('noWorkouts')+'</div>':filt.map(w=>{const ri=WDB.indexOf(w);const tot=w.s.reduce((a,st)=>a+(st.e||[]).length,0);return '<button onclick="openPreMade('+ri+')" style="width:100%;padding:13px 14px;border-radius:13px;border:1px solid #1a1a1a;background:#0e0e0e;text-align:left;color:#fff;margin-bottom:7px"><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px">'+w.mods.map(badge).join(' ')+'</div><div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:#555">'+w.s.length+' '+t('blocks')+' - '+tot+' '+t('exercises')+'</span><span style="font-size:11px;color:#333">#'+w.id+'</span></div></button>';}).join('');
-  return '<div style="min-height:100vh;padding-bottom:40px"><div class="sticky" style="padding:13px 14px 9px;border-bottom:1px solid #141414"><div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><button onclick="navTo(home)" style="background:none;color:#666;font-size:22px;padding:0 4px">←</button><div style="font-size:13px;font-weight:900;letter-spacing:1px">'+t('readyWorkouts')+'</div><span style="font-size:10px;color:#444;margin-left:auto;margin-right:8px">'+filt.length+' '+t('workoutsCount')+'</span>'+langToggleBtn()+'</div><div style="display:flex;flex-wrap:wrap;gap:5px">'+chips+'</div></div><div style="padding:9px 14px">'+items+'</div></div>';
+  return '<div style="min-height:100vh;padding-bottom:40px"><div class="sticky" style="padding:13px 14px 9px;border-bottom:1px solid #141414"><div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><button onclick="navTo(home)" style="background:none;color:#666;font-size:22px;padding:0 4px">←</button><div style="font-size:13px;font-weight:900;letter-spacing:1px">'+t('readyWorkouts')+'</div><span style="font-size:10px;color:#444;margin-left:auto;margin-right:8px">'+filt.length+' '+t('workoutsCount')+'</span>'+langToggleBtn()+'</div><div style="display:flex;flex-wrap:wrap;gap:5px">'+chips+'</div>'+muscGrpHtml+'</div><div style="padding:9px 14px">'+items+'</div></div>';
 }
 
 function setupScreen(){
